@@ -1,0 +1,368 @@
+body, a, a:link {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;    
+}
+
+p {
+  font-size: 0.75em;
+}
+
+body {
+    /*margin-top: -7px;*/
+}
+/*
+table.banner {
+    display: none;
+}
+*/
+table td.leftPanel {
+  background-image: none;
+  background-color: #444444;
+  /*border-right: 1px solid;
+  border-color: #C3C3C3;
+  */
+  width: 180px !important;
+  height: 100%;
+  padding-top: 0;
+  padding-left: 0;
+  line-height: 1em;
+  font-size: normal;
+}
+
+#navigation {
+  position: absolute;
+  top: 70px;
+  left: 15px;
+}
+
+table td.centerPanel {
+    padding-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+table td.centerPanel table.box {
+  padding-top: 0;
+  padding-left: 0;
+  border: 1px solid lightgray;
+}
+table td.centerPanel table.box td.box-headline {
+  color: #333333;
+  
+}  
+table td.centerPanel table.box td.box-body {
+  border: none;  
+  color: #333333;
+}  
+
+
+
+td.centerPanel h1, td.centerPanel h2,
+td.leftPanel h1, td.leftPanel h2 {
+  border-bottom: 1px solid #DDDDDD;
+  color: #555555;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 25px;
+}
+td.centerPanel h3, td.leftPanel h3 {
+  border-bottom: 1px solid #DDDDDD;
+  color: #555555;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 20px;
+}
+
+
+.nav-header {
+  font-family: "Lucida Grande" sans-serif;
+  font-size: 16px;
+  line-height: 27px;
+  padding: 10px 0 0 50px;
+  color: #ffffff;
+  height: 36px;
+  background: url(nav-logo-small.png) no-repeat 11px 10px #2f2f2f;
+  background-size: 30px;
+  margin-bottom: 20px;
+}
+
+table td.leftPanel a {
+    margin-left: 10px;
+    color: #ffffff;
+    text-align: left;
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 1.2em;
+    width: 160px;
+    font-weight: normal;
+}
+
+dt {
+    margin-bottom: 5px;
+    color: #6B798C;
+    background: none;
+}
+
+dd {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #DDD;
+    font-size: 0.75em;
+}
+
+td.centerPanel a {
+  color: #467ECC;
+  text-decoration: none;
+  line-height: 1.2em;
+}
+
+td.centerPanel table td {
+    border: none;
+    border-bottom: 1px solid lightgray;
+    padding: 3px 5px;
+    font-size: 11px;
+}
+
+td.centerPanel table th {
+    border: none;
+}
+
+
+/* For status pages */
+table.status {
+  margin:0;
+  padding:0;
+}
+code {
+  font-weight: bold;
+  font-style: normal;
+  font-size : normal;
+}
+
+table.status th {
+  padding: 4px;
+	background-color : #cccccc;
+  color: #333333;
+  text-align: left;
+
+}
+
+table.status .intro {
+  font-style: italic;
+  background-color: #eeeeee;
+  color: #333333;
+}
+
+table.status td {
+  padding: 4px;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size : x-small;
+}
+
+
+
+/* For the User pages */
+div.group {
+  padding-top: 5px;
+}
+
+div.field {
+  padding-left: 15px;
+  padding-top: 3px;
+}
+
+div.label {
+  font-size: 0.75em;
+  width: 170px;
+  text-align: right;
+  padding-right: 5px;
+  float: left;
+}
+div.msg {
+  font-size: 0.75em;
+  color: green;
+}
+
+/* For the plugin pages */
+
+td.centerpanel table.plugin,
+td.centerpanel table.plugin tr,
+td.centerpanel table.plugin td {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+} 
+
+td.centerpanel table.plugin td.pluginName {font-weight: bold; width: 100px;} 
+td.centerpanel table.plugin td.icon {width: 20px;}
+td.centerpanel table.plugin td.version {width: 100px;}
+td.centerpanel table.plugin td.label {width: 20%;}
+td.centerpanel table.plugin td.description {}
+
+td.centerpanel table.plugin td.separator {border-top: 1px solid lightgray;}
+
+td.centerpanel table.plugin-description {
+  border: 1px solid #cccccc;
+  width: 100%;
+}
+td.centerpanel table.plugin-description th {
+  font-size: 11px;
+  background-color: #eeeeee;
+}
+
+
+/* For the component browser */
+div.componentBrowser {
+  font-size: 0.75em;
+}
+
+div.componentBrowser table {
+  border-spacing: 0 0;
+}
+
+div.componentBrowser table td {
+  vertical-align: top;
+}
+
+div.componentBrowser table th {
+  background-color : #cccccc;
+  color: #333333;
+  text-align: left;
+  padding: 3px 5px;
+}
+
+div.componentBrowser h1 a {
+  font-size: 20px;
+}
+
+td.centerPanel div.componentBrowser h1, td.centerPanel div.componentBrowser h2 {
+  border-bottom: none;
+}
+
+
+div.componentBrowser pre {
+  border: 0.1em dashed black;
+  background: #ddd;
+  padding: 0.5em 0.5em 1em 0.5em;
+  margin: 0.4em 0.4em 1.4em 0.4em;
+}
+
+div.componentBrowser .source:before {
+  content: "Read configuration layer ";
+  color: #663;
+}
+
+div.componentBrowser .source:after {
+  content: " as shown below:";
+  color: #663;
+}
+
+div.componentBrowser .method:before {
+  content: "Invoked method ";
+  color: #663;
+}
+
+div.componentBrowser .field:before {
+  content: "Set field ";
+  color: #663;
+}
+
+div.componentBrowser .CONSTRUCTOR_INVOKED .method:before {
+  content: "Called constructor ";
+}
+
+div.componentBrowser .PRIVATE_CONSTRUCTOR_INVOKED .method:before {
+  content: "Called private constructor ";
+}
+
+div.componentBrowser .WRAPPED_IN_PROXY .proxy:before {
+  content: "Wrapped in proxy ";
+  color: #663;
+}
+
+div.componentBrowser .args:before {
+  content: "(";
+}
+div.componentBrowser .args:after {
+  content: ");";
+}
+
+div.componentBrowser .property:before {
+  content: "Property \"";
+  color: #663;
+}
+
+div.componentBrowser .property:after {
+  content: "\"";
+  color: #663;
+}
+
+
+div.componentBrowser .VALUE_RESOLVED .property:before {
+  content: "To set the ";
+}
+
+div.componentBrowser .VALUE_RESOLVED .property:after {
+  content: " property the following substitution was done:";
+}
+
+
+div.componentBrowser .ALIAS_FOUND .component:before {
+  content: "This component is an alias for ";
+}
+
+div.componentBrowser .from, .to {
+  display: block;
+  font-style: italic;
+  margin-left: 1em;
+}
+
+div.componentBrowser .from:before {
+  content: "from ";
+  font-style: normal;
+  color: #663;
+}
+
+div.componentBrowser .to:before {
+  content: "to   ";
+  font-style: normal;
+  color: #663;
+}
+
+div.componentBrowser .LAYERS_MERGED:before {
+  content: "Configuration layers were merged, these properties were found:";
+  color: #663;
+}
+
+
+div.componentBrowser .EXCEPTION_HANDLED .classname:before {
+  content: "An exception was caught and handled gracefully: ";
+  color: #663;
+}
+
+div.componentBrowser .EXCEPTION_HANDLED .classname:after {
+  content: ": ";
+  color: #663;
+}
+
+div.componentBrowser .COMPONENT_CREATED .component:before {
+  content: "The component ";
+  color: #663;
+}
+div.componentBrowser .COMPONENT_CREATED .component:after {
+  content: " is now ready.";
+  color: #663;
+}
+
+div.componentBrowser table {
+  border-right-color: #cccccc;
+}
+
+div.componentBrowser hr {
+  border: none;
+  border-bottom: 1px solid #DDDDDD;
+}

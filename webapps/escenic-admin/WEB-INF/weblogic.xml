@@ -1,0 +1,15 @@
+<!DOCTYPE weblogic-web-app PUBLIC "-//BEA Systems, Inc.//DTD Web Application 6.1//EN" "http://www.bea.com/servers/wls610/dtd/weblogic-web-jar.dtd">
+
+<weblogic-web-app>
+  <!-- Set the workingDir parameter in the weblogic JSP descriptor.
+    == This makes WebLogic _not_ recompile its JSP files when restarting.
+    --> 
+  <jsp-descriptor>
+    <jsp-param>
+      <param-name>workingDir</param-name>
+      <param-value>escenic/pagebuild/admin</param-value>
+    </jsp-param>
+  </jsp-descriptor>
+
+</weblogic-web-app>
+

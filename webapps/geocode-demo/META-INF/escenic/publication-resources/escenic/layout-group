@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<groups
+  xmlns="http://xmlns.escenic.com/2008/layout-group"
+  xmlns:ct="http://xmlns.escenic.com/2008/content-type"
+  xmlns:ui="http://xmlns.escenic.com/2008/interface-hints"
+  >
+  <group root="true" name="default">
+    <ui:label>Default Grid</ui:label>
+    <area name="default">
+      <ui:label>Default Area</ui:label>
+    </area>
+  </group>
+</groups>

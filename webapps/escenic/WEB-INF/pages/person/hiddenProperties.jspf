@@ -1,0 +1,21 @@
+<html:hidden property="id" />
+<html:hidden property="pubId" />
+
+<html:hidden property="oldPassword" />
+<html:hidden property="userName" />
+<html:hidden property="firstName" />
+<html:hidden property="surName" />
+<html:hidden property="email" />
+<html:hidden property="adress" />
+<html:hidden property="postNumber" />
+<html:hidden property="newPassword" />
+<html:hidden property="confirmPassword" />
+<html:hidden property="postPlace" />
+<html:hidden property="nickName" />
+<html:hidden property="description" />
+<html:hidden property="phoneWorkDirect" />
+<html:hidden property="phoneMobile" />
+<html:hidden property="phonePrivate" />
+<html:hidden property="readOnly" />
+<html:hidden property="isUser" />
+<html:hidden property="editRoles" />

@@ -1,0 +1,694 @@
+
+/* Basic 'unstyled' styles */
+fieldset.unstyled { border: none; }
+body,p,a,h1,h2,h3,h4,h5,h6,table,td,div,li,span,input.link { font-family: arial, helvetica, verdana; font-size: 12px; font-weight: normal; }
+
+/*body.invisible { background-image:  url('../images/pleasewait.gif'); background-position: top center; background-repeat:  no-repeat; background-attachment: fixed; }*/
+/*body.invisible * { visibility: hidden;}*/
+
+/* cursor styles */
+body { cursor: auto; background-image:  url('../images/none.gif')}
+body.invisible { cursor: wait; }
+.cursor-help,
+.cursor-help * { cursor: help !important; }
+input.link { cursor: pointer; cursor: hand; }
+
+div { margin: 0; padding: 0; }
+
+div.lots-of-space-after { margin-bottom: 4em; }
+div.more-space-after { margin-bottom: 2em; }
+div.some-space-after { margin-bottom: 1em; }
+div.little-space-after { margin-bottom: 0.5em; }
+
+/* article/object icon styles */
+.article-draft-icon,
+.article-delivered-icon,
+.article-approved-icon,
+.article-published-icon,
+.image-draft-icon,
+.image-published-icon,
+.locked-icon,
+.media-draft-icon,
+.media-published-icon,
+.link-draft-icon,
+.link-published-icon,
+.section-icon,
+.topic-icon,
+.pool-icon { background-repeat: no-repeat; padding-left: 1.6em !important; background-position: center left; }
+
+.article-draft-icon     { background-image: url('../images/qw/article_draft_16_wh.png'); }
+.article-delivered-icon { background-image: url('../images/qw/article_submitted_16_wh.png'); }
+.article-approved-icon  { background-image: url('../images/qw/article_approved_16_wh.png'); }
+.article-published-icon { background-image: url('../images/qw/article_published_16_wh.png'); }
+.image-draft-icon,
+.image-published-icon   { background-image: url('../images/qw/images_16_wh.png'); }
+.media-draft-icon,
+.media-published-icon   { background-image: url('../images/qw/multimedia_16_wh.png'); }
+.link-draft-icon,
+.link-published-icon    { background-image: url('../images/qw/link_16_wh.png'); }
+.locked-icon        { background-image: url('../images/qw/lock_16x16.png'); }
+.section-icon,
+.pool-icon              { background-image: url('../images/qw/section_16_wh.png'); }
+.topic-icon { background-image: url('../images/qw/topic_16_wh.png'); }
+
+/* Hidden sections may be shown if specifically searched for. Add any display properties to the section-hidden class */
+tr.section-hidden {}  /* Used in the normal section tree */
+div.section-hidden {} /* used in the section pop-up */
+
+/* Basic styles */
+h1, h2, h3, h4 { font-size: 1em; margin: 0; padding: 0; margin-bottom: 0.3em; }
+h3, h4 { display: inline }
+.listeven { background-color: #f7f7f7; }
+.listodd { background-color: white; }
+.error { color: red; }
+a { color: #0466a7; text-decoration: none; }
+a:hover, input.link:hover { text-decoration: underline; }
+.selected { background-color: #99f !important; }
+.unselected { background-color: white !important; }
+
+
+/* IE6 buttons have an enormous amout of padding unless width:auto;overflow:visible are set: */
+input.link,
+input.important-button,
+span.importantbutton-bordermargin-bg input { width: auto; overflow:visible; }
+
+fieldset { padding: 0 0 0.4em 0; }
+.textBig { display: block; font-size: 2em; color: #808080; padding-bottom: 0; margin-bottom: 0; max-width: 600px; }
+.padded { margin-left: 1em; margin-right: 1em; }
+.collapsed-help .collapsible-help-text { display: none; }
+.collapsed-list .collapsible-list-item { display: none; }
+select,
+input.input-text,
+input.input-password,
+textarea { background-color: #fffff4; }
+
+
+
+/* fieldsets of specific types */
+fieldset.searchtype select { width: 100%; }
+fieldset.searchword input { width: 100%; }
+fieldset.id input { width: 5em; }
+fieldset.id span { display: inline; }
+fieldset.datebuttons { margin-left: 5em; }
+fieldset.fromdate label span,
+fieldset.todate label span { float: left; width: 3em; margin-top: 0.2em; }
+fieldset.publication label span,
+fieldset.articletype label span,
+fieldset.section label span,
+fieldset.state label span,
+fieldset.catalog label span { display: block; }
+fieldset.publication select,
+fieldset.articletype select,
+fieldset.section select,
+fieldset.state select,
+fieldset.catalog select { width: 20em; margin-bottom: 1em;}
+fieldset.moveimage, fieldset.moveobject { margin-top: 0.3em; } 
+
+/* input.important-button is restyled with 'importantbutton-bordermargin-xx' spans using DOM scripting. */
+
+/* Firefox problem: height can't be specified on inline elements (span). 
+   CSS2.1 "display: inline-block" elements (such as <img> tags) _can_ have
+   height, and thus would render correctly.  Firefox does not (yet)
+   support inline-block :-)
+   see https://bugzilla.mozilla.org/show_bug.cgi?id=9458
+   "display: -moz-inline-box" fixes this. */
+/* TODO: safari buttons are utterly unstyleable.  The best thing to do would
+   be to replace all buttons with <a> using DOM scripting... */
+span.importantbutton-bordermargin-box,
+span.importantbutton-bordermargin-bg,
+span.importantbutton-bordermargin-tl,
+span.importantbutton-bordermargin-tr,
+span.importantbutton-bordermargin-bl,
+span.importantbutton-bordermargin-br {
+  display: -moz-inline-box;
+  display: inline-block;
+  vertical-align: middle;
+  height: 25px;
+  width: auto;
+}
+
+input.link,
+span.importantbutton-bordermargin-box {
+  margin-right: 1em;
+}
+
+span.importantbutton-bordermargin-bg input {
+  vertical-align: middle;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+input.link {
+  border-width: 0;
+  color: #0466a7;
+  background-color: transparent;
+}
+
+/* login styles */
+body.login-background,
+body.login-background table { text-align: center; margin-left: auto; margin-right: auto; }
+body.login-background td { text-align: left; margin-left: auto; margin-right: auto; }
+body.login-background .fielderror { position: absolute; z-index: 1; width: 300px; margin-top: -0.5em; text-align: left; }
+body.login-background .login-content { width: 600px; text-align: center; margin-left: auto; margin-right: auto; position: relative; margin-top: 150px; }
+body.login-background .login-content table { margin-top: 1em; }
+body.login-background .login-content td { padding-bottom: 1em; }
+body.login-background .loginFields { width: 10em; }
+body.login-background div.alreadyloggedon { border: 3px solid #b7b7b7; padding: 1em; }
+body.login-background div.alreadyloggedon { text-align: left; background-color: white; }
+
+/* framework style */
+body { background-color: #f7f7f7; padding: 0; margin: 0; text-align: center; }
+body.frame-basketcolumn div#body-container { min-width: 800px; margin-left: 10px; margin-right: 10px; padding: 0; text-align: left;}
+body.frame-popup { text-align: left;}
+
+div#area-frame-main-bordermargin-bg {
+   background-image: url('../images/qw/frame-corner-bg.png'); background-position: top left;
+   background-repeat: repeat-y;
+   /* IE6 doesn't render backgrounds correctly unless there's a border below. */
+   /* So I've added a border with the same color as the background, and grown
+      the area by setting a negative bottom margin.  Sheesh! */
+   border-bottom: 1px solid #f7f7f7; margin-bottom: -1px;
+}
+div#area-frame-main-bordermargin-tl {
+   background-image: url('../images/qw/frame-corner-tl.png'); background-position: top left;
+   background-repeat: no-repeat;
+}
+div#area-frame-main-bordermargin-tr {
+   background-image: url('../images/qw/frame-corner-tr.png'); background-position: top right;
+   background-repeat: no-repeat;
+}
+div#area-frame-main-bordermargin-bl {
+   background-image: url('../images/qw/frame-corner-bl.png'); background-position: bottom left;
+   background-repeat: no-repeat;
+}
+div#area-frame-main-bordermargin-br {
+   background-image: url('../images/qw/frame-corner-br.png'); background-position: bottom right;
+   background-repeat: no-repeat;
+}
+
+
+/* NOTE!  Z-index: 2 is important here, since if it is anything else, 
+ * the menu will disappear underneath the tab-layout ...
+ * see http://www.aplus.co.yu/css/z-pos/ for more information (and a good laugh!)
+ */
+div.panel-tab-layout,
+div.simple-tab-layout { position: relative; z-index: 2; }
+
+/* 10px between "round top" and "menu" */ 
+body.frame-basketcolumn div#area-frame-main { padding: 20px 14px 14px; }
+body.frame-basketcolumn div#area-frame-main div#header-menu { margin: 0 -11px; padding: 0 11px; background-color: #f6f6f6 }
+body.frame-basketcolumn div#area-frame-main div#header-menu { padding-top: 4px;  }
+body.frame-basketcolumn div#area-frame-main div#header-menu ul.level-1  { display: block; height: 27px;  }
+
+
+#header-topLogo { display: block; position: absolute; top: 24px; left: 42px; z-index: 1;}
+#header-userinfo { display: block; text-align: right; padding-top: 1em; padding-bottom: 1em; }
+#header-userinfo span { color: #808080; }
+#header-userinfo a {  } 
+#header-userinfo #header-userinfo-publication { display: inline }
+/* change "display: none" to "display: block" to enable debug header */ 
+#header-userinfo #header-debug { display: none; position: absolute; z-index: 1;top: 0px; left: 0; }
+#header-userinfo #header-debug, #header-userinfo #header-debug a { color: #d9d9d9 !important }
+
+
+/*
+#header-menu { display: block; width: 902px; padding-top: 1em; }
+#header-menu .menu { display: block; padding: 10px 20px; }
+#header-menu .menu { margin: 0 -25px; background-color: #f7f7f7; z-index: 0;       }
+*/
+
+#footer {
+  display: block;
+  text-align: right;
+  margin: 0.5em;
+}
+
+
+
+
+/* menu */
+
+.menu ul,
+.menu li,
+.menu div,
+.menu h1,
+.menu h2,
+.menu h3 { display: inline; list-style: none; margin: 0; padding: 0; }
+
+.menu h1,
+.menu h2 { text-transform: uppercase;  }
+.menu * { font-size: 14px; }
+
+/* space between menu items */
+.menu li.level-1 { padding-right: 25px; padding-bottom: 5px; padding-top: 5px; }
+.menu li.level-1 { background-repeat: no-repeat; padding-left: 1.7em !important; background-position: center left; font-size: 16px;  }
+.menu li.menu-main { background-image: url('../images/qw/home_24_gr.png'); }
+.menu li.menu-article { background-image: url('../images/qw/article_24_gr.png'); }
+.menu li.menu-objects { background-image: url('../images/qw/multimedia_24_gr.png'); }
+.menu li.menu-section { background-image: url('../images/qw/section_24_gr.png'); }
+
+.menu .menu-selected .archive h2 a { font-weight: bold; }
+.menu .separator { color: #b8b8b8}
+
+/* Z-index here must be GREATER than the 'panel-tab-layout' z-index! */
+.menu li.level-2 { position: relative; z-index: 3; }
+/* Z-index here must be LOWER than the 'panel-tab-layout' z-index! */
+.menu .level-2-description { display: block; position: absolute; top: 14px; left: -25px; width: 300px; z-index: 0; color: #b8b8b8;  font-size: 70%;  }
+.menu .level-2-content { display: block; position: absolute; top: 25px; left: 0; width: 200px; z-index: 1; background-color: white;   }
+.menu .level-2-content ul.level-3 { display: block; border: 1px solid #b8b8b8; padding: 0; }
+.menu li.level-3 { display: block; padding-bottom: 3px; }
+
+.menu ul.level-3 .text { padding: 5px; }
+.menu ul.level-3 a { display: block; padding: 0 3px 0 3px;  }
+.menu .expanded { display: block; }
+.menu .collapsed { display: none !important;}
+
+.menu li.menu-administration {padding-left: 0 !important;}
+
+
+
+div#simple-tab-layout,
+div#panel-tab-layout { /* position: relative; */ }
+
+div.layout-leftmargin .main-content { padding-left: 180px; }
+div.layout-rightmargin .main-content { padding-right:250px; }
+
+
+div.main-content-head {  }
+div.main-content { min-height: 200px; padding: 2em; background: white; }
+div.main-content-top {  }
+
+
+
+
+/* Simple layouts have no left/right margins*/
+div.simple-layout div.main-content,
+div.simple-layout div.main-content-head,
+body.frame-popup div.main-content,
+body.frame-popup div.main-content-head,
+body.frame-popup div.main-content-top { margin-right: 0;  margin-left: 0; }
+
+/* navigation (right hand side) */
+div.main-content-nav,
+div.main-content-menu {
+  display: none; visibility: hidden; z-index: 4;
+}
+div.layout-leftmargin div.main-content-nav { 
+  display: block; visibility: visible; 
+  margin-left: -11px;
+  position: absolute; z-index: 4;
+  text-align: right;
+  width: 170px;
+}
+/* menu (left hand side) is used in admin pages */
+div.layout-rightmargin div.main-content-menu {
+  display: block; visibility: visible; 
+  padding: 0;
+  margin: 0;
+  position: absolute; z-index: 4; right: 30px; top: 1em;
+  width: 200px;
+}
+
+/*
+body.task-article-edit div#area-frame-main,
+body.task-pool-edit div#area-frame-main,
+body.task-topic-edit div#area-frame-main
+  { background-color: #fffef3; border: 2px solid #5794b0 }
+*/
+
+
+/* panelmenu styles */
+/* force width of rounded boxes in main-content-menu to be 200px
+   since IE's stretches them (uglily) if anything inside becomes
+   too wide. */
+div.main-content-menu div.roundedbox-bordermargin-bl,
+div.main-content-menu div.roundedbox-bordermargin-bg { width: 200px; }
+
+/* Keep tabs on tables in main-content-menu... */
+div.main-content-menu table { width: 170px !important;  }
+
+div.roundedbox-bordermargin-box {
+  /* IE6 renders this incorrectly -- renders the bg's background in the box' bottom margin/padding...  fsck! */
+  /* Fixed using dom scripting by adding a <br> element at the bottom of the '-box' ... */
+  /* margin-bottom: 1em; */ 
+}
+div.linebreak { background-color: white; height: 1em; color: white; }
+div.roundedbox-bordermargin-bg {
+   background-image: url('../images/qw/roundedbox-corner-bg.png'); background-position: top left;
+   background-repeat: repeat-y;
+}
+div.roundedbox-bordermargin-tl {
+   background-image: url('../images/qw/roundedbox-corner-tl.png'); background-position: top left;
+   background-repeat: no-repeat;
+}
+div.roundedbox-bordermargin-tr {
+   background-image: url('../images/qw/roundedbox-corner-tr.png'); background-position: top right;
+   background-repeat: no-repeat;
+}
+div.roundedbox-bordermargin-bl {
+   background-image: url('../images/qw/roundedbox-corner-bl.png'); background-position: bottom left;
+   background-repeat: no-repeat;
+}
+div.roundedbox-bordermargin-br {
+   background-image: url('../images/qw/roundedbox-corner-br.png'); background-position: bottom right;
+   background-repeat: no-repeat;
+   padding: 3px;
+   padding-bottom: 8px;}
+
+div.panelmenu-area div.content { margin: 0.5em; }
+div.panelmenu-area ul { margin: 0; padding: 0; }
+
+div.panelmenu-area ul li { margin: 0; padding: 0 0 0.5em 0; list-style: none; }
+
+div.panelmenu-area .operation {
+  float: right;
+}
+div.panelmenu-area h2 {
+ padding: 1px 1em;
+ margin: 0;
+ background-color: #b3b3b3;
+ color: white;
+ font-weight: bold;
+}
+
+div.panelmenu-area div.actionbox-content { padding: 1em 1em 0; }
+
+
+div.layout-leftmargin div.main-content-nav { display: block; background-color: #f6f6f6; padding-top: 3em;  padding-bottom: 3em;  }
+div.layout-leftmargin div.main-content-nav .panelmenu-tab-content { background-color: #f6f6f6; border-bottom: 3px solid #f6f6f6; padding-bottom: 5px; padding-top: 2px; padding-right: 1em; border-left: 2em solid #f6f6f6}
+div.layout-leftmargin div.main-content-nav .panelmenu-tab-content a { background-color: #f6f6f6; display: block; }
+div.layout-leftmargin div.main-content-nav .panelmenu-tab-selected .panelmenu-tab-content { background-color: #fff; font-weight: bold; border-right-width: 0; }
+div.layout-leftmargin div.main-content-nav .panelmenu-tab-selected .panelmenu-tab-content a { background-color: #fff; display: block; }
+
+/* actionbox styles */
+div.actionbox-content select {
+  margin: 0 0 1em;
+}
+div.actionbox-content ul.actionbox-actions li {
+  display: block;
+  margin: 4px auto 1em auto;
+}
+
+div.actionbox-content ul.actionbox-actions span.importantbutton-bordermargin-bg {  height: 3em; }
+
+div.actionbox-content ul.actionbox-actions li a {
+  padding: 0.2em;
+}
+
+div.articledetails table,
+div.entitydetails  table { margin: 1em; }
+div.articledetails table th,
+div.entitydetails  table th { color: #b8b8b8; padding: 3px; }
+div.articledetails table td,
+div.entitydetails  table td { color: #808080; padding: 3px; }
+
+
+/* local-pop-up styles */
+div.local-pop-up-collapsed {
+  display: none;
+}
+
+/* local-pop-up styles */
+div.local-pop-up h3 { font-weight: bold; padding-bottom: 0.5em; }
+div.local-pop-up ul { margin: 0; padding: 0.5em 0 0; list-style: none; }
+div.local-pop-up ul li { margin: 0; padding: 0 0 0.5em 0; list-style: none; }
+
+
+/* Content box styles.  content-boxes must follow a rigid tagging for things to work:
+   div.content-box
+     .header
+       span.operation
+         a
+     .content
+       p,
+       ul
+        li
+          span.operation
+          a
+ */
+div.content-box { display: block; margin: 0 6px 2em 0; padding: 0.4em;  min-height: 7em;}
+div.content-box { width: 300px; }
+body div.content-box-slim { width: 190px !important; }
+body div.content-box-narrow { width: 250px !important; }
+body div.content-box-wide { width: 470px; }
+body div.content-box-full { width: 855px; }
+body.frame-popup div.content-box-wide,
+body.frame-popup div.content-box-full { width: 500px; }
+div.content-box { background-color: white; }
+div.content-box .header { background-color: #0466a7; color: white; margin: -0.4em 0 0.6em 0; padding: 0 0 0 1em; }
+div.content-box .header { background-image: url('../images/qw/header-corner-tl.png'); background-repeat: no-repeat; background-position: top left }
+div.content-box .header h2 { margin: 0; padding: 0; padding-top: 0.2em; font-weight: bold;}
+div.content-box .header h2 { background-image: url('../images/qw/header-corner-tr.png'); background-repeat: no-repeat; background-position: top right }
+div.content-box .header .operation { float: right; background-image: url('../images/qw/header-corner-tr.png'); background-repeat: no-repeat; background-position: top right; background-color: #0466a7; padding: 0.2em 1em 0 0.2em; }
+div.content-box .header .operation a { color: #b8b8b8; }
+div.content-box .content ul,
+div.content-box .content li { margin: 0; padding: 0; margin-bottom: 0.4em; display: block; }
+div.content-box .content .operation { float: right; }
+
+
+/* output-boxes are tagged exactly the same, but look quite differently. */
+div.output-box { display: block; width: 300px; margin: 0 2% 2em 0; padding: 0.4em; position: relative; }
+div.output-box-wide { width: 470px; }
+div.output-box-full { width: 855px; }
+body.frame-popup div.output-box-wide,
+body.frame-popup div.output-box-full { width: 580px; }
+div.output-box .content { padding: 10px; }
+div.output-box-wide table.full { width: 440px; margin: 10px; padding-bottom: 1em; }
+div.output-box-full table.full { width: 800px; margin: 10px; padding-bottom: 1em; }
+body.frame-popup div.output-box-wide table.full,
+body.frame-popup div.output-box-full table.full { width: 540px; }
+div.output-box .header h2 { color: #b8b8b8; padding: 0 0 0 1em; position: relative;}
+div.output-box .header h2 { margin: 0; padding: 0; padding-top: 0.2em; text-transform: uppercase; font-size: 1.5em; display: inline; }
+div.output-box .header { margin: 0 0 0.5em;  }
+div.output-box .header .operation { float: right; padding: 0.5em 1em 0 0.2em; }
+div.output-box .content ul,
+div.output-box .content li { margin: 0; padding: 0; margin-bottom: 0.4em; display: block; }
+div.output-box .content .operation { float: right; }
+
+/* style tables (typically search results tables) in these output-boxes */
+div.output-box .content table.full,
+div.output-box .content table.full tr.header th,
+div.output-box .content table.full tr.header td { border-bottom: 1px solid #b8b8b8; }
+div.output-box .content th { color: #b8b8b8; text-align: left; font-weight: normal; }
+div.output-box .content th,
+div.output-box .content td { padding: 0.6em 0.2em; }
+
+/* Add widths to outputbox -> roundedbox since IE messes things up otherwise. */
+div.output-box-wide div.roundedbox-bordermargin-box { width: 470px; }
+div.output-box-full div.roundedbox-bordermargin-box { width: 855px; }
+/* but not in pop-up (maybe) */
+body.frame-popup div.output-box-wide div.roundedbox-bordermargin-box { width: auto; }
+body.frame-popup div.output-box-full div.roundedbox-bordermargin-box { width: auto; }
+
+
+
+/* Front page styles */
+/* position: relative helps IE6's float positioning for some strange reason. 
+   If position:relative is omitted, the floats disappear behind the containing block!
+ */
+div.leftcolumn { float: left; padding: 0; margin: 0 2em 0 0; position: relative; }
+div.rightcolumn { float: left; padding: 0 0 2em 0; position: relative;}
+div.clear { clear: both; }
+
+div#create-new .create-article { float: left; width: 48%; }
+div#create-new .create-article .createnewlink { display: block; font-weight: bold; }
+div#create-new .create-object { width: 48%; float: right; } /* 1.8 = 1em + 0.4em + 0.4em */
+
+
+
+
+/* Multi search-specific styles */
+
+/* Generic editor styles */
+div.icon { position: absolute; z-index: 3;  }
+div.intro { position: relative; z-index: 4; left: 50px; top: 1em; margin-bottom: 3em; width: 450px; }
+
+.highlight-warning { font-size: 1.5em; padding-left: 0.5em; background-color: #da2a3b; color: white; display: block; padding-bottom: 0.2em; margin-bottom: 0;  }
+
+/* article archive style */
+
+body.task-objects-home .create-object,
+body.task-article-search .article-archive,
+body.task-article-search .articletypes { width: 40%; }
+body.task-objects-home .create-object,
+body.task-article-search .articletypes { position: absolute; z-index: 1; top: 2em; right: 2em;  }
+body.task-objects-home .create-object .content { height: 10em;  }
+body.task-article-search .articletypes .content { height: 40em; overflow: scroll; }
+
+
+/* Article editor styles */
+div.article-editfields-collapsedpanel div.article-editfields-panel { display: none; }
+div.article-metadata { margin-top: 1em; }
+div.article-metadata-expanded h2 { margin-bottom: 1em; font-weight: bold;}
+div.article-metadata-collapsed { display: none;}
+div.article-metafields-panel td{ color: #808080; }
+
+.field-modified,
+.field-unmodified { padding-bottom: 1.3em; }
+.field-saved input,
+.field-saved select,
+.field-saved textarea { border: 1px solid #96d238; }
+.field-modified input,
+.field-modified select,
+.field-modified textarea { border-color: #d9d9d9 !important; }
+.field-unmodified .modification-flag { display: none; }
+.required-flag,
+.modification-flag { color: red; }
+.field-notrequired { }
+.field-required label { font-weight: bold; }
+.field-notrequired label span.required-flag { display: none; }
+.field-inherits input, field-inherits textarea { color: #999 }
+.field-noinherits input, field-noinherits textarea {  }
+.field-inherits input.textInputBoxKeepInherit,
+.field-inherits textarea.textInputBoxKeepInherit,
+.field-inherits input.textInputBoxInherit,
+.field-inherits textarea.textInputBoxInherit { color: #090 }
+.field-inherits input.textInputBox,
+.field-inherits textarea.textInputBox { color: #000 }
+
+div.article-editfields-expandedpanel { padding-bottom: 0.5em; }
+div.article-editfields-expandedpanel h2 { padding-bottom: 1em; }
+div.article-editfields-collapsedpanel h2 a,
+div.article-editfields-expandedpanel h2 a { display: block;
+                                          background-repeat: no-repeat; padding-left: 1em !important; background-position: center left; }
+div.article-editfields-expandedpanel div.article-editfields-collapsedpanel h2 a,
+div.article-editfields-collapsedpanel h2 a { background-image: url('../images/plus.gif'); }
+div.article-editfields-expandedpanel h2 a { background-image: url('../images/minus.gif'); }
+
+div.actionbox-content h3 { display: block;  margin-top: 1em; margin-bottom: 0.3em; }
+
+div.panelmenu-area th { text-align: right; font-weight: normal; }
+
+
+/* article editor related images style */
+table.related-images { width: 620px; }
+table.related-images td { padding-right: 1em;}
+table.related-images td.arrow { border-top: 1px solid #b8b8b8; border-bottom: 1px solid #b8b8b8; }
+table.related-images td.arrow div { float: right; }
+table.related-images td.image span { display: block; }
+table.related-images td.options textarea { display: block; }
+table.related-images fieldset.alignment label { padding-right: 1em; }
+table.related-images .deletebutton { float: right; }
+
+/* article editor related objects style */
+table.related-objects { width: 620px; }
+table.related-objects td { padding-right: 1em;}
+table.related-objects td.arrow { border-top: 1px solid #b8b8b8; border-bottom: 1px solid #b8b8b8; }
+table.related-objects td.arrow div { float: right; }
+table.related-objects td.image span { display: block; }
+table.related-objects td.options textarea { display: block; }
+table.related-objects fieldset.alignment label { padding-right: 1em; }
+table.related-objects .reordering { text-align: right; }
+
+
+/* article editor image search popup styles*/
+
+div#image-archive ul,
+div#image-archive li { list-style: none; display: block; margin: 0; padding: 0; background-color: transparent; }
+div#image-archive li.row { position: relative; margin-bottom: 1em; height: 200px }
+div#image-archive ul.row {  height: 200px; }
+div#image-archive ul.row li { width: 190px; max-width: 190px; height: 200px;  }
+div#image-archive .col1 { position: absolute; z-index: 2; left: 0;}
+div#image-archive .col2 { position: absolute; z-index: 2; left: 205px; }
+div#image-archive .col3 { position: absolute; z-index: 2; left: 410px; }
+div#image-archive .col4 { position: absolute; z-index: 2; left: 615px; }
+div#image-archive .collast { position: relative !important; margin-bottom: 1em; }
+div#image-archive li { position: relative; height: 100%;  padding-top: 1em; }
+div#image-archive li span.checkbox { position: absolute; z-index: 3;  top: 1.3em; left: 1.3em; }
+div#image-archive li div.details { display: none;}
+div#image-archive div.expanded-list li div.details { display: block; position: absolute; left: 3em; top: 1.3em; z-index: 3; border: 1px solid black; background-color: white; padding: 0.3em; -moz-opacity: 0.95 }
+div#image-archive li div.details span.id { font-weight: bold; display: block; }
+div#image-archive li span.thumbnail { position: relative; left: 1em; }
+div#image-archive li span.name { margin-top: 2px; margin-bottom: 2px; margin-left: 2em; display: block; overflow: hidden; }
+div#image-archive li span.edit,
+div#image-archive li span.view { margin-left: 2em;  }
+div#image-archive li img { background: url('../images/qw/image-loading.gif'); background-position: center center; }
+div#image-archive li span.thumbnail img { border: 1px solid black; cursor: pointer; cursor: hand; }
+
+
+
+/* Pool editor styles */
+/* main-content-menu is hidden if there is no right margin.  Explicitly show and position it. */
+body.task-pool-edit div.relPosition {position: relative;}
+body.task-pool-edit div.main-content-menu { display: block; visibility: visible; position: relative;}
+body.task-pool-edit div.gridlayoutselector { position: absolute; z-index: 3; top: -22px; right: -6px; }
+body.task-pool-edit div.closebutton { position: absolute; z-index: 3; top: 115px; right: 2.5em; }
+body.task-pool-edit div.gridlayoutselector h3 { text-transform: uppercase; color: #808080; }
+
+body.task-pool-edit div.poolfunctions { position: absolute; z-index: 3;  width: 250px; top: 110px; right: -56px; text-align: center; }
+body.task-pool-edit div.poolfunctions input.importantbutton-bordermargin-box input { font-size: 20px; }
+body.task-pool-edit div.poolfunctions ul,
+body.task-pool-edit div.poolfunctions li { display: block; list-style: none; padding: 0;}
+body.task-pool-edit div.poolfunctions ul { margin: 0;}
+body.task-pool-edit div.poolfunctions li { margin-top: 1em; }
+
+/* Make the titles in the inbox appear a certain width. */
+body.task-pool-edit table.inbox th.header-title { width: 320px; }
+
+
+
+/* Restyle some of the */
+body.task-pool-edit div.output-box .content .operation { float: left; }
+
+/* Topic editor styles */
+/* main-content-menu is hidden if there is no right margin.  Explicitly show and position it. */
+body.task-topic-editDesk div.relPosition {position: relative;}
+body.task-topic-editDesk div.main-content-menu { display: block; visibility: visible; position: relative;}
+body.task-topic-editDesk div.intro { margin-bottom: 230px;}
+body.task-topic-editDesk div.gridlayoutselector { position: absolute; z-index: 3; top: 32px; right: -6px;; }
+body.task-topic-editDesk div.closebutton { position: absolute; z-index: 3; top: 115px; right: 2.5em; }
+body.task-topic-editDesk div.gridlayoutselector h3 { text-transform: uppercase; color: #808080; }
+
+body.task-topic-editDesk div.panelmenu-area { position: static;  }
+body.task-topic-editDesk div.poolfunctions { position: absolute; z-index: 3;  width: 250px; top: 110px; right: -56px; text-align: center; }
+body.task-topic-editDesk div.poolfunctions input.importantbutton-bordermargin-box input { font-size: 20px; }
+body.task-topic-editDesk div.poolfunctions ul,
+body.task-topic-editDesk div.poolfunctions li { display: block; list-style: none; margin: 0 0 1em; padding: 0;  }
+
+/* Make the titles in the inbox appear a certain width. */
+body.task-topic-editDesk table.inbox th.header-title { width: 320px; }
+
+/* Restyle some of the */
+body.task-topic-editDesk div.output-box .content .operation { float: left; }
+
+
+/* IE tables widths are % of containing block element _with_ width */
+
+select.highlighted { background-color: #FFFFA0;}
+
+div.pager{ text-align: right; }
+div.pager span{ margin-right: 5px;}
+
+td.view-propertyname{ vertical-align: top; }
+div.invisible{ display:none; }
+
+table.listing {
+  border: 1px solid #eeeeee;
+  border-spacing:0;
+  border-collapse:collapse;
+}
+
+table.listing td, table.listing th {
+  border: none;
+  border-bottom: 1px solid #eeeeee;
+  margin: 0;
+  padding: 2px;
+  display: table-cell;
+  vertical-align: inherit;
+}
+
+table.listing tr.all >td {
+  background-color: #dddddd;
+}
+table.listing tr.group >td {
+  background-color: #eeeeee;
+}
+
+table.listing th {
+background-color: #444444;
+color: #FFFFFF;
+border-bottom: 1px solid #444444;
+}
+
+table.listing tr.labels {
+border: 1px solid #444444;
+}

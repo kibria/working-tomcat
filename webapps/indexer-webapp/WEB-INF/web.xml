@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app 
+  xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+  version="2.4">
+  <display-name>Escenic Indexer Webapp</display-name>
+
+  <context-param>
+    <param-name>indexer</param-name>
+    <param-value>nursery:/com/escenic/indexer/Indexer</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>stats</param-name>
+    <param-value>nursery:/com/escenic/indexer/StatisticsService</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>com.escenic.indexer.servlet.IndexerServiceBootstrapper</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>Admin Servlet</servlet-name>
+    <servlet-class>com.escenic.indexer.servlet.AdminServlet</servlet-class>
+    <init-param>
+      <param-name>indexer-statistics</param-name>
+      <param-value>nursery:/com/escenic/indexer/StatisticsService</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Admin Servlet</servlet-name>
+    <url-pattern>/admin/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- The Usual Welcome File List -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+</web-app>

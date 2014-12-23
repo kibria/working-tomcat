@@ -1,0 +1,110 @@
+html {
+  max-width: 960px;
+  margin:  0 auto;
+}
+
+body {
+  background-color: #EEEEEE;
+  font-family: 'Droid sans','Open Sans','Arial', serif;
+  font-size: 14px;
+  color: #4c5255;
+  margin: 20px;
+}
+
+header {
+  margin-bottom: -2px;
+  box-shadow: 0px 2px 10px 1px #cccccc;
+}
+
+.splash {position: relative; height: 250px; background: url(../gfx/splash-fill.png) repeat-x top left transparent; overflow: hidden;}
+.splash-start {position: absolute; left: 0; width: 125px; height: 250px; background: url(../gfx/splash-start.png) no-repeat top left transparent; z-index:10;}
+.splash-end {position: absolute; right: 0; width: 550px;height:250px; background: url(../gfx/splash-end.png) no-repeat top right transparent;}
+.splash-text {position: absolute; top: 100px; left: 20px; width: 271px; height: 30px;  background: url(../gfx/splash-text.png) no-repeat top right transparent; z-index: 20; }
+
+article {
+  display: block;
+  background-color: white;
+  border: 2px solid #7d8a8f;
+  border-top: 0;
+  padding: 1em;
+  margin-bottom: 20px;
+  box-shadow: 0px 6px 6px 0px #cccccc;
+  position: relative;
+  top: 0px;
+}
+
+a {
+  color: #55799b;
+}
+
+h3 {
+  font-size: 1.3em;
+  margin-top: 0;
+}
+
+h4 {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+p {
+  margin-top: 0;
+}
+
+img {
+}
+
+#start {
+  text-align: center;
+  position: absolute;
+  top: -49px;
+  left: -164px;
+  padding: 100px 100px 20px 100px;
+  color: white;
+  background-color: #9acd32;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  z-index: 20;
+
+}
+#start .border {
+  top: 43px;
+  left: 166px;
+  width: 65px;
+  height: 65px;
+  position: absolute;
+  border-top: 8px solid #9acd32;
+  border-left: 8px solid #9acd32;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  z-index: 30;
+  overflow:  hidden;
+}
+#start .arrow {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  position: absolute;
+  left: -41px;
+  top: -35px;
+  background-color: white;
+  width: 80px;
+  height: 68px;
+  z-index: 25;
+}
+#start .tail {
+  position: absolute;
+  left: 20px;
+  top: 50px;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+}
+
+
+#start h1{
+  font-size: 20px;
+  margin: 0;
+}
+#start span{
+  font-size: 13px;
+}

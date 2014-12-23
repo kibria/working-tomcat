@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teaser-types xmlns="http://xmlns.escenic.com/2008/content-type"
+              xmlns:ui="http://xmlns.escenic.com/2008/interface-hints">
+  <teaser-type name="dummy"/>
+</teaser-types>

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<groups xmlns="http://xmlns.escenic.com/2008/layout-group"
+        xmlns:ct="http://xmlns.escenic.com/2008/content-type"
+        xmlns:ui="http://xmlns.escenic.com/2008/interface-hints">
+
+  <group name="news" root="true">
+    <ui:label>News</ui:label>
+    <ct:options>
+      <ct:field name="news-background-option" type="enumeration">
+        <ui:label>Group background</ui:label>
+        <ct:enumeration value="white">
+          <ui:label>White</ui:label>
+        </ct:enumeration>
+        <ct:enumeration value="#CCCCCC">
+          <ui:label>mourn</ui:label>
+        </ct:enumeration>
+        <ct:enumeration value="pink">
+          <ui:label>Pink</ui:label>
+        </ct:enumeration>
+      </ct:field>
+    </ct:options>
+    <area name="header">
+      <ui:label>Header</ui:label>
+      <ui:description>Content added here will appear on top of page</ui:description>
+      <ct:options scope="current">
+        <ct:field type="enumeration" name="news-area-background">
+          <ui:label>Area background</ui:label>
+          <ui:description>Changes the area background</ui:description>
+          <ct:enumeration value="white">
+            <ui:label>white</ui:label>
+          </ct:enumeration>
+          <ct:enumeration value="blue">
+            <ui:label>blue</ui:label>
+          </ct:enumeration>
+          <ct:enumeration value="red">
+            <ui:label>red</ui:label>
+          </ct:enumeration>
+        </ct:field>
+      </ct:options>
+      <ct:options>
+        <ct:field type="enumeration" name="border">
+          <ui:label>Style</ui:label>
+          <ui:description>Changes the style of the fact</ui:description>
+          <ct:enumeration value="border: 1px solid black;">
+            <ui:label>Border</ui:label>
+          </ct:enumeration>
+          <ct:enumeration value="border: 5px solid black;">
+            <ui:label>Fat Border</ui:label>
+          </ct:enumeration>
+          <ct:enumeration value="background: #F55;">
+            <ui:label>Red Background</ui:label>
+          </ct:enumeration>
+        </ct:field>
+      </ct:options>      
+    </area>
+
+    <area name="rightcolumn">
+      <ui:label>Right Column</ui:label>
+      <ui:description>Content placed here will appear in the right column</ui:description>
+    </area>
+
+    <area name="center">
+      <ui:label>Center Column</ui:label>
+      <ui:description>Content placed here will appear in the Center column</ui:description>
+      <ref-group name="two-col"/>
+      <ref-group name="three-col"/>
+    </area>
+
+  </group>
+
+  <group name="two-col">
+    <area name="left"/>
+    <area name="right"/>
+  </group>
+
+  <group name="three-col">
+    <area name="left"/>
+    <area name="center"/>
+    <area name="right"/>
+  </group>
+
+</groups>

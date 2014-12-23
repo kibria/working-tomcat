@@ -1,0 +1,5 @@
+<html:hidden property="name" /> 
+<html:hidden property="newName" /> 
+<html:hidden property="pubId" />
+<html:hidden property="readOnly" />
+<html:hidden property="editRoles" />

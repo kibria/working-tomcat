@@ -1,0 +1,11 @@
+<logic:iterate name="form" property="tagStructures.keys" id="_sec" >
+  <% String p1 = "tagStructures.item(" + _sec + ").id"; 
+     String p4 = "tagStructures.item(" + _sec + ").attributeNames";  
+  %>
+  <html:hidden property="<%=p1%>"/>
+  <logic:iterate name="form" property="<%=p4%>" id="attr" >
+    <% String p5 = "tagStructures.item(" + _sec + ").attribute(" + attr + ")"; %>
+    <html:hidden property="<%=p5%>" />
+  </logic:iterate>
+</logic:iterate>
+

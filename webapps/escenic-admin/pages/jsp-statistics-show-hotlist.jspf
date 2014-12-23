@@ -1,0 +1,211 @@
+<% try { %>
+<%-- 
+  String name -- set to the name of the selected statistics group
+  neo.util.callinfo.Statistics statistics -- set to the statistics instance
+  neo.util.callinfo.CallInfoCollector collector -- the collector used here
+  java.util.Set metricKeys -- the set of available metric keys
+  String path -- Optionally specify a path to filter, or the name of a selected metric key
+--%>
+
+<%!
+  static java.text.NumberFormat format = new java.text.DecimalFormat("0.0");
+  static java.text.NumberFormat thousands = new java.text.DecimalFormat("###,##0");
+
+  int orderIntOf(String order) {
+    int orderInt = neo.util.callinfo.AggregateCallInfo.GenericComparator.TOTAL;
+    if (order == null) order = "";
+    if (order.equals("low")) orderInt = neo.util.callinfo.AggregateCallInfo.GenericComparator.LOW;
+    if (order.equals("high")) orderInt = neo.util.callinfo.AggregateCallInfo.GenericComparator.HIGH;
+    if (order.equals("average")) orderInt = neo.util.callinfo.AggregateCallInfo.GenericComparator.AVERAGE;
+    if (order.equals("count")) orderInt = neo.util.callinfo.AggregateCallInfo.GenericComparator.COUNT;
+    if (order.equals("total")) orderInt = neo.util.callinfo.AggregateCallInfo.GenericComparator.TOTAL;
+    if (order.equals("uri")) orderInt = neo.util.callinfo.AggregateCallInfo.GenericComparator.URI;
+    return orderInt;
+  }
+
+  java.util.Comparator getComparator(String order, String metricKey) {
+    return new neo.util.callinfo.AggregateCallInfo.GenericComparator(metricKey,orderIntOf(order));
+  }
+%>
+
+<%
+  int length = neo.util.StringUtil.parseInt(request.getParameter("length"), 5);
+  if (path == null) {
+    path = "";
+  } else if (path.length() > 0 && metricKeys.contains(path.substring(1))) {
+    length = -1;
+    path = path.substring(1);
+  }
+%>
+
+
+<p><html:link page="/">admin</html:link> &gt; <html:link page="/statistics/">JSP Statistics</html:link> &gt;
+<html:link page='<%= "/statistics/" + name %>' ><%= name %></html:link> &gt;
+<%
+ String dir = (path.indexOf("/")==-1) ? path : path.substring(0,path.lastIndexOf("/")); 
+ if (! dir.startsWith("/")) dir = "/"+dir;
+ if (!dir.equals("/")) {
+%>
+  <html:link page='<%= "/statistics/" + name + dir + (metricKeys.contains(dir.substring(1))?"":"/") %>' ><%= dir%></html:link>
+<% } %>
+</p>
+<h1>Top <%=length != -1? String.valueOf(length) : "" %> lists for <%= name %><%= (path.length()==0 ? "" : (":"+path)) %>
+  <%= request.getParameter("sort") == null? "" : "(by " + request.getParameter("sort") + ")" %>
+</h1>
+<p>This group contains information from <%=collector.getInvocationCount()%> page views.  </p>
+
+<logic:iterate collection="<%=new java.util.TreeSet(metricKeys)%>" id="metricKey" type="java.lang.String">
+  <% pageContext.removeAttribute("toggle"); %>
+  <util:toggle id="toggle" value='<%= length != -1 ? "even,even" : "even,even,even,odd,odd,odd"%>'/>
+  <%--
+   Show the content if either
+     (path is not set)
+     (path is a metric key, and it is the current one)
+     (path is not a metric key)
+   --%>
+
+  <% if (neo.util.StringUtil.isEmpty(path) || (!neo.util.StringUtil.isEmpty(path) && !metricKeys.contains(path)) || ((!neo.util.StringUtil.isEmpty(path)) && metricKeys.contains(path) && metricKey.equals(path))) { %>
+    <%
+    java.util.List l = new java.util.ArrayList(collector.getAll());
+    java.util.Collections.sort(l, getComparator(request.getParameter("sort"), metricKey));
+    java.util.Collections.reverse(l);
+    if (! neo.util.StringUtil.isEmpty(path) && ! metricKeys.contains(path)) {
+      for (java.util.Iterator i = l.iterator(); i.hasNext();) {
+        neo.util.callinfo.AggregateCallInfo myinfo = (neo.util.callinfo.AggregateCallInfo) i.next();
+        if (!myinfo.getUri().startsWith(path)) i.remove();
+      }
+    }
+    long sumTotal = 0, sumCount = 0, sumLow = 0, sumHigh = 0;
+    float sumAverage = 0;
+    long highTotal = 0, highCount = 0, highLow = 0, highHigh = 0;
+    float highAverage = 0;
+    int multiplier=2;
+    %>
+   <%--  Iterate through the entire list to find the totals--%>
+    <logic:iterate collection='<%=l%>' id="callinfo0" type="neo.util.callinfo.AggregateCallInfo">
+      <%
+        sumTotal += callinfo0.getTotal(metricKey);
+        sumCount += callinfo0.getCount(metricKey);
+        sumLow += callinfo0.getLow(metricKey);
+        sumAverage += callinfo0.getAverage(metricKey);
+        sumHigh += callinfo0.getHigh(metricKey);
+        highTotal = Math.max(highTotal, callinfo0.getTotal(metricKey));
+        highCount = Math.max(highCount, callinfo0.getCount(metricKey));
+        highLow = Math.max(highLow, callinfo0.getLow(metricKey));
+        highAverage = Math.max(highAverage, callinfo0.getAverage(metricKey));
+        highHigh = Math.max(highHigh, callinfo0.getHigh(metricKey));
+      %>
+    </logic:iterate>
+
+ <% if (true) { %>
+    <% if (!metricKeys.contains(path)) { %>
+      <h2>
+       Top
+       <%=length%>
+       <html:link page='<%= "/statistics/" + name + "/" + metricKey %>' ><%=metricKey%></html:link>
+       usage
+      </h2>
+    <% } %>
+  <table>
+    <tr>
+      <th><a href="<%=request.getRequestURI()%>?sort=uri">uri </a></th>
+      <th style="width: <%=105*multiplier%>px">
+        Graphical representation
+      </th>
+      <th><a href="<%=request.getRequestURI()%>?sort=total">total <%=metricKey%></a></th>
+      <th><a href="<%=request.getRequestURI()%>?sort=count">invoked</a></th>
+      <th><a href="<%=request.getRequestURI()%>?sort=low">best</a></th>
+      <th><a href="<%=request.getRequestURI()%>?sort=average">avg</a></th>
+      <th><a href="<%=request.getRequestURI()%>?sort=high">worst</a></th>
+    </tr>
+    <logic:iterate collection='<%=l%>' length='<%= length==0? "":String.valueOf(length) %>' id="callinfo" type="neo.util.callinfo.AggregateCallInfo">
+      <% if (callinfo.getTotal(metricKey) > 0) { %>
+      <tr class="<bean:write name='toggle' property='value' />">
+        <td>
+          <html:link page='<%= "/statistics/" + name + callinfo.getUri()%>'><%=callinfo.getUri()%></html:link>
+        </td>
+        <td>
+          <%
+            int width = 0;
+            int pct = 0;
+            switch (orderIntOf(request.getParameter("sort"))) {
+             case neo.util.callinfo.AggregateCallInfo.GenericComparator.HIGH:
+               pct   = sumHigh > 0 ? (int) (callinfo.getHigh(metricKey) * 100 / sumHigh) : 0;
+               width = highHigh > 0 ? (int) (callinfo.getHigh(metricKey) * 100 / highHigh) : 0;
+               break;
+             case neo.util.callinfo.AggregateCallInfo.GenericComparator.LOW:
+               pct =   sumLow > 0 ? (int) (callinfo.getLow(metricKey) * 100 / sumLow) : 0;
+               width = highLow > 0 ? (int) (callinfo.getLow(metricKey) * 100 / highLow) : 0;
+               break;
+             case neo.util.callinfo.AggregateCallInfo.GenericComparator.AVERAGE:
+               pct =   sumAverage > 0 ? (int) (callinfo.getAverage(metricKey) * 100 / sumAverage) : 0;
+               width = highAverage > 0 ? (int) (callinfo.getAverage(metricKey) * 100 / highAverage) : 0;
+               break;
+             case neo.util.callinfo.AggregateCallInfo.GenericComparator.COUNT:
+               pct =   sumCount > 0 ? (int) (callinfo.getCount(metricKey) * 100 / sumCount) : 0;
+               width = highCount > 0 ? (int) (callinfo.getCount(metricKey) * 100 / highCount) : 0;
+               break;
+             default:
+               pct =   sumTotal > 0 ? (int) ((callinfo.getTotal(metricKey) * 100) / sumTotal) : 0;
+               width = highTotal > 0 ? (int) ((callinfo.getTotal(metricKey) * 100) / highTotal) : 0;
+            }
+            int colorweight = 100 - width;  // flip it around
+            colorweight = colorweight * colorweight / 100; // weigh it
+            colorweight = 100 - colorweight; // flip it around again.
+            String color;
+            color="rgb(" + colorweight + "%," + (100-colorweight)+ "%,0%)";
+          %>
+          <div style="position: relative; margin: 0 auto 0 0; height: 1em; width: <%=width%>%; border-right: 3px dotted white; background-color: <%=color%>">
+            <div style="font-size: 0.8em">
+            <%=pct%>%
+            </div>
+          </div>
+        </td>
+        <td style="text-align: right;">
+          <%=thousands.format(callinfo.getTotal(metricKey))%>
+        </td>
+        <td style="text-align: right;">
+          <%=thousands.format(callinfo.getCount(metricKey))%>
+        </td>
+        <td style="text-align: right;">
+          <%=thousands.format(callinfo.getLow(metricKey))%>
+        </td>
+        <td style="text-align: right;">
+          <%=format.format(callinfo.getAverage(metricKey))%>
+        </td>
+        <td style="text-align: right;">
+          <%=thousands.format(callinfo.getHigh(metricKey))%>
+        </td>
+      </tr>
+      <util:toggleNext name="toggle"/>
+      <% } %>
+    </logic:iterate>
+      <tr class="sum">
+        <td>&nbsp;</td>
+        <td>Sum</td>
+        <td style="text-align: right;">
+          <%=thousands.format(sumTotal)%>
+        </td>
+        <td style="text-align: right;">
+          <%=thousands.format(sumCount)%>
+        </td>
+        <td style="text-align: right;">
+          <%=thousands.format(sumLow)%>
+        </td>
+        <td style="text-align: right;">
+          <%=format.format(sumAverage)%>
+        </td>
+        <td style="text-align: right;">
+          <%=thousands.format(sumHigh)%>
+        </td>
+  </table>
+  <% } %>
+  <% } %><%-- if sumtotal gt 0 --%>
+</logic:iterate>
+
+<p><html:link page='<%= "/statistics/" + name + "?action=reset"%>'>Reset</html:link> the statistics</p>
+<p>You can also download the <html:link page='<%= "/statistics/" + name + "?format=csv"%>'>Raw data</html:link> in CSV format.</p>
+
+<% } catch (Throwable t) {
+ t.printStackTrace();
+} %>

@@ -1,0 +1,108 @@
+/* general */
+#viewport {
+  height: 300px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ededed;
+  font-family: 'Lucida Grande','Helvetica',sans-serif;
+  font-size: 0.8em;
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* buttons */
+.button {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  height: 19px;
+}
+.button.newer {
+  top: 0;
+  border-bottom: 1px solid #aaaaaa;
+  background: url(../gfx/up-active.png) no-repeat center center #cccccc;
+}
+.button.older {
+  bottom: 0;
+  border-top: 1px solid #aaaaaa;
+  background: url(../gfx/down-active.png) no-repeat center center #cccccc;
+}
+.button a {
+  display: block;
+  text-align: center;
+  text-decoration:none;
+  color: #444444;
+  opacity: 0;
+  width: 100%;
+}
+.button.newer.inactive {
+  background-image: url(../gfx/up-inactive.png)
+}
+.button.older.inactive {
+  background-image: url(../gfx/down-inactive.png)
+}
+/* page */
+.revisions {
+  padding: 20px 0;
+  overflow: hidden;
+  width: 100%;
+}
+.revisions .loading {
+  text-align: center;
+}
+.revisions .item {
+  overflow: hidden;
+  padding: 5px 0 3px 0;
+  height: 20px;
+}
+.revisions .item:nth-child(even) {
+  background-color: #FFFFFF;
+}
+/*
+.revisions .item:hover {
+  background-color: #0077d4;
+  color: #ffffff;
+}
+*/
+.revisions .error {
+  color: #AA0000;
+  text-align: center
+}
+.revisions .item a {
+  color: #000000;
+  text-decoration: none;
+}
+.revisions .item.active {
+  color: #000000;
+  background-color: #C0C0C0;
+  border-radius: 5px;
+}
+.revisions .item.active a {
+  color: #000000;
+}
+.revisions .item .group {
+  overflow: hidden;
+  width: 500px;
+}
+.revisions .item .count {
+  padding-left: 10px; float: left;
+}
+.revisions .item .date {
+  padding: 1px 0 0 10px;
+  float: left;
+}
+.revisions .item .state {
+  float: left;padding-left: 10px;
+}
+.revisions .item .user {
+  padding: 1px 0 0 20px; float: left;
+}
+.revisions .item .user a {
+  /* for later */
+}
+

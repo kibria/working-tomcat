@@ -1,0 +1,108 @@
+<p><html:link page="/">admin</html:link> &gt;
+<html:link page="/statistics/">JSP Statistics</html:link> &gt;
+<html:link page='<%= "/statistics/" + name %>' ><%= name %></html:link> &gt;
+<% String dir = (path.indexOf("/")==-1) ? path : path.substring(0,path.lastIndexOf("/")); %>
+<html:link page='<%= "/statistics/" + name + dir +"/" %>' ><%= dir%></html:link>
+
+<%-- 
+  String name -- set to the name of the selected statistics group
+  neo.util.callinfo.Statistics statistics -- set to the statistics instance
+  neo.util.callinfo.CallInfoCollector collector -- the collector used here
+  java.util.Set metricKeys -- the set of available metric keys
+--%>
+
+<%-- Do we have information for the URI? --%>
+
+<%
+if (!collector.getUris().contains(path)) {
+  if (path.lastIndexOf("/") != -1) {
+    path = path.substring(0,path.lastIndexOf("/"));
+  }
+  %>
+
+
+
+<logic:iterate collection="<%=collector.getUris()%>" type="java.lang.String" id="myuri">
+  <% if (myuri.startsWith(path)) {%> 
+    <li><html:link page='<%= "/statistics/" + name + myuri%>'><%=myuri%></html:link></li>
+  <% } %>
+</logic:iterate>
+
+<% } else { %>
+
+
+<%
+neo.util.callinfo.AggregateCallInfo info = collector.getAggregateCallInfoFor(path);
+%>
+
+<h1><%=(info.getUri().indexOf("/")==-1) ? info.getUri() : info.getUri().substring(info.getUri().lastIndexOf("/")+1) %></h1>
+<p>
+This JSP template has been invoked <%= info.getCount((String)metricKeys.iterator().next()) %>
+times during the last <%=collector.getInvocationCount()%> page views.</p>
+<dl>
+<logic:iterate collection="<%=metricKeys%>" type="java.lang.String" id="key">
+<dt><%=key%></dt>
+<dd>
+  Total spent <b><%=info.getTotal(key)%></b> in this page, 
+  <b><%=format.format(info.getAverage(key))%></b> per invocation, and on average
+  <b><%=format.format(info.getTotal(key) / collector.getInvocationCount())%></b> per page view.
+</dd>
+</logic:iterate>
+</dl>
+
+
+<h2>Call Hierarchy</h2>
+
+<p>The JSP makes calls to the following other pages:</p>
+<ul>
+  <logic:iterate collection="<%=info.getSubKeys()%>" type="java.lang.String" id="uri">
+    <li>
+      <html:link page='<%= "/statistics/" + name + uri%>'><%=uri%></html:link>
+      <logic:iterate collection="<%=metricKeys%>" type="java.lang.String" id="key2">
+        /
+        <%=info.getSubAggregateFor(uri).getTotal(key2)%> <%=key2%>
+      </logic:iterate>
+      <% int childsize = info.getSubAggregateFor(uri).getSubKeys().size();
+        if (childsize != 0) { %>
+      /
+      <%= childsize %> child<%= childsize == 1 ? "" : "ren" %>
+      <% } %>
+    </li>
+  </logic:iterate>
+</ul>
+
+<p>Other JSPs that call this template</p>
+
+<ul>
+  <logic:iterate collection="<%=info.getParentUris()%>" type="java.lang.String" id="uri3">
+    <li>
+      <html:link page='<%= "/statistics/" + name + uri3%>'><%=uri3%></html:link>
+      <logic:iterate collection="<%=metricKeys%>" type="java.lang.String" id="key3">
+        /
+        <%=info.getParentAggregateFor(uri3).getTotal(key3)%> <%=key3%>
+      </logic:iterate>
+    </li>
+  </logic:iterate>
+</ul>
+
+
+<% } %>
+
+
+<%--
+
++assimilate (pInfo : CallInfo,pCollector : CallInfoCollector) : void
+ | +getAverage (pKey : String) : float
+ | +getCount (pKey : String) : long
+ | +getHigh (pKey : String) : long
+ | +getLow (pKey : String) : long
+ | +getMetricKeys () : Set
+ | +getSubAggregateFor (pUri : String) : AggregateCallInfo
+ | +getSubCount (pKey : String) : long
+ | +getSubKeys () : Set
+ | +getSubTotal (pKey : String) : long
+ | +getTotal (pKey : String) : long
+ | +getUri () : String 
+
+
+ --%>

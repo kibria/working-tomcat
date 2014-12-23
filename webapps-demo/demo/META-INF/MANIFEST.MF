@@ -1,0 +1,100 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.9.3
+Created-By: 1.8.0_25-b17 (Oracle Corporation)
+Build-By: kibria
+Class-Path: lib/JGoogleAnalyticsTracker-1.2.0.jar lib/Memcached-Java-C
+ lient-3.0.1.jar lib/abdera-core-1.1.2.jar lib/abdera-i18n-1.1.2.jar l
+ ib/abdera-parser-1.1.2.jar lib/activation-1.1.jar lib/apache-mime4j-c
+ ore-0.7.2.jar lib/apache-mime4j-dom-0.7.2.jar lib/asm-3.1.jar lib/asp
+ ectjrt-1.6.11.jar lib/aws-java-sdk-1.8.9.1.jar lib/axiom-api-1.2.10.j
+ ar lib/axiom-impl-1.2.10.jar lib/bcmail-jdk15-1.45.jar lib/bcprov-jdk
+ 15-1.45.jar lib/boilerpipe-1.1.0.jar lib/classification-backends-data
+ base-5.7.31.160659.jar lib/classification-core-5.7.31.160659.jar lib/
+ classification-syndication-5.7.31.160659.jar lib/common-image-3.0-ece
+ -4.jar lib/common-io-3.0-ece-4.jar lib/common-lang-3.0-ece-4.jar lib/
+ common-nursery-1.9.31.160659.jar lib/common-schedule-1.9.31.160659.ja
+ r lib/common-util-1.9.31.160659.jar lib/common-vdf-1.9.31.160659.jar 
+ lib/commons-beanutils-1.8.3.jar lib/commons-codec-1.5.jar lib/commons
+ -collections-3.2.1.jar lib/commons-compress-1.4.1.jar lib/commons-dbc
+ p-1.4.jar lib/commons-digester-2.1.jar lib/commons-httpclient-3.1.jar
+  lib/commons-io-2.1.jar lib/commons-lang-2.6.jar lib/commons-logging-
+ 1.1.1.jar lib/commons-pool-1.5.6.jar lib/commons-validator-1.4.0.jar 
+ lib/commons-vfs2-2.0.jar lib/dom4j-1.6.1.jar lib/engine-api-5.7.31.16
+ 0659.jar lib/engine-config-5.7.31.160659.jar lib/engine-core-5.7.31.1
+ 60659.jar lib/engine-ldap-migration-5.7.31.160659.jar lib/engine-lice
+ nses-5.7.31.160659.jar lib/engine-search-5.7.31.160659.jar lib/engine
+ -syndication-5.7.31.160659.jar lib/engine-upgrade-5.7.31.160659.jar l
+ ib/engine-webservice-api-5.7.31.160659.jar lib/fontbox-1.7.0.jar lib/
+ geronimo-stax-api_1.0_spec-1.0.1.jar lib/guava-14.0.jar lib/httpcache
+ 4j-api-3.4-escenic-5.jar lib/httpclient-4.3.jar lib/httpcore-4.3.jar 
+ lib/httpmime-4.3.jar lib/imageio-core-3.0-ece-4.jar lib/imageio-jpeg-
+ 3.0-ece-4.jar lib/imageio-metadata-3.0-ece-4.jar lib/isoparser-1.0-RC
+ -1.jar lib/isorelax-20030108.jar lib/jackson-annotations-2.4.2.jar li
+ b/jackson-core-2.4.2.jar lib/jackson-databind-2.4.2.jar lib/jai_codec
+ -1.1.3.jar lib/jai_core-1.1.3.jar lib/jai_imageio-1.1.jar lib/jaxen-1
+ .1.1.jar lib/jdom-1.0.jar lib/jempbox-1.7.0.jar lib/jing-20091111.jar
+  lib/jldap-4.3.jar lib/joda-time-2.4.jar lib/json-20080701.jar lib/jt
+ idy-r918-dev.jar lib/juniversalchardet-1.0.3.jar lib/license-1.1-2014
+ 0128.145933-8.jar lib/log4j-1.2.17.jar lib/lucene-analyzers-common-4.
+ 6.0.jar lib/lucene-core-4.6.0.jar lib/lucene-queryparser-4.6.0.jar li
+ b/mail-1.4.jar lib/metadata-extractor-2.4.1-ece-2.jar lib/model-core-
+ 1.7.31.160659.jar lib/netcdf-4.2-min.jar lib/noggit-0.5.jar lib/pdfbo
+ x-1.7.0.jar lib/poi-3.8.jar lib/poi-ooxml-3.8.jar lib/poi-ooxml-schem
+ as-3.8.jar lib/poi-scratchpad-3.8.jar lib/relaxngDatatype-20020414.ja
+ r lib/rome-1.0.jar lib/shiro-core-1.2.1.jar lib/slf4j-api-1.7.2.jar l
+ ib/slf4j-log4j12-1.7.2.jar lib/solr-solrj-4.6.0-ece.jar lib/studio-li
+ censes-5.7.31.160659.jar lib/studio-webstart-engine-5.7.31.160659.jar
+  lib/tagsoup-1.2.1.jar lib/tika-core-1.2.jar lib/tika-parsers-1.2.jar
+  lib/trove4j-2.1.0.jar lib/vorbis-java-core-0.1.jar lib/vorbis-java-t
+ ika-0.1.jar lib/xalan-2.7.0.jar lib/xercesImpl-2.9.1.jar lib/xml-apis
+ -1.3.04.jar lib/xmlParserAPIs-2.6.2.jar lib/xmlbeans-2.3.0.jar lib/xo
+ m-1.1.jar lib/xsdlib-2009.1.jar lib/xz-1.0.jar lib/JGoogleAnalyticsTr
+ acker-1.2.0.jar lib/Memcached-Java-Client-3.0.1.jar lib/abdera-core-1
+ .1.2.jar lib/abdera-i18n-1.1.2.jar lib/abdera-parser-1.1.2.jar lib/ac
+ tivation-1.1.jar lib/apache-mime4j-core-0.7.2.jar lib/apache-mime4j-d
+ om-0.7.2.jar lib/asm-3.1.jar lib/aspectjrt-1.6.11.jar lib/aws-java-sd
+ k-1.8.9.1.jar lib/axiom-api-1.2.10.jar lib/axiom-impl-1.2.10.jar lib/
+ bcmail-jdk15-1.45.jar lib/bcprov-jdk15-1.45.jar lib/boilerpipe-1.1.0.
+ jar lib/classes.jar lib/classification-backends-database-5.7.31.16065
+ 9.jar lib/classification-core-5.7.31.160659.jar lib/classification-sy
+ ndication-5.7.31.160659.jar lib/common-image-3.0-ece-4.jar lib/common
+ -io-3.0-ece-4.jar lib/common-lang-3.0-ece-4.jar lib/common-nursery-1.
+ 9.31.160659.jar lib/common-schedule-1.9.31.160659.jar lib/common-util
+ -1.9.31.160659.jar lib/common-vdf-1.9.31.160659.jar lib/commons-beanu
+ tils-1.8.3.jar lib/commons-codec-1.5.jar lib/commons-collections-3.2.
+ 1.jar lib/commons-compress-1.4.1.jar lib/commons-dbcp-1.4.jar lib/com
+ mons-digester-2.1.jar lib/commons-httpclient-3.1.jar lib/commons-io-2
+ .1.jar lib/commons-lang-2.6.jar lib/commons-logging-1.1.1.jar lib/com
+ mons-pool-1.5.6.jar lib/commons-validator-1.4.0.jar lib/commons-vfs2-
+ 2.0.jar lib/dom4j-1.6.1.jar lib/engine-api-5.7.31.160659.jar lib/engi
+ ne-bootstrap-config.jar lib/engine-config-5.7.31.160659.jar lib/engin
+ e-core-5.7.31.160659.jar lib/engine-ldap-migration-5.7.31.160659.jar 
+ lib/engine-licenses-5.7.31.160659.jar lib/engine-search-5.7.31.160659
+ .jar lib/engine-syndication-5.7.31.160659.jar lib/engine-upgrade-5.7.
+ 31.160659.jar lib/engine-webservice-api-5.7.31.160659.jar lib/escenic
+ -instance-class.jar lib/fontbox-1.7.0.jar lib/geronimo-stax-api_1.0_s
+ pec-1.0.1.jar lib/guava-14.0.jar lib/httpcache4j-api-3.4-escenic-5.ja
+ r lib/httpclient-4.3.jar lib/httpcore-4.3.jar lib/httpmime-4.3.jar li
+ b/imageio-core-3.0-ece-4.jar lib/imageio-jpeg-3.0-ece-4.jar lib/image
+ io-metadata-3.0-ece-4.jar lib/isoparser-1.0-RC-1.jar lib/isorelax-200
+ 30108.jar lib/jackson-annotations-2.4.2.jar lib/jackson-core-2.4.2.ja
+ r lib/jackson-databind-2.4.2.jar lib/jai_codec-1.1.3.jar lib/jai_core
+ -1.1.3.jar lib/jai_imageio-1.1.jar lib/jaxen-1.1.1.jar lib/jdom-1.0.j
+ ar lib/jempbox-1.7.0.jar lib/jing-20091111.jar lib/jldap-4.3.jar lib/
+ joda-time-2.4.jar lib/json-20080701.jar lib/jtidy-r918-dev.jar lib/ju
+ niversalchardet-1.0.3.jar lib/license-1.1-20140128.145933-8.jar lib/l
+ og4j-1.2.17.jar lib/lucene-analyzers-common-4.6.0.jar lib/lucene-core
+ -4.6.0.jar lib/lucene-queryparser-4.6.0.jar lib/mail-1.4.jar lib/meta
+ data-extractor-2.4.1-ece-2.jar lib/model-core-1.7.31.160659.jar lib/n
+ etcdf-4.2-min.jar lib/noggit-0.5.jar lib/pdfbox-1.7.0.jar lib/poi-3.8
+ .jar lib/poi-ooxml-3.8.jar lib/poi-ooxml-schemas-3.8.jar lib/poi-scra
+ tchpad-3.8.jar lib/relaxngDatatype-20020414.jar lib/rome-1.0.jar lib/
+ shiro-core-1.2.1.jar lib/slf4j-api-1.7.2.jar lib/slf4j-log4j12-1.7.2.
+ jar lib/solr-solrj-4.6.0-ece.jar lib/studio-licenses-5.7.31.160659.ja
+ r lib/studio-webstart-engine-5.7.31.160659.jar lib/tagsoup-1.2.1.jar 
+ lib/tika-core-1.2.jar lib/tika-parsers-1.2.jar lib/trove4j-2.1.0.jar 
+ lib/vorbis-java-core-0.1.jar lib/vorbis-java-tika-0.1.jar lib/xalan-2
+ .7.0.jar lib/xercesImpl-2.9.1.jar lib/xml-apis-1.3.04.jar lib/xmlPars
+ erAPIs-2.6.2.jar lib/xmlbeans-2.3.0.jar lib/xom-1.1.jar lib/xsdlib-20
+ 09.1.jar lib/xz-1.0.jar
+

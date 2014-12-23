@@ -1,0 +1,1169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Pool prototype number 2</title>
+    <style>
+.movableItem {
+  position: absolute;
+  visibility: hidden;
+  width: 200;
+  height: 24;
+}
+.fixedItem {
+  position: relative;
+  visibility: visible;
+}
+    </style>
+    <script>
+
+var bV=parseInt(navigator.appVersion);
+var NS4=(document.layers) ? true : false;
+var IE4=((document.all)&&(bV>=4))?true:false;
+var ver4 = (NS4 || IE4) ? true : false;
+var NS6 = true;
+var debug = false;
+var info = false;
+
+
+/* Simple browser independency methods... */
+  function IE4_getRealLeft(imgElem) {
+	xPos =  imgElem.offsetLeft;
+	tempEl = imgElem.offsetParent;
+  	while (tempEl != null) {
+  		xPos += tempEl.offsetLeft;
+  		tempEl = tempEl.offsetParent;
+  	}
+	return xPos;
+  }
+
+  function IE4_getRealTop(imgElem) {
+	yPos = imgElem.offsetTop;
+	tempEl = imgElem.offsetParent;
+	while (tempEl != null) {
+  		yPos += tempEl.offsetTop;
+  		tempEl = tempEl.offsetParent;
+  	}
+	return yPos;
+  }
+
+
+
+
+
+
+var __groups = new Array();
+var __groupsByName = new Array();
+var __slots  = new Array();
+var __slotsByName  = new Array();
+var __itemsByName  = new Array();
+var __itemsByIndex = new Array();
+var __selection = new Array();
+var __selectionCount = 0;
+var __transaction = null;
+
+
+
+// Basic functions that can access the "private" __ variables.
+function setupGroup(groupName, visibility, firstIndex, lastIndex) {
+  __groups[__groups.length] = new Array();
+  var g = __groups[__groups.length -1];
+  g.visibility = visibility;
+  g.index = __groups.length -1;
+  g.firstSlotIndex = firstIndex;
+  g.lastSlotIndex = lastIndex;
+  g.nextSlotIndex = firstIndex;
+  g.name = groupName;
+  g.type = 'group';
+  g.elements = new Array();
+  __groupsByName[g.name] = g;
+}
+
+function setupSlot(groupName, slotName) {
+  var g = getGroupByName(groupName);
+  var i = g.nextSlotIndex;
+  if (i > g.lastSlotIndex) error('Group ' + groupName + ' was set up with too many slots! (' + slotName + ')');
+  __slots[i] = new Array();
+  s = __slots[i];
+  g.nextSlotIndex++;
+  s.name = slotName;
+  s.group = g;
+  s.contents = null;
+  s.type = 'slot'
+  s.index = i;
+  s.elementIndex = -3;
+  __slotsByName[s.name] = s;
+  if (debug) alert("set up new slot: " + i + " called " + s.name);
+}
+
+// initially set up the item in the named slot.  Also
+// ensure that the item is physically moved to its position.
+function setupItem(itemName, slotName, active) {
+  if (!existsMovableItemCalled(itemName)) {
+    error("There was no DIV tag named " + itemName + "; the item was to be put into " + slotName + ".");
+    return;
+  }
+  if (slotName != null) {
+    if (!getSlotByName(slotName)) {
+      error("There was no slot set up named " + slotName + "; item "+ itemName + " has no place to go...");
+      return;
+    }
+  }
+
+  __itemsByName[itemName] = new Array();
+  __itemsByName[itemName].name = itemName;
+  __itemsByName[itemName].fixed = existsFixedItemCalled(itemName);
+  __itemsByName[itemName].type = 'item';
+  __itemsByName[itemName].meta = new Array();
+  __itemsByName[itemName].active = active
+  __itemsByName[itemName].meta.articleId = 'id' + itemName;  // this will stick with the item for ever...
+  __itemsByIndex[__itemsByIndex.length] = __itemsByName[itemName];
+
+
+  if (slotName != null) {
+    moveItemToSlot(__itemsByName[itemName], getSlotByName(slotName));
+  }
+  setMetaDataForItem(__itemsByName[itemName], __itemsByName[itemName].meta)
+  if (slotName != null) {
+    setMetaDataForSlot(findSlotWithItem(__itemsByName[itemName]));
+  }
+}
+
+function setupElement(groupName, elementName, elementLabel, defaultLayout) {
+  var g = getGroupByName(groupName);
+  var e = new Array();
+  g.elements[g.elements.length] = e;
+  e.name = elementName;
+  e.label = elementLabel;
+  e.layouts = new Array();
+  e.defaultLayout = defaultLayout;
+  return e;
+}
+
+function setupLayout(element, layoutName, layoutLabel) {
+  var l = new Array();
+  element.layouts[element.layouts.length] = l
+  l.layoutName = layoutName;
+  l.layoutLabel = layoutLabel;
+}
+
+function getSlotCount() {
+  return __slots.length;
+}
+
+function getGroupCount() {
+  return __groups.length;
+}
+
+function getSelectionCount() {
+  return __selectionCount;
+}
+
+
+function getGroupByName(groupName) {
+  return __groupsByName[groupName];
+}
+
+function getGroupByIndex(index) {
+  return __groups[index];
+}
+
+function getSlotByName(slotName) {
+  if (info) alert ('slot ' + slotName);
+  if (!__slotsByName[slotName]) alert(getSlotByName.caller +' asked for invalid slot ' + slotName)
+  return __slotsByName[slotName];
+}
+
+function getSlotByIndex(index) {
+  return __slots[index];
+}
+
+function getSlotAfter(slot) {
+  if (slot.index == slot.group.lastSlotIndex) return null;
+  return __slots[slot.index + 1];
+}
+
+function getSlotBefore(slot) {
+  if (slot.index == slot.group.firstSlotIndex) return null;
+  return __slots[slot.index - 1];
+}
+
+function getItemByName(name) {
+  return __itemsByName[name];
+}
+
+function getItemByIndex(index) {
+//   alert(index + ", " + __itemsByIndex.length);
+  return __itemsByIndex[index];
+}
+
+function getItemCount() {
+  return __itemsByIndex.length;
+}
+
+/*
+ * Return the index of the item in the selection array, if 
+ * this item is selected.
+ */
+function getSelectionIndexOfItem(item) {
+  if (item == null) {
+    alert(getSelectionIndexOfItem.caller + " tried to get selection index of null item...");
+    return -1;
+  }
+  for (var i = 0; i < __selection.length; i++) {
+    if (__selection[i] == item.name) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+function isItemSelected(item) {
+  if (item == null) {
+    alert(isItemSelected.caller + " tried to get selection index of null item...");
+    return false;
+  }
+  return getSelectionIndexOfItem(item) != -1;
+}
+
+function selectItemInModel(item) {
+  __selectionCount++;
+  for (var i = 0; i < __selection.length; i++) {
+    if (__selection[i] == null) {
+      __selection[i] = item.name;
+      return;
+    }
+  }
+  __selection[__selection.length] = item.name;
+}
+
+function deselectItemInModel(item) {
+  var i = getSelectionIndexOfItem(item);
+  if (i != -1) {
+    __selection[i] = null;
+    __selectionCount--;
+  }
+}
+
+function clearSelection() {
+  var wasInTx = isInTransaction();
+  if (!wasInTx) startTransaction();
+  for (var i = 0; i < __selection.length; i++) {
+    if (__selection[i] != null) {
+      addObjectToTransaction(getItemByName(__selection[i]));
+      addObjectToTransaction(findSlotWithItem(getItemByName(__selection[i])));
+      __selection[i] = null;
+      __selectionCount--;
+    }
+  }
+  if (__selectionCount != 0) {
+    alert('after clearing selections there are ' + __selectionCount + ' items still selected!!!')
+  }
+  if (!wasInTx) endTransaction();
+}
+
+
+
+
+function updateSelectedItemOnScreen(item) {
+  background = isItemSelected(item)? '#AAAAAA' : null ;
+  if (NS4) {
+    document.layers['item_'+item.name].bgColor = background;
+    if (item.fixed) {
+      item.fixed.bgColor = background;
+    }
+  } else if (NS6) {
+    document.getElementById('item_'+item.name).style.backgroundColor = background == null? "" : background;
+  } else {
+    document.all['item_'+item.name].style.backgroundColor = background;
+  }
+}
+
+function updateSelectedSlotLayoutListOnScreen(slot) {
+  if (slot.contents == null) return;
+  // simply fix the layout list...
+  var layoutelement = document.forms[0]['relatedObject(' + slot.group.name + '_' + slot.name + ').attribute(layout)'];
+  if (layoutelement) {
+    if (layoutelement.type == 'select-one') {
+      // empty the list...
+      layoutelement.length = 0;
+      layoutelement.options[0] = new Option("  ","__default__",0,0)
+      if (slot.elementIndex != -1) {
+        var l = slot.group.elements[slot.elementIndex].layouts;
+        for (var i = 0; i < l.length; i++) {
+          layoutelement.options[i+1] = new Option(l[i].layoutLabel, l[i].layoutName, 0, 0);
+        }
+      }
+    } 
+  }
+
+}
+
+/*
+ * called by endTransaction, when items in group have been moved around.
+ */
+function updateGroupOnScreen(group) {
+  // for each slot in the group, 
+  var activeCount = -1;
+  var slot = null;
+  for (var i = group.firstSlotIndex; i <= group.lastSlotIndex; i++) {
+    var newIndex = -2;
+    slot = getSlotByIndex(i)
+    if (activeCount+1 < group.elements.length) {
+      if (isSlotActive(slot)) {
+        activeCount++
+        newIndex = activeCount;
+      } else if (slot.elementIndex != -1) {
+        newIndex = -1;
+      }
+    } else {
+      if (slot.elementIndex != -1) {
+        newIndex = -1;
+      }
+    }
+    if (newIndex != -2) {
+      if (slot.elementIndex != newIndex) {
+        if (debug) alert("Setting slot " + slot.name + "'s element index to " + newIndex);
+        if (document.images['slot_' + slot.name + '_select']) {
+          if (newIndex == -1) {
+            document.images['slot_' + slot.name + '_select'].src = 'images/time.gif';
+          } else {
+            // Show "world" icon, to identify published article.
+            document.images['slot_' + slot.name + '_select'].src = 'images/article.gif';
+          }
+        }
+        slot.elementIndex = newIndex;
+        updateSelectedSlotLayoutListOnScreen(slot);
+      }
+    }
+  }
+  if (debug) alert('There are ' + activeCount+1 + ' active elements in ' + group.name);
+}
+
+// invalid = active/inactive slot in invalid slot [below the line]
+
+
+function isSlotActive(slot) {
+  // return the status of the slot:
+  // active = contents of slot in valid slot
+  // inactive = inactive article in valid slot
+  // empty = nothing in slot...
+
+  // given a slot, find out what number
+  if (slot.contents == null) return false;
+  return getItemByName(slot.contents).active
+}
+
+function elementIndexOfSlot(slot) {
+  var activeCounter = 0;
+  for (var i = slot.group.firstSlotIndex; i < slot.group.lastSlotIndex+1; i++) { 
+    if (isSlotActive(getSlotByIndex(i))) {
+      activeCounter++;
+    }
+    if (slot.name == getSlotByIndex(i).name) return activeCounter;
+  }
+  alert("A slot's group did not contain itself: '" + slot.name + "' Check your slot/group configuration.");
+  return -1;
+}
+
+function updateSelectedSlotOnScreen(slot) {
+  if (slot.contents != null) {
+    var background = isItemSelected(getItemByName(slot.contents))? '#AAAAAA' : null ;
+  } else {
+    var background = null;
+  }
+  if (NS4) {
+    // document.layers['slot_'+slot.name+'_line'].bgColor = background;
+  } else if (NS6) {
+    if (document.getElementById('slot_'+slot.name+'_line')) {
+      document.getElementById('slot_'+slot.name+'_line').style.backgroundColor = background == null? "" : background;
+    }
+  } else {
+    document.all['slot_'+slot.name+'_line'].style.backgroundColor = background;
+  }
+}
+
+function updateVisibilityOfItemOnScreen(item) {
+  var s = findSlotWithItem(item);
+  var showhide;
+  if (s == null) {
+//    alert("A deleted item ("+ item.name+") was specified...");
+    showhide = 'hidden';
+  } else {
+    showhide = s.group.visibility;
+  }
+  if (NS4) {
+    document.layers['item_'+item.name].visibility = showhide;
+  } else if (NS6) {
+    document.getElementById('item_'+item.name).style.visibility = showhide;
+  } else {
+    document.all['item_'+item.name].style.visibility = showhide;
+  }
+}
+
+function startTransaction() {
+  if (__transaction != null) {
+    alert('Old transaction failed!!!');
+    return;
+  }
+  __transaction = new Array();
+
+  // temp variable to store meta data on related objects while
+  // we reorganize the layouts...
+
+  // for each item and slot, remember any meta data associated with 
+  // the element...
+  for (var i = 0; i < getItemCount(); i++) {
+    getMetaDataForItem(getItemByIndex(i));
+  }
+
+}
+
+function endTransaction() {
+  if (__transaction == null) {
+    alert('endTransaction(): Transaction was never started');
+    return;
+  }
+  var commit = __transaction;
+  __transaction = null;
+
+  for (var i = 0; i < commit.length; i++) {
+    if (commit[i].type == 'item') {
+      updateSelectedItemOnScreen(commit[i]);
+      var slot = findSlotWithItem(commit[i])
+      if (slot != null) {
+        moveItemToSlotOnScreen(commit[i],slot);
+      }
+      updateVisibilityOfItemOnScreen(commit[i]);
+    } else if (commit[i].type == 'slot') {
+      updateSelectedSlotOnScreen(commit[i]);
+    } else if (commit[i].type == 'group') {
+      updateGroupOnScreen(commit[i]);
+    }
+  }
+
+  // for each meta item stored, restore the data
+  for (var i = 0; i < commit.length; i++) {
+    if (commit[i].type == 'item') {
+      setMetaDataForItem(commit[i],commit[i].meta);
+    }
+    if (commit[i].type == 'slot') {
+      setMetaDataForSlot(commit[i]);
+    }
+  }
+  __transactionMeta = null;
+}
+
+function transactionContainsObject(object) {
+  if (object == null) {
+    alert(transactionContainsObject.caller + ' sent null to transactionContainsObject()');
+    a.b.c = a.b.c;
+  }
+  for (var i = 0; i < __transaction.length; i++) {
+    if (__transaction[i].type == object.type  
+      &&__transaction[i].name == object.name)
+      return true;
+  }
+  return false;
+}
+
+function addObjectToTransaction(object) {
+  if (object == null) return;  // typically someone sending a child/parent
+                               //  relationship that is null.  just ignore it.
+  if (!transactionContainsObject(object)) {
+    __transaction[__transaction.length] = object;
+  }
+}
+
+function isInTransaction() {
+  return __transaction != null;
+}
+
+
+
+
+// complex functions that rely on the functionality provided
+// by the methods above:
+
+function findSlotWithItemCalled(item) {
+  return findSlotWithItem(getItemByName(item));
+}
+
+function findSlotWithItem(item) {
+  var resultingSlot = null;
+  for (i = 0; i < getSlotCount(); i++) {
+    if (item.name == getSlotByIndex(i).contents) {
+      resultingSlot = getSlotByIndex(i);
+    }
+  }
+  if (resultingSlot == null) {
+    if (info) alert('item '+item.name+' does not belong anywhere!!!');
+  }
+  return resultingSlot;
+}
+
+
+
+function selectItem(item) {
+  // if in selectedItem, call deselectItem(slot) -- 
+  if (isItemSelected(item)) {
+    deselectItem(item);
+    return;
+  }
+
+  // display background in different color
+  highlightItem(item, true);
+
+  for (var i = 0; i < selection.length; i++) {
+    if (selection[i] == null) {
+      selection[i] = item;
+      return;
+    }
+  }
+  selection[selection.length] = item;
+}
+
+function deselectItem(item) {
+  highlightItem(item, false);
+  for (var i = 0; i < selection.length; i++) {
+    if (selection[i] == item) {
+      selection[i] = null;
+    }
+  }
+}
+
+
+
+// Helper methods to interface with the form
+
+function existsMovableItemCalled(item) {
+  if (NS4) {
+    return document['item_'+item];
+  } else { 
+    return document.getElementById('item_'+item)
+  }
+}
+
+
+function existsFixedItemCalled(item) {
+  if (NS4) {
+    return document['fixedItem_'+item];
+  } else { 
+    return document.getElementById('fixedItem_'+item)
+  }
+}
+
+
+/*
+ * used by endTransaction to move items to their respective slots...
+ */
+function moveItemToSlotOnScreen(item,slot) {
+  var showhide = slot.group.visibility;
+  // only move items that will be visible.  
+  // others, simply become invisible....
+  var move = (showhide == 'visible');
+  var offsetx = 5;
+  var offsety = 5;
+
+  if (NS4) {
+    if (move) {
+      document.layers['item_'+item.name].moveTo(document.images['slot_' + slot.name].x + offsetx,document.images['slot_' + slot.name].y+offsety)
+    }
+    document.layers['item_'+item.name].visibility = showhide;
+  } else if (NS6) {
+    if (move) {
+      document.getElementById('item_'+item.name).style.top  = IE4_getRealTop(document.getElementById('slot_' + slot.name))+offsety;
+      document.getElementById('item_'+item.name).style.left = IE4_getRealLeft(document.getElementById('slot_' + slot.name))+offsetx;
+    }
+    document.getElementById('item_'+item.name).style.visibility = showhide;
+  }
+}
+
+
+function moveItemToSlotInData(item, slot) {
+  //nop;
+  slot.contents = item.name;
+}
+
+function emptySlotInData(slot) {
+  //nop;
+  slot.contents = null;
+}
+
+/**
+ * Gets the meta information related to a slot:
+ * Typically, this method should retrieve all information that
+ * is editable on-screen, which isn't handled by the 
+ * basic mechanics of this java script.  
+ * This method is called _just_ before the screen is updated to
+ * reflect the new positioning; and the setMetaDataForItem() method
+ * is called _just_ after, so that the screen and form reflects the
+ * updated data.
+ */
+function getMetaDataForItem(item) {
+  var slot = findSlotWithItem(item)
+  if (slot == null) {
+    // item is not in any slot... deleted...
+    return;
+  }
+  var layoutelement = document.forms[0]['relatedObject(' + slot.group.name + '_' + slot.name + ').attribute(layout)'];
+  if (layoutelement) {
+    if (layoutelement.type != 'select-one') {
+      item.meta.layout = layoutelement.value;
+    } else {
+      item.meta.layout = layoutelement.options[layoutelement.selectedIndex].value      
+    }
+  }
+  // article ID will always be set...
+  // item.meta.articleId = document.forms[0]['relatedObject(' + slot.name + ').id'].value;
+}
+
+
+
+function setMetaDataForItem(item) {
+  var slot = findSlotWithItem(item)
+  if (slot == null) {
+    // item is deleted... ignore it!
+    return;
+  }
+  layoutelement = document.forms[0]['relatedObject(' + slot.group.name + '_' + slot.name + ').attribute(layout)'];
+  if (layoutelement) {
+    if (layoutelement.type != 'select-one') {
+      if (layoutelement.value != newValue)
+        layoutelement.value = newValue;
+    } else {
+      var setLayout = false;
+      for (var i = 0; i < layoutelement.length; i++) {
+        if (layoutelement.options[i].value == item.meta.layout) {
+          if (layoutelement.options[layoutelement.selectedIndex].value != item.meta.layout)
+            layoutelement.selectedIndex = i;
+            setLayout = true;
+            break;
+        }
+      }
+      // if we were unable to set the layout for some reason, set it to "default" which is 
+      // always at index 0...
+      if (!setLayout) { 
+        layoutelement.selectedIndex = 0;
+      }
+    }
+  }
+  if (debug) alert('('+item.name+')setting '+slot.name+' to '+item.meta.articleId);
+}
+
+
+function setMetaDataForSlot(slot) {
+  if (debug) alert('(slot:'+slot.name+') setting contents to '+slot.contents+' on screen');
+  if (slot.contents == null) {
+    if (document.forms[0]['relatedObject(' + slot.name + ').id'].value != '')
+      document.forms[0]['relatedObject(' + slot.name + ').id'].value = '';
+  } else {
+    if (document.forms[0]['relatedObject(' + slot.name + ').id'].value != getItemByName(slot.contents).meta.articleId)
+      document.forms[0]['relatedObject(' + slot.name + ').id'].value = getItemByName(slot.contents).meta.articleId;
+  }
+}
+
+
+
+
+function moveSelectedItemsToSlotName(slot) {
+  var wasInTx = isInTransaction();
+  if (!wasInTx) startTransaction();
+  moveSelectedItemsToSlot(getSlotByName(slot));
+  clearSelection();
+  if (!wasInTx) endTransaction();
+}
+
+function moveSelectedItemsToSlot(slot) {
+
+  // loop through slots in slot order.
+  // for each item, check if  is selected
+  // if so, remember it, by pushing it into an array, at the end.
+  var ToDo = new Array()
+  if (getSelectionCount() == 0) {
+    alert("You must select some items...");
+    return;
+  }
+  for (var i = 0; i < getItemCount(); i++) {
+    if (getSelectionIndexOfItem(getItemByIndex(i)) != -1)
+      ToDo[ToDo.length] = getItemByIndex(i);
+  }
+  if (ToDo.length == 0) {
+    alert("No items were selected!!!");
+    return;
+  }
+  // ToDo now contains all selected items that need to be moved.
+
+  // if we have room for them...
+  //  if (!slotNames[slots[slot].index + ToDo.length-1]) return;
+
+  // start the transaction --
+  // from here on, nothing is moved on the screen, only the model is updated.
+  // when we do "endTransaction", everything on the screen is updated.
+  var wasInTx = isInTransaction();
+  if (!wasInTx) startTransaction();
+
+  // remove all of the items...
+  // then insert them in reverse order where they are to be added.
+
+  for (var i = 0; i < ToDo.length; i++) {
+    if (findSlotWithItem(ToDo[i])) {
+      //alert('removing item ' + ToDo[i].name + ' from slot ' + findSlotWithItem(ToDo[i]).name);
+      removeItemFromSlotInModel(findSlotWithItem(ToDo[i]));
+    }
+  }
+
+  // insert them in reverse order, the others will push the first one down...
+
+  for (var i = ToDo.length-1; i >= 0; i--) {
+    // first item should in any case not need to be moved...
+    //alert('inserting item ' + ToDo[i].name + ' from slot ' + slot.name);
+    insertItemIntoSlotInModel(ToDo[i],slot);
+  }
+
+  if (!wasInTx) endTransaction();
+}
+
+
+  function slideItemToSlot(item, targetSlot) {
+    var sourceSlot = findSlotWith(item);
+    // if the source and target are the same, return...
+    if (sourceSlot==targetSlot) return;
+
+    // a slide is basically a "remove" and an "insert"...
+
+    var wasInTx = isInTransaction();
+    if (!wasInTx) startTransaction();
+
+    removeItemFromSlotInModel(slot);
+
+    insertItemIntoSlotInModel(item,slot);
+
+    if (!wasInTx) endTransaction();
+  }
+
+  // remove the specified item from its slot.
+  // if there are items directly below it, move them up.
+  function removeItemFromSlotNameInModel(slot) {
+    return removeItemFromSlotInModel(getSlotByName(slot));
+  }
+
+  function removeItemFromSlotInModel(slot) {
+    //alert('removing item from ' + slot.name);
+    if (slot.contents == null) return;
+    var wasInTx = isInTransaction();
+    if (!wasInTx) startTransaction();
+    addObjectToTransaction(getItemByName(slot.contents));
+    addObjectToTransaction(slot);
+    addObjectToTransaction(slot.group);
+
+    emptySlotInData(slot);
+    pullItemUpToSlot(slot);
+
+    if (!wasInTx) endTransaction();
+  }
+
+  // insert the specified item into the specified slot
+  // if there are items in the specified slot, push them down.
+  function insertItemNameIntoSlotNameInModel(item, slot) {
+    return insertItemIntoSlotInModel(getItemByName(item),getSlotByName(slot))
+  }
+
+  function insertItemIntoSlotInModel(item, slot) {
+    //alert('inserting item '+item.name+' into ' + slot.name);
+
+    slot = findAppropriateSlotToInsertInto(slot);
+
+    var wasInTx = isInTransaction();
+    if (!wasInTx) startTransaction();
+    addObjectToTransaction(item);
+    addObjectToTransaction(getItemByName(slot.contents));
+    addObjectToTransaction(slot);
+    addObjectToTransaction(slot.group);
+
+    pushItemDownFromSlot(slot);
+    moveItemToSlotInData(item, slot);
+
+    if (!wasInTx) endTransaction();
+  }
+
+
+  function pullItemUpToSlot(slot) {
+    //alert("Pulling up whatever is in " + slot.name);
+    if (slot.contents != null) return;
+    var next = getSlotAfter(slot);
+    if (next == null) return;
+    if (next.contents == null) return;
+    // preconditions are ok, do the move...
+
+    var wasInTx = isInTransaction();
+    if (!wasInTx) startTransaction();
+
+    slot.contents = next.contents;
+    emptySlotInData(next);
+    pullItemUpToSlot(next);
+    addObjectToTransaction(slot);
+    addObjectToTransaction(slot.group);
+    addObjectToTransaction(next.group);
+    addObjectToTransaction(getItemByName(slot.contents));
+
+    if (!wasInTx) endTransaction();
+
+  }
+
+  function pushItemDownFromSlot(slot) {
+    //alert("Pushing down whatever is in " + slot.name);
+    if (slot.contents == null) return;
+    var next = getSlotAfter(slot);
+    var wasInTx = isInTransaction();
+    if (!wasInTx) startTransaction();
+
+    // if we try to push an element off the end of the list, 
+    // should it be deleted?  Yes, simply remove it...
+    if (next == null) {
+      addObjectToTransaction(slot);
+      addObjectToTransaction(slot.group);
+      addObjectToTransaction(getItemByName(slot.contents));
+      emptySlotInData(slot);
+    } else {
+      // preconditions are ok, do the move...
+      pushItemDownFromSlot(next);
+
+      addObjectToTransaction(getItemByName(slot.contents));
+      next.contents = slot.contents;
+      emptySlotInData(slot);
+    
+      addObjectToTransaction(slot.group);
+      addObjectToTransaction(slot);
+      addObjectToTransaction(next);
+
+    }
+    if (!wasInTx) endTransaction();
+  }
+
+
+
+function findAppropriateSlotToInsertInto(slot) {
+  // find out the real slot -- by looking for the 
+  // first empty slot above this one.
+  var beforeSlot = getSlotBefore(slot);
+
+  while (true) {
+    if (beforeSlot == null) break;
+    if (beforeSlot.contents != null) break;
+    slot = beforeSlot;
+    beforeSlot = getSlotBefore(slot);
+  }
+  return slot;
+}
+
+
+function moveItemToSlot(item,slot) {
+  if (debug) alert('Moving '+item.name+' to '+slot.name);
+  if (slot.contents == item) {
+    // item already positioned in slot, according to model!
+    return;
+  }
+  var s = findAppropriateSlotToInsertInto(slot);
+  if (s.name != slot.name) {
+    if (debug) alert('item ' + item.name + ' was attempted placed into slot ' + slot.name + ' --> ' + s.name);
+  }
+  
+  // here we might queue the on-screen move...?Hmmm what to do...
+  moveItemToSlotInData(item, s);
+  moveItemToSlotOnScreen(item, s);
+  updateVisibilityOfItemOnScreen(item);
+}
+
+function toggleSelectionForItemInSlotName(slot) {
+  var s = getSlotByName(slot);
+  if (s.contents == null) return;
+  toggleSelectionForItem(getItemByName(s.contents));
+}
+
+function toggleSelectionForItemName(item) {
+  toggleSelectionForItem(getItemByName(item));
+}
+function toggleSelectionForItem(item) {
+  var wasInTx = isInTransaction();
+  if (!wasInTx) startTransaction();
+  if (! isItemSelected(item)) {
+    selectItemInModel(item);
+  } else {
+    deselectItemInModel(item);
+  }
+  addObjectToTransaction(item);
+  var slot = findSlotWithItem(item);
+  if (slot != null) {
+    addObjectToTransaction(slot);
+    addObjectToTransaction(slot.group);
+  }
+  if (!wasInTx) endTransaction();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function init() {
+  info = false;
+  setupGroup('GG1','visible',0,5);
+  setupGroup('GG2','hidden',6,11);
+  for (var i = 0;i < 6; i++) {
+    setupSlot('GG1', '' + i);
+  }
+  for (var i = 6;i < 12; i++) {
+    setupSlot('GG2', '' + i);
+  }
+
+
+  var e = setupElement('GG1','FirstElement', 'The first element', 'BigVariant');
+  setupLayout(e, 'Big','Big Article');
+  setupLayout(e, 'BigVariant','Big Red Article');
+
+  e     = setupElement('GG1','SecondElement','The Second element', 'Big');
+  setupLayout(e, 'Big','Big Article');
+  setupLayout(e, 'BigVariant','Big Red Article');
+
+
+  setupItem(111,0, true);
+  setupItem(112,1, false);
+  setupItem(113,2, true);
+  setupItem(114,3, false);
+  setupItem(335,6, false);
+  setupItem(336,null, true);
+  setupItem(337,null, true);
+  setupItem(338,9, false);
+
+  for (var i = 0; i < getGroupCount(); i++) {
+    updateGroupOnScreen(getGroupByIndex(i));
+  }
+
+//  info = true;
+  return true;
+}
+
+function error(message) {
+  alert(message);
+}
+
+    </script>
+  </head>
+
+  <body onload="javascript:init()">
+    <h1>Pool prototype number 2</h1>
+    <p>This is a prototype of a pool.</p>
+
+    <div class="movableItem" name="item_111" id="item_111">Article 111</div>
+    <div class="movableItem" name="item_112" id="item_112">Article 112</div>
+    <div class="movableItem" name="item_113" id="item_113">An article 113</div>
+    <div class="movableItem" name="item_114" id="item_114">An article114</div>
+    <div class="movableItem" name="item_335" id="item_335">An 335 article</div>
+    <div class="movableItem" name="item_336" id="item_336">An 336 article</div>
+    <div class="movableItem" name="item_337" id="item_337">An 337 article</div>
+    <div class="movableItem" name="item_338" id="item_338">An 338 article</div>
+
+    <form name="xyzzy">
+
+    <a href="#" onclick="javascript:clearSelection()">Clear selections</a>
+    
+
+    <table border=0 cellpadding=0 cellspacing=0>
+      <tr id="slot_0_line" name="slot_0_line">
+        <td>
+          Slot 0:
+          <input type="text" name="relatedObject(0).id" size="4" maxlength="6">
+        </td><td>
+          <a href="#" onclick="javascript:toggleSelectionForItemInSlotName(0)">
+          <img src="images/minus.gif" name="slot_0_select" ></a>
+          <a href="#" onclick="javascript:moveSelectedItemsToSlotName(0)">Insert here</a>
+        </td><td>
+          <a href="#" onclick="javascript:removeItemFromSlotNameInModel(0)">
+          <img src="images/delete.gif" name="slot_0_delete"></a>
+        </td><td>
+          <img src="images/nothing.gif" name="slot_0" id="slot_0" width="200" height="30" border="1">
+        </td>
+        <td>
+          <select name="relatedObject(GG1_0).attribute(layout)" id="relatedObject(GG1_0).attribute(layout)"> 
+            <option value="__default__">&nbsp;&nbsp;</option>
+            <option value="Big Article">big</option>
+            <option value="Big Red Article">bigVariant</option>
+            <option value="Title">title</option>
+            <option value="Red Title">titleVariant</option>
+          </select>
+        </td>
+      </tr>
+      <tr id="slot_1_line" name="slot_1_line">
+        <td>
+          Slot 1:
+	    <input type="text" name="relatedObject(1).id" size="4" maxlength="6">
+        </td><td>
+          <a href="#" onclick="javascript:toggleSelectionForItemInSlotName(1)">
+          <img src="images/minus.gif" name="slot_1_select"></a>
+          <a href="#" onclick="javascript:moveSelectedItemsToSlotName(1)">Insert here</a>
+        </td><td>
+          <a href="#" onclick="javascript:removeItemFromSlotNameInModel(1)">
+          <img src="images/delete.gif" name="slot_1_delete"></a>
+        </td><td>
+          <img src="images/nothing.gif" name="slot_1" id="slot_1" width="200" height="30" border="1">
+        </td>
+        <td>
+          <select name="relatedObject(GG1_1).attribute(layout)" id="relatedObject(GG1_1).attribute(layout)"> 
+            <option value="__default__">&nbsp;&nbsp;</option>
+            <option value="Big Article">big</option>
+            <option value="Big Red Article">bigVariant</option>
+            <option value="Title">title</option>
+            <option value="Red Title">titleVariant</option>
+          </select>
+        </td>
+      </tr>
+      <tr id="slot_2_line" name="slot_2_line">
+        <td>
+          Slot 2:
+	    <input type="text" name="relatedObject(2).id" size="4" maxlength="6">
+        </td><td>
+          <a href="#" onclick="javascript:toggleSelectionForItemInSlotName(2)">
+          <img src="images/minus.gif" name="slot_2_select"></a>
+          <a href="#" onclick="javascript:moveSelectedItemsToSlotName(2)">Insert here</a>
+        </td><td>
+          <a href="#" onclick="javascript:removeItemFromSlotNameInModel(2)">
+          <img src="images/delete.gif" name="slot_2_delete"></a>
+        </td><td>
+          <img src="images/nothing.gif" name="slot_2" id="slot_2" width="200" height="30" border="1">
+        </td>
+        <td>
+          <select name="relatedObject(GG1_2).attribute(layout)" id="relatedObject(GG1_2).attribute(layout)"> 
+            <option value="__default__">&nbsp;&nbsp;</option>
+            <option value="Big Article">big</option>
+            <option value="Big Red Article">bigVariant</option>
+          </select>
+        </td>
+      </tr>
+      <tr id="slot_3_line" name="slot_3_line">
+        <td>
+          Slot 3:
+	    <input type="text" name="relatedObject(3).id" size="4" maxlength="6">
+        </td><td>
+          <a href="#" onclick="javascript:toggleSelectionForItemInSlotName(3)">
+          <img src="images/minus.gif" name="slot_3_select"></a>
+          <a href="#" onclick="javascript:moveSelectedItemsToSlotName(3)">Insert here</a>
+        </td><td>
+          <a href="#" onclick="javascript:removeItemFromSlotNameInModel(3)">
+          <img src="images/delete.gif" name="slot_3_delete"></a>
+        </td><td>
+          <img src="images/nothing.gif" name="slot_3" id="slot_3" width="200" height="30" border="1">
+        </td>
+        <td>
+          <select name="relatedObject(GG1_3).attribute(layout)" id="relatedObject(GG1_3).attribute(layout)"> 
+            <option value="__default__">&nbsp;&nbsp;</option>
+            <option value="Big Article">big</option>
+            <option value="Big Red Article">bigVariant</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr id="slot_4_line" name="slot_4_line">
+        <td>
+          Slot 4:
+	    <input type="text" name="relatedObject(4).id" size="4" maxlength="6">
+        </td><td>
+          <a href="#" onclick="javascript:toggleSelectionForItemInSlotName(4)">
+          <img src="images/minus.gif" name="slot_4_select"></a>
+          <a href="#" onclick="javascript:moveSelectedItemsToSlotName(4)">Insert here</a>
+        </td><td>
+          <a href="#" onclick="javascript:removeItemFromSlotNameInModel(4)">
+          <img src="images/delete.gif" name="slot_4_delete"></a>
+        </td><td>
+          <img src="images/nothing.gif" name="slot_4" id="slot_4" width="200" height="30" border="1">
+        </td>
+        <td>
+          <select name="relatedObject(GG1_4).attribute(layout)" id="relatedObject(GG1_4).attribute(layout)"> 
+            <option value="__default__">&nbsp;&nbsp;</option>
+            <option value="Big Article">big</option>
+            <option value="Title">title</option>
+          </select>
+        </td>
+      </tr>
+      <tr id="slot_5_line" name="slot_5_line">
+        <td>
+          Slot 5:
+	    <input type="text" name="relatedObject(5).id" size="4" maxlength="6">
+        </td><td>
+          <a href="#" onclick="javascript:toggleSelectionForItemInSlotName(5)">
+          <img src="images/minus.gif" name="slot_5_select"></a>
+          <a href="#" onclick="javascript:moveSelectedItemsToSlotName(5)">Insert here</a>
+        </td><td>
+          <a href="#" onclick="javascript:removeItemFromSlotNameInModel(5)">
+          <img src="images/delete.gif" name="slot_5_delete"></a>
+        </td><td>
+          <img src="images/nothing.gif" name="slot_5" id="slot_5" width="200" height="30" border="1">
+        </td>
+        <td>
+          <select name="relatedObject(GG1_5).attribute(layout)" id="relatedObject(GG1_5).attribute(layout)"> 
+            <option value="__default__">&nbsp;&nbsp;</option>
+            <option value="Big Article">big</option>
+            <option value="Title">title</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    // hidden group
+    <input type="text" name="relatedObject(6).id" id="relatedObject(6).id" size="6" maxlength="6">
+    <input type="text" name="relatedObject(7).id" id="relatedObject(7).id" size="6" maxlength="6">
+    <input type="text" name="relatedObject(8).id" id="relatedObject(8).id" size="6" maxlength="6">
+    <input type="text" name="relatedObject(9).id" id="relatedObject(9).id" size="6" maxlength="6">
+    <input type="text" name="relatedObject(10).id" id="relatedObject(10).id" size="6" maxlength="6">
+    <input type="text" name="relatedObject(11).id" id="relatedObject(11).id" size="6" maxlength="6">
+    <hr>
+    <h2>Four items are in your basket...:</h2>
+    <table>
+      <tr>
+        <td>
+          <div class="fixedItem"  name="fixedItem_335" id="fixedItem_335">
+            335
+            <a href="#" onclick="javascript:toggleSelectionForItemName('335')">Select 335</a>
+          </div>
+        </td>
+        <td>
+          <div class="fixedItem"  name="fixedItem_336" id="fixedItem_336">
+            336
+            <a href="#" onclick="javascript:toggleSelectionForItemName('336')">Select 336</a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="fixedItem"  name="fixedItem_113" id="fixedItem_113">
+            113
+            <a href="#" onclick="javascript:toggleSelectionForItemName('113')">Select 113</a>
+          </div>
+        </td>
+        <td>
+          <div class="fixedItem"  name="fixedItem_114" id="fixedItem_114">
+            114
+            <a href="#" onclick="javascript:toggleSelectionForItemName('114')">Select 114</a>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <a href="#" onclick="javascript:alert(elementIndexOfSlot(getSlotByName(0)))">A</a>
+    <a href="#" onclick="javascript:alert(elementIndexOfSlot(getSlotByName(1)))">B</a>
+    <a href="#" onclick="javascript:alert(elementIndexOfSlot(getSlotByName(2)))">C</a>
+    <a href="#" onclick="javascript:alert(elementIndexOfSlot(getSlotByName(3)))">D</a>
+    <a href="#" onclick="javascript:alert(elementIndexOfSlot(getSlotByName(4)))">E</a>
+    <a href="#" onclick="javascript:alert(elementIndexOfSlot(getSlotByName(5)))">F</a>
+    <hr>
+    <address><a href="mailto:erik@mogensoft.net">Erik Mogensen</a></address>
+<!-- Created: Sun Feb 17 02:40:02 CET 2002 -->
+<!-- hhmts start -->
+Last modified: Mon Feb 25 12:31:35 CET 2002
+<!-- hhmts end -->
+  </body>
+</html>

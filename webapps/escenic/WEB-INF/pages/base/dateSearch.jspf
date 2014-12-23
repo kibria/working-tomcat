@@ -1,0 +1,191 @@
+<%@ taglib uri="http://www.escenic.com/taglib/escenic-template" prefix="template" %>
+
+<%
+  
+  String prefix = "";
+  if(request.getAttribute("prefix")!=null){
+    prefix = (String)request.getAttribute("prefix");
+  }
+  
+%>
+<script language="JavaScript1.2"><!--
+  var <%=prefix%>changedDateElements = new Array();
+  var <%=prefix%>timeoutId;
+  function <%=prefix%>updateFromDate(year,month,day,toYear,toMonth,toDay){
+    if(<%=prefix%>timeoutId){
+      clearTimeout(<%=prefix%>timeoutId);
+      <%=prefix%>toggleElements("");
+    }
+    <%=prefix%>changedDateElements = new Array();
+    <%=prefix%>updateDateElement(document.forms[0].<%=prefix%>yearFromDate,year);
+    <%=prefix%>updateDateElement(document.forms[0].<%=prefix%>monthFromDate,month);
+    <%=prefix%>updateDateElement(document.forms[0].<%=prefix%>dayFromDate,day);
+    <%=prefix%>updateDateElement(document.forms[0].<%=prefix%>yearToDate,toYear);
+    <%=prefix%>updateDateElement(document.forms[0].<%=prefix%>monthToDate,toMonth);
+    <%=prefix%>updateDateElement(document.forms[0].<%=prefix%>dayToDate,toDay);
+    document.forms[0].<%=prefix%>searchFrom.value='true';
+    document.forms[0].<%=prefix%>searchBefore.value='true';
+    <%=prefix%>toggleElements("highlighted");
+    <%=prefix%>timeoutId = setTimeout("<%=prefix%>toggleElements()",2500);
+  }
+        
+  function <%=prefix%>updateDateElement(element,newValue){
+    if(element){
+      //if newValue==0  && element.value=='', element.value!=newValue returns false(at least in firefox..).  
+      //Added special handling when element.value=''
+      if(element.value!=newValue||element.value==''){//do nothing
+        element.value=newValue;
+        <%=prefix%>changedDateElements[<%=prefix%>changedDateElements.length]=element;
+      }
+    }
+  }
+        
+  function <%=prefix%>toggleElements(classname){
+    for(i=0;i< <%=prefix%>changedDateElements.length;i++){
+      <%=prefix%>changedDateElements[i].className=classname;
+    }
+  }
+        
+  function <%=prefix%>toggleDateDiv(classname){
+    var dateDiv = document.getElementById("<%=prefix%>datesearch");
+    dateDiv.className=classname;
+  }
+
+  function <%=prefix%>activate(what) {
+    if(what == 'from' || !what) {
+      if(document.forms[0].<%=prefix%>yearFromDate.selectedIndex!=0 &&
+         document.forms[0].<%=prefix%>monthFromDate.selectedIndex!=0 &&
+	 document.forms[0].<%=prefix%>dayFromDate.selectedIndex!=0) {
+	 document.forms[0].<%=prefix%>searchFrom.value='true';
+       } else {
+	 document.forms[0].<%=prefix%>searchFrom.value='false';
+       }
+    }
+    if(what == 'to' || !what) {
+      if(document.forms[0].<%=prefix%>yearToDate.selectedIndex!=0 &&
+         document.forms[0].<%=prefix%>monthToDate.selectedIndex!=0 &&
+	 document.forms[0].<%=prefix%>dayToDate.selectedIndex!=0) {
+	 document.forms[0].<%=prefix%>searchBefore.value='true';
+       } else {
+	 document.forms[0].<%=prefix%>searchBefore.value='false';
+       }
+    }
+  }
+
+  function <%=prefix%>reset(what){
+    if (what == 'from' || !what) {
+      document.forms[0].<%=prefix%>yearFromDate.selectedIndex=0;
+      document.forms[0].<%=prefix%>monthFromDate.selectedIndex=0;
+      document.forms[0].<%=prefix%>dayFromDate.selectedIndex=0;
+      document.forms[0].<%=prefix%>searchFrom.value='false';
+    }
+    if (what == 'to' || !what) {
+      document.forms[0].<%=prefix%>yearToDate.selectedIndex=0;
+      document.forms[0].<%=prefix%>monthToDate.selectedIndex=0;
+      document.forms[0].<%=prefix%>dayToDate.selectedIndex=0;
+      document.forms[0].<%=prefix%>searchBefore.value='false';
+    }
+  }
+  // -->
+</script>
+
+<%
+  String[] days = new String[] {"","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+%>
+
+<% pageContext.setAttribute("dateSearch-days",days); %>
+
+<%
+  java.util.Calendar now = java.util.Calendar.getInstance();
+  int year = now.get(java.util.Calendar.YEAR);
+  if(year<100){
+    year += 2000;
+  }
+  year -= 5;
+  request.setAttribute("startYear",new Integer(year));
+
+%>
+<%
+  java.util.Calendar today = java.util.Calendar.getInstance();
+  int toYear = today.get(java.util.Calendar.YEAR);
+  int toMonth = today.get(java.util.Calendar.MONTH);
+  int toDay = today.get(java.util.Calendar.DAY_OF_MONTH);
+  String toUrl = ","+toYear+","+toMonth+","+toDay;
+  String todayUrl = "javascript: "+prefix+"updateFromDate("+today.get(java.util.Calendar.YEAR)+","+today.get(java.util.Calendar.MONTH)+","+today.get(java.util.Calendar.DAY_OF_MONTH)+toUrl+")";
+  today.add(java.util.Calendar.DAY_OF_MONTH,-1);
+  String yesterdayUrl = "javascript: "+prefix+"updateFromDate("+today.get(java.util.Calendar.YEAR)+","+today.get(java.util.Calendar.MONTH)+","+today.get(java.util.Calendar.DAY_OF_MONTH)+toUrl+")";
+  today.add(java.util.Calendar.DAY_OF_MONTH,1);
+  today.add(java.util.Calendar.MONTH,-1);
+  String monthUrl = "javascript: "+prefix+"updateFromDate("+today.get(java.util.Calendar.YEAR)+","+today.get(java.util.Calendar.MONTH)+","+today.get(java.util.Calendar.DAY_OF_MONTH)+toUrl+")";
+  today.add(java.util.Calendar.MONTH,1);
+  today.add(java.util.Calendar.DAY_OF_MONTH,-6);
+  String weekUrl = "javascript: "+prefix+"updateFromDate("+today.get(java.util.Calendar.YEAR)+","+today.get(java.util.Calendar.MONTH)+","+today.get(java.util.Calendar.DAY_OF_MONTH)+toUrl+")";
+  String reset = "javascript: "+prefix+"reset()";
+  %>
+  <fieldset class="unstyled datebuttons">
+    <a href="<%=todayUrl%>"><html:img src='<%=request.getContextPath()+"/images/qw/date_16x16_1.png"%>' border="0" alt="1"/></a>
+    <a href="<%=yesterdayUrl%>"><html:img src='<%=request.getContextPath()+"/images/qw/date_16x16_2.png"%>'  border="0" alt="2"/></a>
+    <a href="<%=weekUrl%>;"><html:img src='<%=request.getContextPath()+"/images/qw/date_16x16_7.png"%>'  border="0" alt="7"/></a>
+    <a href="<%=monthUrl%>"><html:img src='<%=request.getContextPath()+"/images/qw/date_16x16_30.png"%>'  border="0" alt="30"/></a>
+    <a href="<%=reset%>;"><html:img src='<%=request.getContextPath()+"/images/qw/date_16x16_blancout.png"%>'  border="0"  alt="-" /></a>
+  </fieldset>
+  <fieldset class="unstyled fromdate">
+    <label>
+     <span>
+      <bean:message key='<%="t.From_colon"%>' bundle="org.apache.struts.action.MESSAGE"/>
+     </span>
+     <%
+    String activateFrom = "javascript:"+prefix+"activate('from')";
+    String activateTo = "javascript:"+prefix+"activate('to')";
+    %>
+      <html:select property='<%=prefix+"dayFromDate"%>' styleId='<%=prefix+"dayFromDate"%>' onchange='<%=activateFrom%>'>
+        <html:options labelName="dateSearch-days" name="dateSearch-days"/>
+      </html:select>
+    </label>
+    <%request.setAttribute("selectMonth.property",prefix+"monthFromDate");%>
+    <%request.setAttribute("selectMonth.includeBlank","true");%>
+    <%request.setAttribute("selectMonth.onchange","javascript:"+prefix+"activate('from')");%>
+    <jsp:include page="/WEB-INF/pages/base/selectMonth.jsp"/>
+    <html:select property='<%=prefix+"yearFromDate"%>' styleId='<%=prefix+"yearFromDate"%>' onchange='<%=activateFrom%>'>
+      <html:option value="">&nbsp;</html:option>
+      <% int startYear = ((Integer)request.getAttribute("startYear")).intValue();
+         for(int i = startYear; i < startYear + 10; i++){
+          String tmp = ""+i;
+      %>
+         <html:option value="<%=tmp%>"><%=tmp%></html:option>
+      <% } %>
+    </html:select>
+    <a href="javascript:<%=prefix%>reset('from')">
+       <bean:message key="b.clear"/>
+    </a>
+  </fieldset>
+
+  <fieldset class="unstyled todate">
+    <label>
+    <span>
+    <bean:message key='<%="t.To_colon"%>' bundle="org.apache.struts.action.MESSAGE"/>
+    </span>
+    <html:select property='<%=prefix+"dayToDate"%>' styleId='<%=prefix+"dayToDate"%>' onchange='<%=activateTo%>'>
+      <html:options labelName="dateSearch-days" name="dateSearch-days"/>
+    </html:select>
+    </label>
+    <%request.setAttribute("selectMonth.property",prefix+"monthToDate");%>
+    <%request.setAttribute("selectMonth.includeBlank","true");%>
+    <%request.setAttribute("selectMonth.onchange","javascript:"+prefix+"activate('to')");%>
+    <jsp:include page="/WEB-INF/pages/base/selectMonth.jsp"/>
+    <html:select property='<%=prefix+"yearToDate"%>' styleId='<%=prefix+"yearToDate"%>' onchange='<%=activateTo%>'>
+      <html:option value="">&nbsp;</html:option>
+      <% int start2 = ((Integer)request.getAttribute("startYear")).intValue();
+         for(int i = start2; i < start2 + 10; i++){
+          String tmp = ""+i;
+      %>
+         <html:option value="<%=tmp%>"><%=tmp%></html:option>
+      <% } %>
+    </html:select>
+    <a href="javascript:<%=prefix%>reset('to')">
+       <bean:message key="b.clear"/>
+    </a>
+  </fieldset>
+  <input type="hidden" name='<%=prefix+"searchFrom"%>' value="<%=form.getSearchFrom()%>"/>
+  <input type="hidden" name='<%=prefix+"searchBefore"%>' value="<%=form.getSearchBefore()%>"/>
+<div class="error"><html:errors property="dateRange"/></div>

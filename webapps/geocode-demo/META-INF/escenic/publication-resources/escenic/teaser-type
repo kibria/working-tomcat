@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teaser-types xmlns="http://xmlns.escenic.com/2008/content-type"
+              xmlns:ui="http://xmlns.escenic.com/2008/interface-hints">
+
+  <teaser-type name="default">
+    <field name="title" type="basic" mime-type="text/plain">
+      <ui:label>Title</ui:label>
+      <ui:label xml:lang="no">Tittel</ui:label>
+    </field>
+    <field name="abstract" type="basic" mime-type="text/plain">
+      <ui:label>Abstract</ui:label>
+      <ui:label xml:lang="no">Abstract</ui:label>
+    </field>
+  </teaser-type>
+
+</teaser-types>

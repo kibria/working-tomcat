@@ -1,0 +1,161 @@
+body {margin: 0; padding: 0; font-family: "lucida grande",arial,sans-serif; color: #888888; font-size: 13px;}
+.header {text-align: center; background-color: #444444; margin: 100px 0 20px 0;}
+.buttons, .hijack {width: 320px; margin: 0 auto;}
+.loginField {margin-right: 20px;}
+.buttons .head, .hijack .head {text-align: center; font-size: 22px; color: #444444; margin: 30px 0;}
+.buttons .default {font-weight: 800;}
+.messages {font-weight: bold; color: #d70000}
+ul {margin: 0; padding: 0;}
+li { list-style: none; margin: 0 0 0.3em 0;}
+li a{
+  display: block;
+  position: relative;
+  outline: 0;
+  padding: 0 20px 0 20px;
+  border: 0;
+  color: #444444;
+  background-color: #dedede;
+  text-transform: capitalize;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  font-style: normal;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  vertical-align: bottom;
+  text-rendering: optimizeLegibility;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-weight: normal;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: all .1s ease;
+  -moz-transition: all .1s ease;
+  -ms-transition: all .1s ease;
+  -o-transition: all .1s ease;
+  transition: all .1s ease;
+}
+li:hover a {
+  color: #FFFFFF;
+  background-color: #ff752d;
+}
+li:active a {
+  color: #FFFFFF;
+  background-color: #fcb088;
+}
+
+/* Buttons & Input */
+button, input, select, textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+
+button, input {
+  line-height: normal;
+}
+
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+  *overflow: visible;
+}
+
+button[disabled], input[disabled] {
+  cursor: default;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  *height: 13px;
+  *width: 13px;
+}
+
+input[type="text"],input[type="password"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+
+  border: 1px solid #dededc;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%
+}
+
+button , a{
+  display: inline-block;
+  position: relative;
+  outline: 0;
+  padding: 1px 20px 0 20px;
+  border: 0;
+  color: #666666;
+  background-color: #dedede;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  font-style: normal;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  vertical-align: bottom;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-weight: 400;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: all .1s ease;
+  -moz-transition: all .1s ease;
+  -ms-transition: all .1s ease;
+  -o-transition: all .1s ease;
+  transition: all .1s ease;
+}
+
+button:hover, a:hover {
+  color: #FFFFFF;
+  background-color: #ff752d;
+}
+button:focus, a:focus {
+  color: #FFFFFF;
+  background-color: #ff752d;
+}
+button:active, a:active {
+  color: #FFFFFF;
+  background-color: #ff752d;
+}
+
+.buttons, .ssoBox {margin-top: 20px;clear: both;}
+.buttons .login {float: right;}
+.buttons .sso {float: right;}
+.ssoBox { border-top: 1px solid #dededc; margin-top: 100px;}
+.ssoBox .label {margin-top: -10px;text-align: center;}
+.ssoBox .label .hover {background-color: white; padding: 0 10px;}
+.ssoBox a {width: 100%;}
+
+.hijack button {
+  margin-bottom: 20px;
+  width: 100%;
+}

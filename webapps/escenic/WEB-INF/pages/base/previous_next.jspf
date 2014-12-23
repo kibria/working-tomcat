@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <logic:greaterThan name="start" value="1" >
+      <td>
+        <html:link href="<%=previous%>" styleClass="global-button">Previous</html:link>
+      </td>
+    </logic:greaterThan>
+    <logic:lessThan name="endIndex" value="<%=size.toString()%>" >
+      <td>                
+        <html:link href="<%=next%>" styleClass="global-button">Next</html:link>
+      </td>
+    </logic:lessThan>
+  </tr> 
+</table>

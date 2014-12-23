@@ -1,0 +1,14 @@
+<%@ page import="neo.xredsys.api.LockInfo" %>
+<%@ page import="org.apache.struts.util.RequestUtils" %>
+<%@ page import="neo.xredsys.api.IOAPI" %>
+<%@ page import="neo.xredsys.api.IOObject" %>
+<%!
+  public String getLockInfoFromObject(IOObject pObject, PageContext pPageContext) throws JspException{
+    LockInfo lockInfo = IOAPI.getAPI().getLockManager().getLockInfoFromIdentifier(pObject);
+    String title = RequestUtils.message(pPageContext, null, null, "t.Unlock", null);
+    if(lockInfo!=null){
+      title = title + " (" + lockInfo.getLockedBy() + ")";
+    }
+    return title;
+  }
+%>

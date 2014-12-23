@@ -1,0 +1,10 @@
+<bean:define id="userMembers" name="neo.phoenix.userGroup.UserGroupForm" property="users" scope="request" type="java.util.List"/>
+<logic:iterate name="userMembers" id="key" type="java.lang.String">
+  <%  String p1 = "user(" + key + ").id"; 
+      String p2 = "user(" + key + ").type"; 
+      String p3 = "user(" + key + ").publicationId";
+  %>
+  <html:hidden property="<%=p1%>"/>
+  <html:hidden property="<%=p2%>"/>
+  <html:hidden property="<%=p3%>"/>
+</logic:iterate>

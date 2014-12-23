@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+
+  <!-- ========== Form Bean Definitions =================================== -->
+  <form-beans>
+
+    <form-bean      name="neo.phoenix.publication.PublicationForm"
+                    type="neo.phoenix.publication.PublicationForm"/>
+
+    <form-bean      name="neo.phoenix.publication.ResourceFileForm"
+                    type="neo.phoenix.publication.ResourceFileForm"/>
+
+    <form-bean      name="neo.phoenix.publication.PublicationSelectionForm"
+                    type="neo.phoenix.base.ObjectSelectionForm"/>
+
+    <form-bean      name="neo.phoenix.base.ConfirmationForm"
+                    type="neo.phoenix.base.ConfirmationForm" />
+
+    <form-bean      name="neo.phoenix.publication.CacheInvalidationForm"
+                    type="neo.phoenix.publication.CacheInvalidationForm"/>
+
+    <form-bean      name="neo.phoenix.publication.ExportForm"
+                    type="neo.phoenix.publication.ExportForm"/>
+
+    <form-bean      name="neo.phoenix.publication.CreateOrSelectUserForm"
+                    type="neo.phoenix.publication.CreateOrSelectUserForm"/>
+
+    <form-bean      name="neo.phoenix.publication.UserRoleForm"
+                    type="neo.phoenix.publication.UserRoleForm"/>
+
+    <form-bean      name="neo.phoenix.admin.classification.TagStructureForm"
+                    type="neo.phoenix.admin.classification.TagStructureForm"/>
+
+    <form-bean      name="neo.phoenix.admin.classification.DeleteTagStructureForm"
+                    type="neo.phoenix.admin.classification.DeleteTagStructureForm"/>
+
+    <form-bean      name="neo.phoenix.admin.classification.ImportTagsForm"
+                    type="neo.phoenix.admin.classification.ImportTagsForm"/>
+
+  </form-beans>
+
+  <!-- ========== Global Forward Definitions ============================== -->
+  <global-forwards>
+
+     <!-- If an underlying error occurs, for example in the database, or ldap or whatever,
+          the action should return a mapping to the "database-error", so that it can be 
+          shown to the user.
+       -->
+     <forward   name="database-error"  path="/pages/database-error.jsp" />
+
+     <!-- An internal error - errors in the usage of an action, should return the 
+          "internal-error" mapping, so that they can be caught, and shown to the
+          user.
+       -->
+     <forward   name="internal-error"  path="/pages/internal-error.jsp" />
+    
+  </global-forwards>
+
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+
+    <!-- ************************************************************************
+           Publications
+         ************************************************************************ -->
+    <action
+               path="/publication/resource"
+               type="neo.phoenix.publication.UploadResourceToSessionScopeAction"
+               name="neo.phoenix.publication.ResourceFileForm"
+               scope="request"
+               validate="true"
+               input="/pages/publication/upload-resources.jsp">
+      <forward name="success"
+               path="/pages/publication/upload-resources.jsp"/>
+      <forward name="error"
+               path="/pages/publication/upload-resources.jsp"/>
+    </action>
+
+    <action
+               path="/publication/deleteResource"
+               type="neo.phoenix.publication.RemoveResourceFromSessionScopeAction"
+               scope="request"
+               validate="true"
+               input="/pages/publication/upload-resources.jsp">
+      <forward name="success"
+               path="/pages/publication/upload-resources.jsp"/>
+    </action>
+
+    <action    path="/publication/insert"
+               type="neo.phoenix.publication.InsertPublicationAction"
+               name="neo.phoenix.publication.PublicationForm"
+               scope="request"
+               input="/pages/publication/new.jsp"
+               validate="true"
+               >
+      <forward name="success"
+               path="/pages/publication/new-receipt.jsp"/>
+    </action>
+
+
+    <action    path="/publication/execute"
+               type="neo.phoenix.base.ForwardAction"
+               name="neo.phoenix.publication.PublicationSelectionForm"
+               scope="request"
+               input="/pages/publication/list.jsp"
+               validate="false"
+               >
+      <forward name="delete"
+               path="/pages/publication/delete-confirm.jsp" />
+      <forward name="runfieldindexer"
+               path="/do/publication/runfieldindexer" />
+      <forward name="resources"
+               path="/pages/publication/update-resources-confirm.jsp" />
+    </action>
+
+    <action    path="/publication/delete"
+               type="neo.phoenix.publication.DeletePublicationAction"
+               name="neo.phoenix.publication.PublicationSelectionForm"
+               scope="request"
+               input="/pages/publication/delete-confirm.jsp"
+               validate="true"
+               >
+      <forward name="success"
+               path="/pages/publication/delete-after.jsp" />
+    </action>
+
+    <action    path="/publication/updateResources"
+               type="neo.phoenix.publication.UpdateResourcesAction"
+               name="neo.phoenix.publication.PublicationSelectionForm"
+               scope="request"
+               input="/pages/publication/update-resources-confirm.jsp"
+               validate="true"
+               >
+      <forward name="success"
+               path="/pages/publication/list.jsp" />
+    </action>
+
+    <action    path="/publication/runfieldindexer"
+               type="neo.phoenix.publication.RunFieldIndexerAction"
+               name="neo.phoenix.publication.PublicationSelectionForm"
+               scope="request"
+               input="/pages/publication/list.jsp"
+               validate="true"
+               >
+      <forward name="success"
+               path="/pages/publication/list.jsp" />
+      <forward name="error"
+               path="/pages/publication/list.jsp" />
+    </action>
+
+    <action    path="/publication/clearallcaches"
+               type="neo.phoenix.publication.ClearAllCachesAction"
+               name="neo.phoenix.base.ConfirmationForm"
+               scope="request"
+               input="/pages/publication/clearallcaches.jsp"
+               validate="false"
+               >
+      <forward name="confirm"
+               path="/pages/publication/clearallcaches.jsp" />
+      <forward name="partial"
+               path="/pages/publication/clearallcaches-confirm.jsp" />
+      <forward name="success"
+               path="/pages/publication/clearallcaches-confirm.jsp" />
+      <forward name="failure"
+               path="/pages/publication/clearallcaches-confirm.jsp" />
+      <forward name="cancel"
+               path="/" />
+    </action>
+
+    <action    path="/publication/resolverelation"
+               type="neo.phoenix.publication.ResolveAllRelationsAction"
+               name="neo.phoenix.base.ConfirmationForm"
+               scope="request"
+               input="/pages/publication/resolveallrelations.jsp"
+               validate="false"
+               >
+      <forward name="confirm"
+               path="/pages/publication/resolveallrelations.jsp" />
+      <forward name="partial"
+               path="/pages/publication/resolveallrelations-confirm.jsp" />
+      <forward name="success"
+               path="/pages/publication/resolveallrelations-confirm.jsp" />
+      <forward name="failure"
+               path="/pages/publication/resolveallrelations-confirm.jsp" />
+      <forward name="cancel"
+               path="/" />
+    </action>
+
+    <action    path="/publication/cache-invalidation"
+               type="neo.phoenix.publication.CacheInvalidationAction"
+               name="neo.phoenix.publication.CacheInvalidationForm"
+               scope="request"
+               input="/pages/publication/cache-invalidation.jsp"
+               validate="false"
+               >
+      <forward name="start"
+               path="/pages/publication/cache-invalidation.jsp" />
+      <forward name="selectwhat"
+               path="/pages/publication/cache-invalidation.jsp" />
+      <forward name="selectdepth"
+               path="/pages/publication/cache-invalidation.jsp" />
+      <forward name="selectids"
+               path="/pages/publication/cache-invalidation.jsp" />
+      <forward name="confirm"
+               path="/pages/publication/cache-invalidation-confirm.jsp" />
+      <forward name="error"
+               path="/pages/publication/cache-invalidation.jsp" />
+      <forward name="success"
+               path="/pages/publication/cache-invalidation-success.jsp" />
+      <forward name="cancel"
+               path="/" />
+    </action>
+
+    <action    path="/publication/export"
+               attribute="neo.phoenix.publication.ExportForm"
+               type="neo.phoenix.publication.ExportAction"
+               name="neo.phoenix.publication.ExportForm"
+               scope="session"
+               input="/pages/publication/migrate.jsp"
+               validate="true"
+               >
+      <forward name="start"
+               path="/pages/publication/migrate.jsp" />
+      <forward name="confirm"
+               path="/pages/publication/migrate-confirm.jsp" />
+      <forward name="success"
+               path="/pages/publication/migrate-success.jsp" />
+    </action>
+
+    <action path="/publication/user/select"
+            type="neo.phoenix.publication.CreateOrSelectUserAction"
+            name="neo.phoenix.publication.CreateOrSelectUserForm"
+            scope="request"
+            input="/pages/publication/user.jsp"
+            validate="true">
+      <forward name="success" path="/pages/publication/user-role.jsp" redirect="false"/>
+    </action>
+
+    <action path="/publication/user/role"
+            type="neo.phoenix.publication.UserRoleAction"
+            name="neo.phoenix.publication.UserRoleForm"
+            scope="request"
+            input="/pages/publication/user-role.jsp"
+            validate="true">
+      <forward name="success" path="/pages/publication/user-role-success.jsp" redirect="false"/>
+    </action>
+
+    <action path="/services/display"
+            type="neo.phoenix.admin.LoadServicesAction"
+            scope="request">
+      <forward name="success" path="/pages/services.jsp" redirect="false"/>
+    </action>
+    
+    <action path="/classification/delete"
+            type="neo.phoenix.admin.classification.DeleteTagStructureAction"
+            name="neo.phoenix.admin.classification.DeleteTagStructureForm"
+            input="/do/classification/display"
+            scope="request">
+      <set-property property="cancellable" value="true"/>
+      <forward name="success" path="/do/classification/display" redirect="false"/>
+      <forward name="cancel" path="/do/classification/display" redirect="true"/>
+      <forward name="confirm" path="/pages/warning.jsp" redirect="false"/>
+    </action>
+
+    <action path="/classification/tag-structure/new"
+            type="neo.phoenix.admin.classification.CreateTagStructureAction"
+            name="neo.phoenix.admin.classification.TagStructureForm"
+            input="/do/classification/display"
+            scope="request"
+            validate="true">
+      <forward name="success" path="/do/classification/display" redirect="true"/>
+      <forward name="error" path="/pages/classification.jsp" redirect="false"/>
+    </action>
+
+    <action path="/classification/display"
+            type="neo.phoenix.admin.classification.LoadTagStructuresAction"
+            scope="request">
+      <forward name="success" path="/pages/classification.jsp" redirect="false"/>
+    </action>
+    
+    <action path="/classification/import"
+            type="neo.phoenix.admin.classification.ImportTagsAction"
+            name="neo.phoenix.admin.classification.ImportTagsForm"
+            input="/do/classification/import"
+            scope="request"
+            validate="true">
+      <set-property property="cancellable" value="true"/>
+      <forward name="import" path="/pages/classification/import.jsp" redirect="false"/>
+      <forward name="display" path="/pages/classification/import.jsp" redirect="false"/>
+      <forward name="cancel" path="/do/classification/display" redirect="true"/>
+    </action>
+
+    <!-- Simple NOP action, which doesn't do anything.  Used to initialize struts if nessecary. -->
+    <action    path="/nop"
+               type="neo.phoenix.base.ForwardAction"
+               name="neo.phoenix.publication.PublicationSelectionForm"/>
+
+    <!-- The standard administrative actions available with Struts -->
+    <!-- These would be either omitted or protected by security -->
+    <!-- in a real application deployment -->
+
+    <action    path="/admin/reload"
+               type="org.apache.struts.actions.ReloadAction"/>
+
+  </action-mappings>
+  <message-resources null="false" parameter="neo.phoenix.Resources"/>
+
+</struts-config>

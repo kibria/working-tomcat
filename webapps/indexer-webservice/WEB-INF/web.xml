@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app
+  xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+  version="2.4">
+  <display-name>Indexer Webservice Webapp</display-name>
+
+  <filter>
+    <filter-name>TopFilter</filter-name>
+    <filter-class>com.escenic.servlet.TopFilter</filter-class>
+    <init-param>
+      <param-name>shared-instance</param-name>
+      <param-value>nursery://global/neo/io/reports/Top</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>TopFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>/com/escenic/indexer/IndexerServlet</servlet-name>
+    <servlet-class>com.escenic.servlet.nursery.ServletBootstrapper</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>/com/escenic/indexer/PresentationIndexerServlet</servlet-name>
+    <servlet-class>com.escenic.servlet.nursery.ServletBootstrapper</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>/com/escenic/indexer/IndexerServlet</servlet-name>
+    <url-pattern>/index/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>/com/escenic/indexer/PresentationIndexerServlet</servlet-name>
+    <url-pattern>/presentation-index/*</url-pattern>
+  </servlet-mapping>
+
+
+  <!-- The Usual Welcome File List -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/WEB-INF/error.jsp</location>
+  </error-page>
+
+</web-app>

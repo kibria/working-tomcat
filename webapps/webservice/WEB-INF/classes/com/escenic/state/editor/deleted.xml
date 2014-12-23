@@ -1,0 +1,14 @@
+<state xmlns="http://xmlns.escenic.com/2013/content-state"
+       xmlns:ui="http://xmlns.escenic.com/2008/interface-hints">
+  <name>deleted</name>
+  <actions>
+    <action>draft</action>
+  </actions>
+  <choices>
+    <name>default</name>
+    <choice>
+      <name>un-delete</name>
+      <action>draft</action>
+    </choice>
+  </choices>
+</state>

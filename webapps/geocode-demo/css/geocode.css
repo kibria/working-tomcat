@@ -1,0 +1,11 @@
+th {
+  background-color: lightblue;
+}
+
+tr {
+  background-color: lightgray;
+}
+
+.inputError {
+  color:red;
+}

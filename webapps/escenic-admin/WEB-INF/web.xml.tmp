@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <display-name>Escenic admin webapp</display-name>
+
+
+  <filter>
+    <filter-name>TopFilter</filter-name>
+    <filter-class>com.escenic.servlet.TopFilter</filter-class>
+    <init-param>
+      <param-name>shared-instance</param-name>
+      <param-value>nursery://global/neo/io/reports/Top</param-value>
+    </init-param>
+    <init-param>
+      <param-name>uri</param-name>
+      <param-value>/top</param-value>
+    </init-param>
+  </filter>
+
+
+  <filter-mapping>
+    <filter-name>TopFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+  </filter-mapping>
+
+
+  <!-- Escenic administrative servlet.  -->
+  <servlet>
+    <servlet-name>ECEDebug</servlet-name>
+    <jsp-file>/pages/loglevels.jsp</jsp-file>
+  </servlet>
+
+  <!-- Escenic JSP Statistics browser.  -->
+  <servlet>
+    <servlet-name>ECEStatistics</servlet-name>
+    <jsp-file>/pages/jsp-statistics.jsp</jsp-file>
+  </servlet>
+
+
+  <!-- Escenic Component Browser.  -->
+  <servlet>
+    <servlet-name>ECEBrowser</servlet-name>
+    <jsp-file>/browser-wrapper.jsp</jsp-file>
+  </servlet>
+
+  <!-- PUT and GET resources.  -->
+  <servlet>
+    <servlet-name>ECEPublicationResource</servlet-name>
+    <servlet-class>neo.phoenix.publication.ResourcesServlet</servlet-class>
+  </servlet>
+
+
+  <!-- PUT and GET Section properties.  -->
+  <servlet>
+    <servlet-name>DeclaredSectionParameters</servlet-name>
+    <servlet-class>neo.phoenix.publication.DeclaredSectionParametersServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>InheritedSectionParameters</servlet-name>
+    <servlet-class>neo.phoenix.publication.InheritedSectionParametersServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SectionParameters</servlet-name>
+    <servlet-class>neo.phoenix.publication.SectionParametersServlet</servlet-class>
+  </servlet>
+
+  <!-- Escenic Redirect Servlet - redirects a request, depending on the parameters given, to an article page.  -->
+  <servlet>
+    <servlet-name>ECERedirectServlet</servlet-name>
+    <servlet-class>com.escenic.presentation.servlet.RedirectServlet</servlet-class>
+  </servlet>
+
+
+  <!-- Standard Action Servlet Configuration (with debugging) -->
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>application</param-name>
+      <param-value>neo.phoenix.Resources</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <!-- 
+    <init-param>
+      <param-name>detail</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    -->
+    <init-param>
+      <param-name>validate</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>locale</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+
+  <!-- Standard Action Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>/do/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ECEDebug</servlet-name>
+    <url-pattern>/debug</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ECEStatistics</servlet-name>
+    <url-pattern>/statistics/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ECEBrowser</servlet-name>
+    <url-pattern>/browser/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ECERedirectServlet</servlet-name>
+    <url-pattern>/eceRedirect</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ECEPublicationResource</servlet-name>
+    <url-pattern>/publication-resources/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SectionParameters</servlet-name>
+    <url-pattern>/section-parameters/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>InheritedSectionParameters</servlet-name>
+    <url-pattern>/section-parameters-inherited/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>DeclaredSectionParameters</servlet-name>
+    <url-pattern>/section-parameters-declared/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- The Usual Welcome File List -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+<!-- Security constraint.  If HTTP authentication is required to access
+     this web application, uncomment the lines below, and assign the
+     ECEAdmin role to the users or groups in question -->
+
+   <security-constraint xmlns="">
+      <web-resource-collection>
+         <web-resource-name>
+             Escenic Administration Interface
+         </web-resource-name>
+         <url-pattern>/*</url-pattern>
+         <http-method>DELETE</http-method>
+         <http-method>GET</http-method>
+         <http-method>POST</http-method>
+         <http-method>PUT</http-method>
+      </web-resource-collection>
+      <auth-constraint>
+        <role-name>ECEAdmin</role-name>
+      </auth-constraint>
+   </security-constraint>
+   
+   <login-config xmlns="">
+      <auth-method>BASIC</auth-method> 
+      <realm-name>Restricted Access: Escenic Administration</realm-name>
+   </login-config>
+   
+   <security-role xmlns="">
+     <description>Escenic System Administrators</description>
+     <role-name>ECEAdmin</role-name>
+   </security-role>
+
+
+</web-app>

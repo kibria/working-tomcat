@@ -1,0 +1,2330 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<!--
+     This is a blank Struts configuration file based on the example application,
+     with commented examples of some items.
+
+     NOTE: If you have a generator tool to create the corresponding Java classes 
+     for you, you could include the details in the "form-bean" declarations.  
+     Otherwise, you would only define the "form-bean" element itself, with the 
+     corresponding "name" and "type" attributes, as shown here.
+-->
+
+
+<struts-config>
+
+
+  <!-- ========== Data Source Configuration =============================== -->
+<!--
+  <data-sources>
+    <data-source
+       autoCommit="false"
+      description="Example Data Source Configuration"
+      driverClass="org.postgresql.Driver"
+         maxCount="4"
+         minCount="2"
+         password="mypassword"
+              url="jdbc:postgresql://localhost/mydatabase"
+             user="myusername"
+    />
+  </data-sources>
+-->
+
+  <!-- ========== Form Bean Definitions =================================== -->
+  <form-beans>
+
+    <form-bean      name="neo.phoenix.logon.LogonForm"
+                    type="neo.phoenix.logon.LogonForm"/>
+
+    <form-bean      name="neo.phoenix.base.SimpleMultiplePageForm"
+                    type="neo.phoenix.base.SimpleMultiplePageForm"/>
+
+    <form-bean      name="neo.phoenix.base.LanguageForm"
+                    type="neo.phoenix.base.LanguageForm"/>
+
+    <form-bean      name="neo.phoenix.base.SettingsForm"
+                    type="neo.phoenix.base.SettingsForm"/>
+
+    <form-bean      name="neo.phoenix.base.DeleteObjectsForm"
+                    type="neo.phoenix.base.DeleteObjectsForm"/>
+
+    <form-bean      name="neo.phoenix.mainmenu.MainMenuForm"
+                    type="neo.phoenix.mainmenu.MainMenuForm"/>
+
+    <form-bean      name="neo.phoenix.publication.PublicationForm"
+                    type="neo.phoenix.publication.PublicationForm"/>
+
+    <form-bean      name="neo.phoenix.publication.XmlImportForm"
+                    type="neo.phoenix.publication.XmlImportForm"/>
+
+    <form-bean      name="neo.phoenix.section.SectionSearchForm"
+                    type="neo.phoenix.section.SectionSearchForm"/>
+
+    <form-bean      name="neo.phoenix.section.SectionForm"
+                    type="neo.phoenix.section.SectionForm"/>
+
+    <form-bean      name="neo.phoenix.section.PropertiesForm"
+                    type="neo.phoenix.section.PropertiesForm"/>
+
+    <form-bean      name="neo.phoenix.section.SectionMembersForm"
+                    type="neo.phoenix.section.SectionMembersForm"/>
+
+    <form-bean      name="neo.phoenix.section.MoveArticlesForm"
+                    type="neo.phoenix.section.MoveArticlesForm"/>
+
+    <form-bean      name="neo.phoenix.person.PersonForm"
+                    type="neo.phoenix.person.PersonForm"/>
+
+    <form-bean      name="neo.phoenix.person.PersonSearchForm"
+                    type="neo.phoenix.person.PersonSearchForm"/>
+
+    <form-bean      name="neo.phoenix.person.PasswordForm"
+                    type="neo.phoenix.person.PasswordForm"/>
+
+    <form-bean      name="neo.phoenix.profile.ProfileSearchForm"
+                    type="neo.phoenix.profile.ProfileSearchForm"/>
+
+    <form-bean      name="neo.phoenix.userGroup.UserGroupForm"
+                    type="neo.phoenix.userGroup.UserGroupForm"/>
+
+    <form-bean      name="neo.phoenix.userGroup.UserGroupSearchForm"
+                    type="neo.phoenix.userGroup.UserGroupSearchForm"/>
+
+    <form-bean      name="neo.phoenix.base.ObjectSelectionForm"
+                    type="neo.phoenix.base.ObjectSelectionForm"/>
+
+    <form-bean      name="neo.phoenix.basket.BasketSearchForm"
+                    type="neo.phoenix.basket.BasketSearchForm"/>
+
+    <form-bean      name="neo.phoenix.publication.FriendlyPubsForm"
+                    type="neo.phoenix.publication.FriendlyPubsForm"/>
+
+    <form-bean      name="neo.phoenix.section.SummarizeForm"
+                    type="neo.phoenix.section.SummarizeForm"/>
+
+    <form-bean      name="neo.phoenix.section.SequenceForm"
+                    type="neo.phoenix.section.SequenceForm"/>
+
+    
+<!-- START FORM-BEANS-PLUGINS START ***** -->
+<!-- START Do not modify: machine readable format ***** -->
+
+
+
+
+
+<!-- END   Do not modify: machine readable format ***** -->
+<!-- END   FORM-BEANS-PLUGINS END ***** -->
+
+</form-beans>
+
+
+  <!-- ========== Global Forward Definitions ============================== -->
+  <global-forwards>
+
+     <!-- A simple forward, used only by this configuration file to show the
+           main menu...
+       -->
+     <forward   name="main-menu"       path="/WEB-INF/pages/main-menu.jsp"/>
+
+     <!-- A simple forward, used to show the person archive
+       -->
+     <forward   name="person-archive"       path="/person/search.do"/>
+     <forward   name="profile-archive"       path="/profile/search.do"/>
+
+     <!-- A simple forward, used to show the user-group archive
+       -->
+     <forward   name="userGroup-archive"       path="/userGroup/search.do"/>
+
+     <!-- A simple forward, used to show the user-group archive
+       -->
+     <forward   name="section-archive"       path="/section/search.do"/>
+     <forward   name="section-choose-popup"  path="/section/choose/popup.do"/>
+
+     <!-- A simple forward, used to show the hot stuff...
+       -->
+     <forward   name="hot"       path="/WEB-INF/pages/other/recent.jsp"/>
+
+     <!-- If a user timed out, any AuthenticatedAction will return the "not-logged-in"
+          forward, so that users are able to log in.  A mechanism to return to the
+          form where you were would be nice to have here.  In the future, maybe.
+       -->
+     <forward   name="not-logged-in"   path="/showlogon.do" />
+
+     <forward   name="logonsso"   path="/logonsso_.do" />
+
+     <!-- If an underlying error occurs, for example in the database, or ldap or whatever,
+          the action should return a mapping to the "database-error", so that it can be 
+          shown to the user.
+       -->
+     <forward   name="database-error"  path="/WEB-INF/pages/database-error.jsp" />
+
+     <!-- An internal error - errors in the usage of an action, should return the 
+          "internal-error" mapping, so that they can be caught, and shown to the
+          user.
+       -->
+     <forward   name="internal-error"  path="/WEB-INF/pages/internal-error.jsp" />
+
+     <!-- A simple forward to a page which displays an errormessage
+     -->
+     <forward   name="display-error"  path="/WEB-INF/pages/display-errors.jsp" />
+
+<!-- START GLOBAL-FORWARDS-PLUGINS START ***** -->
+<!-- START Do not modify: machine readable format ***** -->
+
+
+
+
+
+<!-- END   Do not modify: machine readable format ***** -->
+<!-- END   GLOBAL-FORWARDS-PLUGINS END ***** -->
+
+  </global-forwards>
+
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+
+    <action    path="/logon"
+               type="neo.phoenix.logon.LogonAction"
+               name="neo.phoenix.logon.LogonForm"
+               scope="request"
+               input="/WEB-INF/pages/logon/logon.jsp">
+      <forward name="success" path="/main-menu.do" redirect="true" />
+      <forward name="cancel" path="/showlogon.do" />
+      <forward name="sso" path="/oauth2/auth" />
+      <forward name="already-logged-in" path="/WEB-INF/pages/logon/logon.jsp" />
+    </action>
+
+    <action    path="/logon/oauth2"
+               type="neo.phoenix.oauth2.OAuth2LogonAction"
+               name="neo.phoenix.logon.LogonForm"
+               scope="request"
+	       validate="false"
+               input="/WEB-INF/pages/logon/logon.jsp">
+      <forward name="success" path="/main-menu.do" redirect="true" />
+      <forward name="cancel" path="/showlogon.do" />
+      <forward name="already-logged-in" path="/WEB-INF/pages/logon/logon.jsp" />
+    </action>
+
+    <action    path="/logoff"
+               type="neo.phoenix.logon.LogoffAction">
+      <forward name="success"              path="/showlogon.do" />
+    </action>
+
+
+    <action    path="/isLoggedIn.js"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/base/loggedin.jsp" />
+      <forward name="not-logged-in"
+               path="/WEB-INF/pages/base/notloggedin.jsp" />
+    </action>
+
+    <action    path="/base/breakLock"
+               type="neo.phoenix.base.BreakLockAction"
+               >
+    </action>
+
+
+
+    <!-- ************************************************************************
+           Publications
+         ************************************************************************ -->
+
+
+    <action    path="/publication/view"
+               type="neo.phoenix.publication.PopulatePublicationAction"
+               name="neo.phoenix.publication.PublicationForm"
+               scope="session"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/publication/view.jsp" />
+    </action>
+
+    <action    path="/publication/viewArticleTypes"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/publication/viewArticleTypes.jsp" />
+    </action>
+
+    <action    path="/publication/viewFeatures"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/publication/viewFeatures.jsp" />
+    </action>
+
+    <action    path="/publication/viewTemplates"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/publication/viewTemplates.jsp" />
+    </action>
+    <action    path="/publication/deleteLayout"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/publication/deleteLayout.jsp" />
+    </action>
+
+
+
+    <action    path="/publication/edit"
+               type="neo.phoenix.publication.PopulatePublicationAction"
+               name="neo.phoenix.publication.PublicationForm"
+               scope="session"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/publication/edit.jsp" />
+    </action>
+
+    <action    path="/publication/insert"
+               type="neo.phoenix.publication.InsertPublicationAction"
+               name="neo.phoenix.publication.PublicationForm"
+               scope="request"
+               input="/WEB-INF/pages/publication/new.jsp"
+               validate="true"
+               >
+      <forward name="success"
+               path="/logon.do" />
+    </action>
+
+    <action    path="/publication/save"
+               type="neo.phoenix.publication.StorePublicationAction"
+               name="neo.phoenix.publication.PublicationForm"
+               scope="session"
+               validate="true"
+               >
+      <forward name="success"
+               path="/publication/view.do" redirect="true" />
+    </action>
+
+    <action    path="/publication/xmlimport"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/publication/xmlimport.jsp" />
+    </action>
+
+    <action    path="/publication/xmlimport/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.publication.XmlImportForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/publication/xmlimport.jsp"
+               parameter="validate success status"
+               >
+      <forward name="validate"
+               path="/WEB-INF/pages/publication/xmlimport.jsp"/>
+      <forward name="success"
+               path="/WEB-INF/pages/publication/xmlimport.jsp"/>
+      <forward name="import"
+               path="/publication/performXmlimport.do"/>
+      <forward name="status"
+               path="/publication/xmlimport/status" redirect="true" />
+    </action>
+    
+
+    <action    path="/publication/performXmlimport"
+               type="neo.phoenix.publication.XmlImportAction"
+               name="neo.phoenix.publication.XmlImportForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/publication/xmlimport.jsp"
+               >
+      <forward name="success"
+               path="/publication/xmlimport.do" />
+    </action>
+
+    <action    path="/publication/xmlimport/status"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/publication/xmlimportmessages.jsp" />
+    </action>
+
+    <action    path="/publication/xmlimport/stop"
+               type="neo.phoenix.publication.StopXmlImportAction"
+               >
+      <forward name="success"
+               path="/publication/xmlimport.do" redirect="true" />
+    </action>
+
+    <action    path="/publication/importLayouts"
+               type="neo.phoenix.publication.ImportLayoutsAction"
+               >
+      <forward name="success"
+               path="/publication/viewTemplates.do" />
+    </action>
+
+    <action    path="/publication/editFriendlyPubs"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/publication/editFriendlyPubs.jsp" />
+    </action>
+
+    <action    path="/publication/editFriendlyPubs/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.publication.FriendlyPubsForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/publication/editFriendlyPubs.jsp"
+               >
+      <forward name="edit"
+               path="/WEB-INF/pages/publication/editFriendlyPubs.jsp"/>
+      <forward name="success"
+               path="/publication/storeFriendlyPubs.do"/>
+      <forward name="cancel"
+               path="/publication/view.do" redirect="true" />
+    </action>
+    <action    path="/publication/storeFriendlyPubs"
+               type="neo.phoenix.publication.StoreFriendlyPublicationsAction"
+               name="neo.phoenix.publication.FriendlyPubsForm"
+               >
+      <forward name="success"
+               path="/publication/editFriendlyPubs.do" />
+    </action>
+
+    <action    path="/publication/deleteFriendlyPub"
+               type="neo.phoenix.publication.DeleteFriendlyPublicationAction"
+               >
+    </action>
+
+
+
+    <action    path="/publication/switchExternalUsersMode"
+               type="neo.phoenix.publication.SwitchExternalUsersModeAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               >
+    </action>
+
+    <action    path="/publication/searchExternalUsers/pager"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               />
+
+    <!-- Used as an action: shortcut to go to the next page.  -->
+    <action    path="/publication/searchExternalUsers/next"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               parameter="next"
+               />
+
+    <!-- Used as an action: shortcut to go to the previous page.  -->
+    <action    path="/publication/searchExternalUsers/prev"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               parameter="prev"
+               />
+
+
+
+
+
+
+   <!-- ************************************************************************
+          SECTION SEARCH
+        ************************************************************************ -->
+   <!-- Search for a section; for administrative purposes -->
+    <action    path="/section/search"
+               type="neo.phoenix.section.SectionSearchParametersAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/search.jsp" />
+    </action>
+
+    <action    path="/section/search/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/search.jsp" />
+      <forward name="reset"
+               path="/section/search.do?reset=true" />
+    </action>
+
+    <!-- Choose one or more sections, to relate to something else...  -->
+    <action    path="/section/choose"
+               type="neo.phoenix.section.SectionSearchParametersAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/choose.jsp" />
+    </action>
+
+    <action    path="/section/choose/popup"
+               type="neo.phoenix.section.SectionSearchParametersAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/choose-popup.jsp" />
+    </action>
+
+    <action    path="/section/choose/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               parameter="success finished"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/choose.jsp" />
+      <forward name="finished"
+               path="/section/choose/finish.do" />
+      <forward name="cancel"
+               path="/section/choose/cancel.do" />
+    </action>
+
+    <action    path="/section/choose/cancel"
+               type="neo.phoenix.section.CancelChooseAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/section/choose/finish.do" />
+    </action>
+
+    <!-- Used to move from this form to the "parent" form. -->
+    <action    path="/section/choose/finish"
+               type="neo.phoenix.base.FinishChildFormAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               >
+    </action>
+
+    <!-- Used as an action: shortcut from a Tree form to expand a node.  -->
+    <action    path="/section/search/expand"
+               type="neo.phoenix.base.tree.ExpandNodeAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               parameter="expand"
+               />
+
+    <!-- Used as an action: shortcut from a Tree form to contract a node.  -->
+    <action    path="/section/search/contract"
+               type="neo.phoenix.base.tree.ExpandNodeAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               parameter="contract"
+               />
+
+    <!-- Used as an action: shortcut to perform a name search.  -->
+    <action    path="/section/search/namesearch"
+               type="neo.phoenix.section.SectionSearchAction"
+               name="neo.phoenix.section.SectionSearchForm"
+               scope="request"
+               validate="false"
+               />
+
+
+   <!-- ************************************************************************
+          SECTION VIEW / EDIT
+        ************************************************************************ -->
+    <!-- View the details of an existing section ("/section/view?id=xxx") No id will edit the root section... -->
+    <action    path="/section/view"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/view.jsp" />
+    </action>
+
+
+    <!-- Edit an existing section ("/section/edit?id=xxx") No id will edit the root section... -->
+    <action    path="/section/edit"
+               type="neo.phoenix.section.GetSectionAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/edit.jsp" />
+    </action>
+
+
+    <action    path="/section/edit/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="false"
+               parameter="edit share save saveAsChild cancel cancelAsChild"
+               >
+      <!-- parameter is a space-separated list of mappings that are "internal" -->
+      <forward name="edit"
+               path="/WEB-INF/pages/section/edit.jsp" />
+      <forward name="share"
+               path="/WEB-INF/pages/section/share.jsp" />
+      <forward name="editRoles"
+               path="/WEB-INF/pages/section/editRoles.jsp" />
+      <forward name="save"
+               path="/section/store.do" />
+      <forward name="saveAsChild"
+               path="/section/storeAsChild.do" />
+      <forward name="cancel"
+               path="/section/cancel.do" />
+      <forward name="cancelAsChild"
+               path="/section/cancelAsChild.do" />
+    </action>
+
+
+    <action    path="/section/store"
+               type="neo.phoenix.section.StoreSectionAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/section/edit.jsp"
+               >
+      <forward name="success"
+               path="/section/search.do" />
+    </action>
+    <action    path="/section/storeAsChild"
+               type="neo.phoenix.section.StoreSectionAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/section/edit.jsp"
+               >
+      <forward name="success"
+               path="/section/restore.do" />
+    </action>
+    <action    path="/section/restore"
+               type="neo.phoenix.base.FinishChildFormAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="false"
+               >
+    </action>
+
+    <action    path="/section/cancel"
+               type="neo.phoenix.base.CancelEditAction"
+               name="neo.phoenix.section.SectionForm"
+               validate="false">
+      <forward name="success"
+               path="/section/view.do" />
+    </action>
+
+    <action    path="/section/cancelAsChild"
+               type="neo.phoenix.base.CancelEditAction"
+               name="neo.phoenix.section.SectionForm"
+               validate="false">
+      <forward name="success"
+               path="/section/restore.do"/>
+    </action>
+
+    <!-- Create a new section -->
+    <action    path="/section/new"
+               type="neo.phoenix.section.NewSectionAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/new.jsp" />
+    </action>
+
+    <action    path="/section/insert/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="false"
+               parameter="save"
+               >
+      <forward name="edit"
+               path="/WEB-INF/pages/section/new.jsp" />
+      <forward name="save"
+               path="/section/insert.do" />
+    </action>
+
+    
+    <action    path="/section/insert"
+               type="neo.phoenix.section.InsertSectionAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/section/new.jsp"
+               >
+      <forward name="success"
+               path="/section/search.do" />
+    </action>
+
+    <action    path="/section/updateVirtualSectionTree"
+               type="neo.phoenix.section.UpdateVirtualSectionTree"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/section/view.do" />
+    </action>
+
+    
+    <!-- Delete a section -->
+    <action    path="/section/deleteArticles"
+               type="neo.phoenix.section.DeleteArticlesAction"
+               >
+      <!-- /section/deleteArticles must be called with "confirm=true"
+           parameter to avoid the "unconfirmed" forward -->
+      <forward name="unconfirmed"
+               path="/WEB-INF/pages/section/deleteArticles.jsp" />
+      <forward name="success"
+               path="/section/view.do" />
+    </action>
+
+    <action    path="/section/delete"
+               type="neo.phoenix.section.GetSectionAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/delete.jsp" />
+    </action>
+  
+    <action    path="/section/delete/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.SectionForm"
+               scope="request"
+               validate="false"
+               parameter="delete confirm main-menu"
+               >
+      <!-- parameter is a space-separated list of mappings that are "internal" -->
+      <forward name="delete"
+               path="/section/delete/perform.do" />
+      <forward name="confirm"
+               path="/WEB-INF/pages/section/delete.jsp?confirm=true" />
+      <forward name="move"
+               path="/section/moveArticles.do" />
+    </action>
+
+    <action    path="/section/delete/perform"
+               type="neo.phoenix.section.DeleteSectionAction"
+               name="neo.phoenix.section.SectionForm"
+               >
+      <forward name="success"
+               path="/section/search.do" />
+    </action>
+
+    
+    <!-- member handling -->
+    <action    path="/section/editMembers"
+               name="neo.phoenix.section.SectionMembersForm"
+               type="neo.phoenix.section.GetMembersAction"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/editMembers.jsp"/>
+    </action>
+    
+    <action    path="/section/edit/roles/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.SectionMembersForm"
+               scope="request"
+               validate="false"
+               parameter="save editMembers editGroups listByRoles cancel"
+               >
+      <!-- parameter is a space-separated list of mappings that are "internal" -->
+      <forward name="save"
+               path="/section/storeMembers.do" />
+      <forward name="cancel"
+               path="/section/view.do" />               
+      <forward name="editMembers"
+               path="/WEB-INF/pages/section/editMembers.jsp" />
+      <forward name="editGroups"
+               path="/WEB-INF/pages/section/editGroups.jsp" />
+      <forward name="findUsers"
+               path="/person/search.do" />
+      <forward name="findGroups"
+               path="/userGroup/search.do" />
+      <forward name="listByRole"
+               path="/WEB-INF/pages/section/listMembersByRole.jsp" />
+               
+    </action>
+
+    <action    path="/section/storeMembers"
+               name="neo.phoenix.section.SectionMembersForm"
+               type="neo.phoenix.section.StoreMembersAction"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/section/search.do"/>
+    </action>
+    <action    path="/section/addMembersFromBasket"
+               name="neo.phoenix.section.SectionMembersForm"
+               type="neo.phoenix.section.AddUsersFromBasketAction"
+               scope="request"
+               >
+      <forward name="success"
+               path="/section/search.do"/>
+    </action>
+    <action    path="/section/addGroupsFromBasket"
+               name="neo.phoenix.section.SectionMembersForm"
+               type="neo.phoenix.section.AddGroupsFromBasketAction"
+               scope="request"
+               >
+      <forward name="success"
+               path="/section/search.do"/>
+    </action>
+    <action    path="/section/removeMember"
+               name="neo.phoenix.section.SectionMembersForm"
+               type="neo.phoenix.section.RemoveUserFromSectionAction"
+               scope="request"
+               >
+      <forward name="success"
+               path="/section/search.do"/>
+    </action>
+
+    <action    path="/section/userGroupSearch"
+               type="neo.phoenix.userGroup.UserGroupSearchParametersAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/section/userGroupSearch.jsp"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/userGroupSearch.jsp" />
+    </action>
+
+    <!-- Used to move from this form to the "parent" form. -->
+    <action    path="/section/userGroupSearch/finish"
+               type="neo.phoenix.base.FinishChildFormAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               >
+    </action>
+    
+    <action    path="/section/userGroupSearch/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               input="/WEB-INF/pages/section/userGroupSearch.jsp"
+               scope="request"
+               validate="false">
+      <forward name="success"
+               path="/WEB-INF/pages/section/userGroupSearch.jsp" />
+      <forward name="finished"
+               path="/section/userGroupSearch/finish.do" />
+    </action>
+
+    <!-- Used as an action: shortcut to perform a search.  -->
+    <action    path="/section/userGroupSearch/perform"
+               type="neo.phoenix.userGroup.UserGroupSearchAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               />
+
+    <!-- Used as an action: shortcut to go to the next page.  -->
+    <action    path="/section/userGroupSearch/next"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               parameter="next"
+               />
+
+    <!-- Used as an action: shortcut to go to the previous page.  -->
+    <action    path="/section/userGroupSearch/search/prev"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               parameter="prev"
+               />
+
+    
+    <action    path="/section/personSearch"
+               type="neo.phoenix.person.PersonSearchParametersAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/section/personSearch.jsp"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/personSearch.jsp" />
+    </action>
+
+
+<!--    <action    path="/section/personSearch"
+               forward="/WEB-INF/pages/section/personSearch.jsp" />
+-->
+    <action    path="/section/personSearch/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               input="/WEB-INF/pages/section/personSearch.jsp"
+               scope="request"
+               validate="false"
+               parameter="success finished">
+      <forward name="success"
+               path="/WEB-INF/pages/section/personSearch.jsp" />
+      <forward name="finished"
+               path="/section/personSearch/finish.do" />
+    </action>
+
+    <!-- Used to move from this form to the "parent" form. -->
+    <action    path="/section/personSearch/finish"
+               type="neo.phoenix.base.FinishChildFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               >
+    </action>
+
+    
+    
+    <!-- Used as an action: shortcut to perform a search.  -->
+    <action    path="/section/personSearch/perform"
+               type="neo.phoenix.person.PersonSearchAction"
+               name="neo.phoenix.section.PersonSearchFormSection"
+               scope="request"
+               validate="false"
+               />
+
+    <!-- Used as an action: shortcut to go to the next page.  -->
+    <action    path="/section/personSearch/next"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.section.PersonSearchFormSection"
+               scope="request"
+               validate="false"
+               parameter="next"
+               />
+
+    <!-- Used as an action: shortcut to go to the previous page.  -->
+    <action    path="/section/personSearch/prev"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.search.PersonSearchForm"
+               scope="request"
+               validate="false"
+               parameter="prev"
+               />
+
+
+    <action    path="/section/changeSubSectionSequence"
+               type="neo.phoenix.section.ChangeSequenceAction"
+               name="neo.phoenix.section.SequenceForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/sequence.jsp" />
+    </action>
+
+    <action    path="/section/changeSubSectionSequence/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.SequenceForm"
+               scope="request"
+               validate="false"
+               parameter="save edit"
+               >
+      <forward name="save"
+               path="/section/StoreSequenceChanges.do" />
+      <forward name="edit"
+               path="/WEB-INF/pages/section/sequence.jsp" />
+    </action>
+
+    <action    path="/section/StoreSequenceChanges"
+               type="neo.phoenix.section.StoreSequenceAction"
+               name="neo.phoenix.section.SequenceForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/view.jsp" />
+    </action>
+    
+    
+    <action    path="/section/editProperties"
+               type="neo.phoenix.section.GetSectionPropertiesAction"
+               name="neo.phoenix.section.PropertiesForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/editProperties.jsp" />
+    </action>
+
+
+    <action    path="/section/editProperties/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.PropertiesForm"
+               scope="request"
+               validate="false"
+               parameter="edit save cancel "
+               >
+      <!-- parameter is a space-separated list of mappings that are "internal" -->
+      <forward name="edit"
+               path="/WEB-INF/pages/section/editProperties.jsp" />
+      <forward name="save"
+               path="/section/storeProperties.do" />
+      <forward name="cancel"
+               path="/section/cancel.do" />
+    </action>
+
+    <action    path="/section/storeProperties"
+               type="neo.phoenix.section.StoreSectionPropertiesAction"
+               name="neo.phoenix.section.PropertiesForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/section/editProperties.jsp"
+               >
+      <forward name="success"
+               path="/section/search.do" />
+    </action>
+
+
+    
+    <action    path="/section/moveArticles"
+               type="neo.phoenix.base.BasicNewObjectAction"
+               name="neo.phoenix.section.MoveArticlesForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/move.jsp" />
+    </action>
+
+    <action    path="/section/moveArticles/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.MoveArticlesForm"
+               scope="request"
+               validate="false"
+               parameter="move edit"
+               >
+      <!-- parameter is a space-separated list of mappings that are "internal" -->
+      <forward name="move"
+               path="/section/moveArticles/store.do" />
+      <forward name="moveAsChild"
+               path="/section/moveArticles/storeAsChild.do" />
+      <forward name="edit"
+               path="/WEB-INF/pages/section/move.jsp" />
+    </action>
+    <action    path="/section/moveArticles/store"
+               type="neo.phoenix.section.MoveArticlesAction"
+               name="neo.phoenix.section.MoveArticlesForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/section/move.jsp"
+               >
+      <forward name="success"
+               path="/section/view.do" />
+    </action>
+    <action    path="/section/moveArticles/storeAsChild"
+               type="neo.phoenix.section.MoveArticlesAction"
+               name="neo.phoenix.section.MoveArticlesForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/section/move.jsp"
+               >
+      <forward name="success"
+               path="/section/moveArticles/finish.do" />
+    </action>
+    <action    path="/section/moveArticles/finish"
+               type="neo.phoenix.base.FinishChildFormAction"
+               name="neo.phoenix.section.MoveArticlesForm"
+               scope="request"
+               validate="false"
+               />
+
+    <action    path="/section/summarize"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/section/summarize.jsp" />
+    </action>
+    
+
+    <action    path="/section/summarize/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.section.SummarizeForm"
+               scope="request"
+               validate="false"
+               parameter="store view"
+               >
+      <!-- parameter is a space-separated list of mappings that are "internal" -->
+      <forward name="store"
+               path="/section/summarize/store.do" />
+      <forward name="view"
+               path="/WEB-INF/pages/section/summarize.jsp" />
+    </action>
+
+
+    <action    path="/section/summarize/store"
+               type="neo.phoenix.section.StoreSummarizeAction"
+               name="neo.phoenix.section.SummarizeForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/section/edit.jsp"
+               >
+      <forward name="success"
+               path="/section/search.do" />
+    </action>        
+
+   <!-- ************************************************************************
+          PERSONS
+        ************************************************************************ -->
+    <action    path="/person/new"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               scope="request"
+               validate="true"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/wizard/new.jsp" />
+    </action>
+
+    <action    path="/person/popup/new"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               scope="request"
+               validate="true"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/wizard/new-popup.jsp" />
+    </action>
+
+    <action    path="/user/new"
+               type="neo.phoenix.user.NewUserAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/wizard/new.jsp?isUser=true" />
+    </action>
+
+    <action    path="/user/popup/new"
+               type="neo.phoenix.user.NewUserAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/wizard/new-popup.jsp?isUser=true" />
+    </action>
+
+    <action    path="/person/new/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               parameter="properties save cancel globalRoles groups sectionRoles tagStructures contentTypes"
+               >
+      <forward name="properties"
+               path="/WEB-INF/pages/person/wizard/new.jsp" />
+      <forward name="globalRoles"
+               path="/WEB-INF/pages/person/wizard/globalRoles.jsp" />
+      <forward name="sectionRoles"
+               path="/WEB-INF/pages/person/wizard/sectionRoles.jsp" />
+      <forward name="groups"
+               path="/WEB-INF/pages/person/wizard/groups.jsp" />
+      <forward name="tagStructures"
+               path="/WEB-INF/pages/person/wizard/tagStructures.jsp" />
+      <forward name="contentTypes"
+               path="/WEB-INF/pages/person/wizard/contentTypes.jsp" />
+      <forward name="findGroups"
+               path="/userGroup/search.do" />
+      <forward name="save"
+               path="/person/insert.do" />
+      <forward name="cancel"
+               path="/person/new/cancel.do" />
+    </action>
+
+    <action    path="/person/new/popup/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               parameter="properties globalRoles sectionRoles groups save cancel"               
+               >
+      <forward name="properties"
+               path="/WEB-INF/pages/person/wizard/new-popup.jsp" />
+      <forward name="save"
+               path="/person/popup/insert.do" />
+      <forward name="cancel"
+               path="/person/popup/new/cancel.do" />
+    </action>
+    
+    <action    path="/person/new/cancel"
+               type="neo.phoenix.base.CancelAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/publication/view.do" />
+    </action>
+
+    <action    path="/person/insert"
+               type="neo.phoenix.person.StorePersonAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               parameter="basket:edited"
+               input="/WEB-INF/pages/person/wizard/new.jsp"
+               >
+      <forward name="success"
+               path="/person/search.do" />
+               
+    </action>
+
+    <action    path="/person/popup/new/cancel"
+               type="neo.phoenix.base.CancelAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/person/search/popup.do" />
+    </action>
+
+    <action    path="/person/popup/insert"
+               type="neo.phoenix.person.StorePersonAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               parameter="basket:edited"
+               input="/WEB-INF/pages/person/wizard/new-popup.jsp"
+               >
+      <forward name="success"
+               path="/person/search/popup.do" />
+    </action>
+
+
+    <action    path="/person/search"
+               type="neo.phoenix.person.PersonSearchParametersAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/person/search.jsp"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/search.jsp" />
+      <forward name="search"
+               path="/person/search/perform.do" />
+    </action>
+
+
+    <action    path="/person/search/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               input="/WEB-INF/pages/person/search.jsp"
+               scope="request"
+               validate="false"
+               parameter="success finished main-menu reset">
+      <forward name="success"
+               path="/WEB-INF/pages/person/search.jsp" />
+      <forward name="finished"
+               path="/person/search/finish.do" />
+      <forward name="reset"
+               path="/person/search/reset.do" />
+    </action>
+
+    <action    path="/person/search/reset"
+               type="neo.phoenix.base.ResetSearchFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/person/search.jsp"
+               >
+      <forward name="success" redirect="true"
+               path="/person/search.do" />
+    </action>
+    
+    <!-- Used to move from this form to the "parent" form. -->
+    <action    path="/person/search/finish"
+               type="neo.phoenix.base.FinishChildFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               >
+    </action>
+
+    
+    <action    path="/person/search/popup"
+               type="neo.phoenix.person.PersonSearchParametersAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/person/search-popup.jsp"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/search-popup.jsp" />
+      <forward name="search"
+               path="/person/search/popup/perform.do" />
+    </action>
+
+    <action    path="/person/search/popup/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               input="/WEB-INF/pages/person/search-popup.jsp"
+               scope="request"
+               validate="false"
+               parameter="success finished main-menu reset">
+      <forward name="success"
+               path="/WEB-INF/pages/person/search-popup.jsp" />
+      <forward name="reset"
+               path="/person/search/popup/reset.do" />
+    </action>
+
+    <action    path="/person/search/popup/reset"
+               type="neo.phoenix.base.ResetSearchFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/person/search-popup.jsp"
+               >
+      <forward name="success" redirect="true"
+               path="/person/search/popup.do" />
+    </action>
+
+    
+    <!-- Used as an action: shortcut to perform a search.  -->
+    <action    path="/person/search/perform"
+               type="neo.phoenix.person.PersonSearchAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false">
+      <forward name="success"
+	       path="/WEB-INF/pages/person/search.jsp" />
+    </action>
+
+    <action    path="/person/search/popup/perform"
+               type="neo.phoenix.person.PersonSearchAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false">
+      <forward name="success"
+	       path="/WEB-INF/pages/person/search-popup.jsp" />
+    </action>
+
+    <action    path="/person/search/switchMode"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/search.jsp" />
+    </action>
+    
+    <action    path="/person/search/popup/switchMode"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/search-popup.jsp" />
+    </action>
+    
+    <action    path="/person/search/deletePersons"
+               type="neo.phoenix.base.DeleteObjectsAction"
+               scope="request"
+               validate="true">
+      <forward name="success"
+               path="/person/search.do" />
+      <forward name="warning"
+               path="/WEB-INF/pages/person/deleteWarning.jsp" />
+    </action>
+
+
+    <action    path="/person/search/deletePersons/dispatch"
+               name="neo.phoenix.base.DeleteObjectsForm"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               input="/WEB-INF/pages/person/deleteWarning.jsp"
+               scope="request"
+               validate="true" parameter="warning success">
+      <forward name="success"
+               path="/person/search.do" />
+      <forward name="warning"
+               path="/WEB-INF/pages/person/deleteWarning.jsp" />
+    </action>
+
+    <action    path="/person/search/deletePersons/replace"
+               name="neo.phoenix.base.DeleteObjectsForm"
+               type="neo.phoenix.person.ReplaceAuthorsAction"
+               scope="request"
+               validate="true"/>
+
+
+    <action    path="/base/showDeleteWarning/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.base.DeleteObjectsForm"
+               scope="request"
+               validate="false"
+               parameter="view">
+      <forward name="view"
+               path="/WEB-INF/pages/archive/deleteWarning.jsp" />
+    </action>
+
+
+    <action    path="/person/search/pager"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               />
+
+    <!-- Used as an action: shortcut to go to the next page.  -->
+    <action    path="/person/search/next"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               parameter="next"
+               />
+
+    <!-- Used as an action: shortcut to go to the previous page.  -->
+    <action    path="/person/search/prev"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               parameter="prev"
+               />
+    <action    path="/person/search/addPersonsToBasket"
+               type="neo.phoenix.base.AddObjectsToBasketAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="true"
+               />
+
+    <action    path="/person/search/invertSelection"
+               type="neo.phoenix.base.InvertSelectionAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="false"
+               />
+    <action    path="/person/search/addPersonsToWorkItem"
+               type="neo.phoenix.base.AddToWorkItemAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="true"
+               />
+
+
+    <!-- Edit an existing person ("/person/edit?id=xxx")-->
+    <action    path="/person/edit"
+               type="neo.phoenix.person.GetPersonAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               parameter="basket:edited"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/edit.jsp" />
+    </action>
+
+
+    <action    path="/person/edit/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               parameter="edit editRoles save saveAndClose close editGlobalRoles editGroups editProfiles editTagStructures editContentTypes"
+               >
+      <forward name="edit"
+               path="/WEB-INF/pages/person/edit.jsp" />
+      <forward name="editRoles"
+               path="/WEB-INF/pages/person/editRoles.jsp" />
+      <forward name="editGroups"
+               path="/WEB-INF/pages/person/editGroups.jsp" />
+      <forward name="editGlobalRoles"
+               path="/WEB-INF/pages/person/editGlobalRoles.jsp" />
+      <forward name="editProfiles"
+               path="/WEB-INF/pages/person/editProfiles.jsp" />
+      <forward name="editTagStructures"
+               path="/WEB-INF/pages/person/editTagStructures.jsp" />
+      <forward name="editContentTypes"
+               path="/WEB-INF/pages/person/editContentTypes.jsp" />
+      <forward name="save"
+               path="/person/store.do" />
+      <forward name="saveAndClose"
+               path="/person/store.do" />
+      <forward name="findGroups"
+               path="/userGroup/search.do" />
+      <forward name="findGroupsForGuest"
+               path="/userGroup/search.do?hidePubs=true" />
+      <forward name="close"
+               path="/person/cancel.do"/>
+      <forward name="addFromMyClips"
+               path="/basket/search.do"/>
+    </action>
+
+    <action    path="/person/cancel"
+               type="neo.phoenix.base.CancelAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/person/search.do" />
+    </action>
+
+    <action    path="/person/view"
+               type="neo.phoenix.person.ViewPersonAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/view.jsp" />
+    </action>
+
+    <action    path="/person/view/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               parameter="view viewRoles viewGroups back"               
+               >
+      <forward name="view"
+               path="/WEB-INF/pages/person/view.jsp" />
+      <forward name="viewRoles"
+               path="/WEB-INF/pages/person/viewRoles.jsp" />
+      <forward name="viewGroups"
+               path="/WEB-INF/pages/person/viewGroups.jsp" />
+      <forward name="back"
+               path="/person/search.do" />
+    </action>
+
+    <action    path="/person/findAllGroups"
+               type="neo.phoenix.person.FindAllGroupsAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/viewGroups.jsp" />
+    </action>
+
+    
+    <action    path="/person/RemovePersonFromUserGroup"
+               type="neo.phoenix.person.RemoveUserGroupAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request">
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp"/>
+    </action>
+
+   <action    path="/person/store"
+               type="neo.phoenix.person.StorePersonAction"
+               name="neo.phoenix.person.PersonForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/person/edit.jsp"
+               parameter="basket:edited"
+               >
+      <forward name="success"
+               path="/person/search.do" />
+    </action>
+
+    <action    path="/person/addPersonToBasket"
+               type="neo.phoenix.person.AddPersonToBasketAction">
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp"/>
+    </action>
+
+     <action    path="/person/removePersonFromBasket"
+               type="neo.phoenix.person.RemovePersonFromBasketAction">
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp"/>
+    </action>
+
+    <action    path="/person/addPersonsToBasket"
+               type="neo.phoenix.base.AddObjectsToBasketAction"
+               name="neo.phoenix.person.PersonSearchForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/person/search.jsp"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/search.jsp" />
+    </action>
+
+    <action    path="/person/delete"
+               type="neo.phoenix.base.DeleteObjectAction"
+               scope="request"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/search.jsp" />
+    </action>
+
+    <action    path="/person/changePassword"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/person/changePassword.jsp" />
+    </action>
+    
+    <action    path="/person/changePassword/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.person.PasswordForm"
+               input="/WEB-INF/pages/person/changePassword.jsp"
+               scope="request"
+               validate="false"
+               parameter="save cancel"
+               >
+      <forward name="save" path="/person/changePassword/perform.do" />
+      <forward name="cancel" path="/main-menu.do" />
+    </action>
+    <action    path="/person/changePassword/perform"
+               type="neo.phoenix.person.ChangePasswordAction"
+               name="neo.phoenix.person.PasswordForm"
+               input="/WEB-INF/pages/person/changePassword.jsp"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success" path="/main-menu.do" />
+      <forward name="cancel" path="/person/changePassword" />
+    </action>
+
+   <!-- ************************************************************************
+          PROFILE
+        ************************************************************************ -->
+    <action    path="/profile/search"
+      type="neo.phoenix.profile.ProfileSearchParametersAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      input="/WEB-INF/pages/profile/search.jsp"
+      >
+      <forward name="success"
+        path="/WEB-INF/pages/profile/search.jsp" />
+    </action>
+    
+    
+    <action    path="/profile/search/dispatch"
+      type="neo.phoenix.base.MultiplePageDispatchAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      input="/WEB-INF/pages/profile/search.jsp"
+      scope="request"
+      validate="false"
+      parameter="success finished main-menu reset">
+      <forward name="success"
+        path="/WEB-INF/pages/profile/search.jsp" />
+      <forward name="finished"
+        path="/profile/search/finish.do" />
+      <forward name="reset"
+        path="/profile/search.do?reset=true" />
+    </action>
+    
+    <!-- Used to move from this form to the "parent" form. -->
+    <action    path="/profile/search/finish"
+      type="neo.phoenix.base.FinishChildFormAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      >
+    </action>
+    
+    <!-- Used as an action: shortcut to perform a search.  -->
+    <action    path="/profile/search/perform"
+	       type="neo.phoenix.profile.ProfileSearchAction"
+	       name="neo.phoenix.profile.ProfileSearchForm"
+	       scope="request"
+	       validate="false">
+      <forward name="success"
+	       path="/WEB-INF/pages/profile/search.jsp" />
+    </action>
+    
+    <action    path="/profile/search/pager"
+      type="neo.phoenix.base.PagedFormAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      />
+    
+    <!-- Used as an action: shortcut to go to the next page.  -->
+    <action    path="/profile/search/next"
+      type="neo.phoenix.base.PagedFormAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      parameter="next"
+      />
+    
+    <!-- Used as an action: shortcut to go to the previous page.  -->
+    <action    path="/profile/search/prev"
+      type="neo.phoenix.base.PagedFormAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      parameter="prev"
+      />
+
+    <action    path="/profile/search/clearSelection"
+      type="neo.phoenix.base.ClearSelectionAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      parameter="prev"
+      />
+
+    <action    path="/profile/search/selectAll"
+      type="neo.phoenix.base.SelectAllAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      parameter="prev"
+      />
+
+    <action    path="/profile/search/deleteProfiles"
+      type="neo.phoenix.profile.DeleteProfilesAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      />
+
+    <action    path="/profile/search/resetPasswords"
+      type="neo.phoenix.profile.ResetPasswordAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      />
+
+    <action    path="/profile/search/ban"
+      type="neo.phoenix.profile.BanAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      />
+
+    <action    path="/profile/search/pardon"
+      type="neo.phoenix.profile.PardonAction"
+      name="neo.phoenix.profile.ProfileSearchForm"
+      scope="request"
+      validate="false"
+      />
+
+   <!-- ************************************************************************
+          USERGROUP
+        ************************************************************************ -->
+    <action    path="/userGroup/new"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/userGroup/new.jsp" />
+    </action>
+
+    <action    path="/userGroup/insert/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/userGroup/new.jsp"
+               parameter="save cancel validate"
+               >
+      <forward name="save"
+               path="/userGroup/insert.do" />
+      <forward name="validate"
+               path="/WEB-INF/pages/userGroup/new.jsp" />
+      <forward name="cancel"
+               path="/publication/view.do" />
+    </action>
+  
+    <action    path="/userGroup/insert"
+               type="neo.phoenix.userGroup.InsertUserGroupAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/userGroup/new.jsp"
+               >
+      <forward name="success"
+               path="/userGroup/edit.do" />
+    </action>
+    
+    <action    path="/userGroup/search"
+               type="neo.phoenix.userGroup.UserGroupSearchParametersAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/userGroup/search.jsp"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/userGroup/search.jsp" />
+      <forward name="search"
+               path="/userGroup/search/perform.do" />
+    </action>
+
+    <!-- Used to move from this form to the "parent" form. -->
+    <action    path="/userGroup/search/finish"
+               type="neo.phoenix.base.FinishChildFormAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               >
+    </action>
+    
+    <action    path="/userGroup/search/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               input="/WEB-INF/pages/userGroup/search.jsp"
+               scope="request"
+               parameter="finished success main-menu reset"
+               validate="false">
+      <forward name="success"
+               path="/WEB-INF/pages/userGroup/search.jsp" />
+      <forward name="finished"
+               path="/userGroup/search/finish.do" />
+      <forward name="reset"
+               path="/userGroup/search/reset.do" />
+    </action>
+
+    <action    path="/userGroup/search/reset"
+               type="neo.phoenix.base.ResetSearchFormAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               input="/WEB-INF/pages/userGroup/search.jsp"
+               >
+      <forward name="success" redirect="true"
+               path="/userGroup/search.do" />
+    </action>
+
+    <action    path="/userGroup/search/deleteUserGroups"
+               type="neo.phoenix.userGroup.DeleteUserGroupsAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="true">
+      <forward name="success"
+               path="/userGroup/search.do" />
+      <forward name="warning"
+               path="/WEB-INF/pages/userGroup/confirmDelete.jsp" />
+    </action>
+
+    <action    path="/userGroup/search/pager"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               />
+
+    <!-- Used as an action: shortcut to perform a search.  -->
+    <action    path="/userGroup/search/perform"
+               type="neo.phoenix.userGroup.UserGroupSearchAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+	       validate="false">
+      <forward name="success"
+	       path="/userGroup/search.do" />
+    </action>
+
+    <!-- Used as an action: shortcut to go to the next page.  -->
+    <action    path="/userGroup/search/next"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               parameter="next"
+               />
+
+    <!-- Used as an action: shortcut to go to the previous page.  -->
+    <action    path="/userGroup/search/prev"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               parameter="prev"
+               />
+    <action    path="/userGroup/search/addUserGroupsToBasket"
+               type="neo.phoenix.base.AddObjectsToBasketAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="true"
+               />
+
+    <action    path="/userGroup/search/invertSelection"
+               type="neo.phoenix.base.InvertSelectionAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="false"
+               />
+    <action    path="/userGroup/search/addUserGroupsToWorkItem"
+               type="neo.phoenix.base.AddToWorkItemAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="true"
+               />
+
+    <!-- Edit an existing usergroup ("/userGroup/edit?name=xxx")-->
+    <action    path="/userGroup/edit"
+               type="neo.phoenix.userGroup.GetUserGroupAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/userGroup/editMembers.jsp" />
+    </action>
+
+   <action    path="/userGroup/edit/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               parameter="editMembers editGroups editRoles save close editGlobalRoles editTagStructures editContentTypes"
+               >
+      <forward name="editMembers"
+               path="/WEB-INF/pages/userGroup/editMembers.jsp" />
+      <forward name="editGroups"
+               path="/WEB-INF/pages/userGroup/editGroups.jsp" />
+      <forward name="editRoles"
+               path="/WEB-INF/pages/userGroup/editRoles.jsp" />
+      <forward name="editGlobalRoles"
+               path="/WEB-INF/pages/userGroup/editGlobalRoles.jsp" />
+      <forward name="editTagStructures"
+               path="/WEB-INF/pages/userGroup/editTagStructures.jsp" />
+      <forward name="editContentTypes"
+               path="/WEB-INF/pages/userGroup/editContentTypes.jsp" />
+      <forward name="save"
+               path="/userGroup/store.do" />
+      <forward name="findUsers"
+               path="/person/search.do" />
+      <forward name="findGroups"
+               path="/userGroup/search.do" />
+      <forward name="addFromMyClips"
+               path="/basket/search.do"/>
+      <forward name="close"
+               path="/userGroup/cancel.do"/>
+               
+    </action>
+    <action    path="/userGroup/edit/members/next"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               parameter="next"
+               />
+
+    <action    path="/userGroup/edit/members/pager"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               />
+
+    <!-- Used as an action: shortcut to perform a name search.  -->
+    <action    path="/userGroup/edit/members/prev"
+               type="neo.phoenix.base.PagedFormAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               parameter="prev"
+               />
+
+    <action    path="/userGroup/cancel"
+               type="neo.phoenix.base.CancelAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/userGroup/search.do" />
+    </action>
+
+
+    <action    path="/userGroup/view"
+               type="neo.phoenix.userGroup.GetUserGroupAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/userGroup/view.jsp" />
+    </action>
+
+    <action    path="/userGroup/view/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="false"
+               parameter="view viewRoles back"               
+               >
+      <forward name="view"
+               path="/WEB-INF/pages/userGroup/view.jsp" />
+      <forward name="viewRoles"
+               path="/WEB-INF/pages/userGroup/viewRoles.jsp" />
+      <forward name="back"
+               path="/userGroup/search.do" />
+    </action>
+
+    <action    path="/userGroup/store"
+               type="neo.phoenix.userGroup.StoreUserGroupAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/userGroup/editMembers.jsp"
+               >
+      <forward name="success"
+               path="/userGroup/search.do" />
+    </action>
+
+
+    <action    path="/userGroup/addUserToUserGroupFromBasket"
+               type="neo.phoenix.userGroup.AddPersonsToUserGroupFromBasketAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request">
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp"/>
+    </action>
+    
+    <action    path="/userGroup/addGroupToUserGroupFromBasket"
+               type="neo.phoenix.userGroup.AddGroupsToUserGroupFromBasketAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request">
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp"/>
+    </action>
+    <action    path="/userGroup/RemovePersonFromUserGroup"
+               type="neo.phoenix.userGroup.RemovePersonFromUserGroupAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request">
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp"/>
+    </action>
+    <action    path="/userGroup/RemoveGroupFromUserGroup"
+               type="neo.phoenix.userGroup.RemoveGroupFromGroupAction"
+               name="neo.phoenix.userGroup.UserGroupForm"
+               scope="request">
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp"/>
+    </action>
+
+    <action    path="/userGroup/addUserGroupToBasket"
+               type="neo.phoenix.userGroup.AddUserGroupToBasketAction">
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp"/>
+    </action>
+    <action    path="/userGroup/removeUserGroupFromBasket"
+               type="neo.phoenix.userGroup.RemoveUserGroupFromBasketAction">
+      <forward name="success"
+               path="/WEB-INF/pages/basket/edit.jsp"/>
+    </action>
+
+    <action    path="/userGroup/addUserGroupsToBasket"
+               type="neo.phoenix.userGroup.AddUserGroupsToBasketAction"
+               name="neo.phoenix.userGroup.UserGroupSearchForm"
+               scope="request"
+               validate="true"
+               input="/WEB-INF/pages/userGroup/search.jsp"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/userGroup/search.jsp" />
+    </action>
+
+    <action    path="/userGroup/delete"
+               type="neo.phoenix.userGroup.DeleteGroupAction"
+               scope="request"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/userGroup/search.jsp" />
+      <forward name="unconfirmed"
+               path="/WEB-INF/pages/userGroup/confirmDelete.jsp" />
+               
+    </action>
+
+  <!-- ************************************************************************
+         BASKET
+        ************************************************************************ -->
+    <action    path="/basket/edit"
+               type="neo.phoenix.base.BasicAuthenticatedAction">
+      <forward name="success"
+               path="/WEB-INF/pages/basket/edit.jsp?enableDelete=true"/>
+    </action>
+    <action    path="/basket/RemoveObjectFromBasket"
+               type="neo.phoenix.base.RemoveObjectFromBasketAction">
+      <forward name="success"
+               path="/WEB-INF/pages/basket/edit.jsp"/>
+    </action>
+    <action    path="/basket/ClearBasket"
+               type="neo.phoenix.base.ClearBasketAction">
+      <forward name="success"
+               path="/WEB-INF/pages/basket/edit.jsp"/>
+    </action>
+    <action    path="/basket/search"
+               type="neo.phoenix.basket.BasketSearchAction"
+               name="neo.phoenix.basket.BasketSearchForm"
+               scope="request"
+               validate="false">
+      <forward name="success"
+               path="/WEB-INF/pages/basket/search.jsp"/>
+    </action>
+    <action    path="/basket/search/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.basket.BasketSearchForm"
+               scope="request"
+               validate="false"
+               parameter="finish"
+               >
+      <!-- parameter is a space-separated list of mappings that are "internal" -->
+      <forward name="finish"
+               path="/basket/search/finish.do" />
+    </action>
+
+	
+    <!-- Used to move from this form to the "parent" form. -->
+    <action    path="/basket/search/finish"
+               type="neo.phoenix.base.FinishChildFormAction"
+               name="neo.phoenix.basket.BasketSearchForm"
+               scope="request"
+               validate="false"
+               >
+    </action>
+  
+  
+    <!-- Restores a previously saved work item.  If the item doesn't exist, it
+         is simply forwarded to an internal error...  
+         Here, internal-error is redirected to the main menu, so that the error is caught...
+         Work items are stored when exiting a multi-page form, or if an action says to do so.
+      -->
+    <action    path="/base/restoreWork"
+               type="neo.phoenix.base.RestoreWorkItemAction">
+      <forward name="internal-error"
+               path="/main-menu.do" />
+    </action>
+    <!-- closes a workitem represented by the id-parameter or all if 
+         all is set to true --> 
+    <action    path="/base/closeWorkItem"
+               type="neo.phoenix.base.CloseWorkItemAction">
+      <forward name="internal-error"
+               path="/main-menu.do" />
+    </action>
+
+    <!-- Removes a session scoped attribute of the given name.  The "attribute" parameter is used to 
+         identify the attribute to remove.  Use this as an "action:/base/clearSessionAttribute" action
+      -->
+    <action    path="/base/clearSessionAttribute"
+               type="neo.phoenix.base.ClearSessionAttributeAction"/>
+
+    
+    <!-- Removes a session scoped attribute of the given name.  The "attribute" parameter is used to 
+         identify the attribute to remove, and the "value" parameter must be set to the new value.
+         Use this as an "action:/base/setSessionAttribute" action
+      -->
+    <action    path="/base/setSessionAttribute"
+               type="neo.phoenix.base.SetSessionAttributeAction"/>
+
+    <!-- A basic dispatcher that is used from typically static pages. -->
+    <action    path="/base/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.base.SimpleMultiplePageForm"
+               scope="request"
+               validate="false" />
+
+
+
+    <!-- A basic dispatcher that is used to forward to global forwards (by the "submitForm" method).
+         It simply forwards to the action mapping defined by the "forward" request parameter.
+      -->
+    <action    path="/base/forward"
+               type="neo.phoenix.base.SimpleForwardAction" />
+
+
+    <!-- A basic page to change languages -->
+    <action    path="/base/changeLanguage"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/other/changeLanguage.jsp" />
+    </action>
+
+
+    <action    path="/base/changeLanguage/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.base.LanguageForm"
+               input="/WEB-INF/pages/other/changeLanguage.jsp"
+               scope="request"
+               validate="false"
+               >
+      <forward name="change"
+               path="/base/changeLanguage/change.do" />
+      <forward name="input"
+               path="/WEB-INF/pages/other/changeLanguage.jsp" />
+    </action>
+
+
+    <action    path="/base/changeLanguage/change"
+               type="neo.phoenix.base.SetLanguageAction"
+               name="neo.phoenix.base.LanguageForm"
+               scope="request"
+               validate="false"/>
+
+    <!-- A basic page to change article types for create new article -->
+    <action    path="/base/changeArticleTypes"
+	       type="neo.phoenix.base.BasicAuthenticatedAction"
+	       >
+      <forward name="success"
+	       path="/WEB-INF/pages/other/changeArticleTypes.jsp" />
+    </action>
+
+    <action    path="/base/changeArticleTypes/dispatch"
+	       type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.base.SettingsForm"
+	       input="/WEB-INF/pages/other/changeArticleTypes.jsp"
+	       scope="request"
+	       validate="false"
+	       >
+      <forward name="change"
+	       path="/base/changeArticleTypes/change.do" />
+      <forward name="input"
+	       path="/WEB-INF/pages/other/changeArticleTypes.jsp" />
+    </action>
+
+    <action    path="/base/changeArticleTypes/change"
+               type="neo.phoenix.base.SetSettingsAction"
+               name="neo.phoenix.base.SettingsForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success" path="/main-menu.do"/>
+    </action>
+
+
+    <action    path="/base/deleteObject"
+               type="neo.phoenix.base.DeleteObjectAction"
+               scope="request"
+               >
+    </action>
+
+
+    <action    path="/objects/home"
+               type="neo.phoenix.base.BasicAuthenticatedAction"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/other/objects.jsp" />
+    </action>
+
+    <!-- Simple page redirection forwards, to show authenticated users pages -->
+    <action    path="/main-menu"
+               type="neo.phoenix.mainmenu.MainMenuParametersAction"
+               name="neo.phoenix.mainmenu.MainMenuForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp"/>
+    </action>
+
+    <action    path="/main-menu/dispatch"
+               type="neo.phoenix.base.MultiplePageDispatchAction"
+               name="neo.phoenix.mainmenu.MainMenuForm"
+               scope="request"
+               validate="false"
+               >
+      <forward name="success"
+               path="/WEB-INF/pages/main-menu.jsp" />
+    </action>
+
+
+    <!-- Simple page redirection forwards, to show non-authenticated users pages -->
+    <action    path="/showlogon"
+               forward="/WEB-INF/pages/logon/logon.jsp" />
+
+    <!-- The standard administrative actions available with Struts -->
+    <!-- These would be either omitted or protected by security -->
+    <!-- in a real application deployment -->
+
+    <action    path="/admin/reload"
+               type="org.apache.struts.actions.ReloadAction"/>
+    <!--  removed by -mogsie-
+    <action    path="/admin/addFormBean"
+               type="org.apache.struts.actions.AddFormBeanAction"/>
+    <action    path="/admin/addForward"
+               type="org.apache.struts.actions.AddForwardAction"/>
+    <action    path="/admin/addMapping"
+               type="org.apache.struts.actions.AddMappingAction"/>
+    <action    path="/admin/removeFormBean"
+               type="org.apache.struts.actions.RemoveFormBeanAction"/>
+    <action    path="/admin/removeForward"
+               type="org.apache.struts.actions.RemoveForwardAction"/>
+    <action    path="/admin/removeMapping"
+               type="org.apache.struts.actions.RemoveMappingAction"/>
+    -->
+
+    <!-- these should be removed later!!!!!!!!!!!! -->
+    <action    path="/plugin/xmlEditor/saveXML"                    
+         type="com.escenic.xmlEditor.struts.SaveXMLAction">
+      <forward name="success"              path="/showlogon.do" />
+</action>
+    <action    path="/plugin/xmlEditor/getTemplates"                    
+         type="com.escenic.xmlEditor.struts.GetTemplateAction">
+      <forward name="success"              path="/showlogon.do" />
+</action>
+
+<action    path="/plugin/xmlEditor/getXML"                    
+       type="com.escenic.xmlEditor.struts.GetXMLAction">
+  <forward name="success"              path="/showlogon.do" />
+</action>
+<action    path="/plugin/xmlEditor/getSections"                    
+       type="com.escenic.xmlEditor.struts.GetSectionsAction">
+  <forward name="success"              path="/showlogon.do" />
+</action>
+<action    path="/plugin/menuEditor/editMenu"                    
+       type="neo.phoenix.base.BasicAuthenticatedAction">
+  <forward name="success"              path="/plugin/menuEditor/menuEditor.jsp" />
+</action>
+<action    path="/plugin/sectionFeed/editFeed"                    
+       type="neo.phoenix.base.BasicAuthenticatedAction">
+  <forward name="success"              path="/plugin/sectionFeed/editFeed.jsp" />
+</action>
+
+
+<!-- START ACTION-MAPPINGS-PLUGINS START ***** -->
+<!-- START Do not modify: machine readable format ***** -->
+
+
+
+
+
+<!-- END   Do not modify: machine readable format ***** -->
+<!-- END   ACTION-MAPPINGS-PLUGINS END ***** -->
+  </action-mappings>
+
+<controller>
+<set-property property="processorClass" value="neo.phoenix.base.CustomRequestProcessor"/>
+</controller>
+
+
+  <message-resources null="false" parameter="neo.phoenix.Resources"/>
+
+<!-- // future plugin stuff...
+  <plug-in className="neo.phoenix.base.StrutsPlugIn">
+    <set-property property="component" value="phoenix"/>
+    <set-property property="version" value="@@VERSION@@"/>
+    <set-property property="webapp" value="escenic"/>
+  </plug-in>
+-->
+
+</struts-config>

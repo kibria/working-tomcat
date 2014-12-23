@@ -1,0 +1,4 @@
+<state xmlns="http://xmlns.escenic.com/2013/content-state"
+       xmlns:ui="http://xmlns.escenic.com/2008/interface-hints">
+  <name>published</name>
+</state>

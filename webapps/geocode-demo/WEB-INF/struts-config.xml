@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+        
+<struts-config>
+
+  <form-beans>
+    <form-bean name="com.escenic.geocode.presentation.struts.GeoArticleSearchForm"
+               type="com.escenic.geocode.presentation.struts.GeoArticleSearchForm"/>
+  </form-beans>
+
+  <action-mappings>
+    <action path="/geoArticleSearch"
+            type="com.escenic.geocode.presentation.struts.GeoArticleSearchAction"
+            name="com.escenic.geocode.presentation.struts.GeoArticleSearchForm"
+            scope="request"
+            validate="false"
+            parameter="actionCommand">
+      <forward name="success" path="/template/common.jsp"/>
+      <forward name="error" path="/template/common.jsp"/>
+    </action>
+  </action-mappings>
+
+  <message-resources parameter="com.escenic.geocode.Resources"/>
+</struts-config>
+        

@@ -1,0 +1,28 @@
+<%!
+  public String trim(String pSource) {
+    return trim(pSource, 15);
+  }
+
+  public String trim(String pSource, int maxLength) {
+    if(pSource == null) {
+      return "";
+    }
+    if(pSource.length()> maxLength) {
+      return pSource.substring(0,maxLength) + "...";
+    }
+    return pSource;
+  }
+  
+  public String trimAndAddSpan(String pSource) {
+    return trimAndAddSpan(pSource, 15);
+  }
+  
+  public String trimAndAddSpan(String pSource, int pMaxLength) {
+    String sSource = trim(pSource, pMaxLength);
+    if(pSource.equals(sSource)) {
+      return sSource;
+    }
+    return "<span title=\"" + pSource + "\">" + sSource + "</span>";
+  }
+%>
+

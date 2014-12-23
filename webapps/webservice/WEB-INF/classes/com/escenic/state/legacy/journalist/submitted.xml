@@ -1,0 +1,26 @@
+<state xmlns="http://xmlns.escenic.com/2013/content-state"
+       xmlns:ui="http://xmlns.escenic.com/2008/interface-hints">
+  <name>submitted</name>
+  <actions>
+    <action>submitted</action>
+    <action>draft</action>
+    <action>deleted</action>
+  </actions>
+  <choices>
+    <name>default</name>
+    <choice>
+      <name>submitted</name>
+      <action>submitted</action>
+    </choice>
+    <ui:separator/>
+    <choice>
+      <name>draft</name>
+      <action>draft</action>
+    </choice>
+    <ui:separator/>
+    <choice>
+      <name>deleted</name>
+      <action>deleted</action>
+    </choice>
+  </choices>
+</state>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.apache.solr</groupId>
+	<artifactId>solr</artifactId>
+	<version>${solr.version}-ece-patch</version>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr</artifactId>
+			<version>${solr.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-solrj</artifactId>
+			<version>${solr.version}-ece</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-codec</groupId>
+					<artifactId>commons-codec</artifactId>
+				</exclusion>
+			</exclusions>			
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<!-- Exclude JCL and LOG4J since all logging should go through SLF4J. 
+						Note that we're excluding log4j-<version>.jar but keeping log4j-over-slf4j-<version>.jar -->
+					<!-- <packagingExcludes>%regex[WEB-INF/lib/solr-solrj.jar] -->
+					<!-- </packagingExcludes> -->
+					<packagingExcludes>%regex[WEB-INF/lib/solr-solrj.*0.jar]</packagingExcludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<properties>
+		<solr.version>4.6.0</solr.version>
+		<slf4j.version>1.7.2</slf4j.version>
+		<log4j.version>1.2.17</log4j.version>
+	</properties>
+
+</project>

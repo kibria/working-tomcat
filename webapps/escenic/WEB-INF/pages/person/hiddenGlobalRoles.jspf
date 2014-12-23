@@ -1,0 +1,4 @@
+<logic:iterate id="current" name="neo.phoenix.person.PersonForm" property="globalRoles" type="java.lang.String">
+  <% String key = "globalRole(" + current + ")";%>
+  <html:hidden property="<%=key%>"/>
+</logic:iterate>

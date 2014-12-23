@@ -1,0 +1,13 @@
+<logic:iterate name="form" property="relatedObjects" id="item" >
+  <% String p1 = "relatedObject(" + item + ").id"; 
+     String p2 = "relatedObject(" + item + ").type"; 
+     String p3 = "relatedObject(" + item + ").publicationId"; 
+     String p4 = "relatedObject(" + item + ").attributeNames";  %>
+  <html:hidden property="<%=p1%>"/>
+  <html:hidden property="<%=p2%>"/>
+  <html:hidden property="<%=p3%>"/>
+  <logic:iterate name="form" property="<%=p4%>" id="attr" >
+    <% String p5 = "relatedObject(" + item + ").attribute(" + attr + ")"; %>
+    <html:hidden property="<%=p5%>" />
+  </logic:iterate>
+</logic:iterate>

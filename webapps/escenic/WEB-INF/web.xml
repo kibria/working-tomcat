@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+  version="2.4">
+  <display-name>Escenic Webstudio Webapp</display-name>
+
+  <!-- Which languages should be supported?
+    == Enter a comma-separated list of languages for
+    == which there are resource bundles.
+    == To install a resource bundle, place it in
+    == /WEB-INF/classes/neo/phoenix/Resources_xx.properties
+    == where xx is the language code.
+    == country and variant codes are not supported yet
+    -->
+    
+  <context-param>
+    <param-name>languages</param-name>
+    <param-value>en,en_GB,de,da,no,nl,pl</param-value>
+  </context-param>
+
+  <filter>
+    <filter-name>TopFilter</filter-name>
+    <filter-class>com.escenic.servlet.TopFilter</filter-class>
+    <init-param>
+      <param-name>shared-instance</param-name>
+      <param-value>nursery://global/neo/io/reports/Top</param-value>
+    </init-param>
+  </filter>
+
+  <filter>
+    <filter-name>ECEPersistentAttributeFilter</filter-name>
+    <filter-class>com.escenic.servlet.PersistentAttributeFilter</filter-class>
+    <init-param>
+      <!-- By default keep cookies for 100 days -->
+      <param-name>
+        cookie.age
+      </param-name>
+      <param-value>
+        8640000
+      </param-value>
+    </init-param>
+
+     <!--  By default, cookie paths are set to whatever the container suggests.
+    <init-param>
+      <param-name>
+        cookie.path
+      </param-name>
+      <param-value>
+        /your/path/
+      </param-value>
+    </init-param>
+    -->
+
+     <!--  By default, the cookie domain is set to whatever the container suggests.
+    <init-param>
+      <param-name>
+        cookie.domain
+      </param-name>
+      <param-value>
+        your.server.name
+      </param-value>
+    </init-param>
+    -->
+  </filter>
+
+  <filter-mapping>
+    <filter-name>TopFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>ECEPersistentAttributeFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
+
+  <filter-mapping>
+    <filter-name>ECEPersistentAttributeFilter</filter-name>
+    <url-pattern>/</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>ECEPersistentAttributeFilter</filter-name>
+    <url-pattern>/index.jsp</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>/com/escenic/servlet/filter/OAuth2AuthorizationFilter</filter-name>
+    <filter-class>com.escenic.servlet.nursery.FilterBootstrapper</filter-class>
+  </filter>
+
+  <filter>
+    <filter-name>/com/escenic/servlet/filter/OAuth2TokenFilter</filter-name>
+    <filter-class>com.escenic.servlet.nursery.FilterBootstrapper</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>/com/escenic/servlet/filter/OAuth2AuthorizationFilter</filter-name>
+    <url-pattern>/oauth2/auth</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>/com/escenic/servlet/filter/OAuth2TokenFilter</filter-name>
+    <url-pattern>/logon/oauth2.do</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>ECEArticleTypeIcon</servlet-name>
+    <servlet-class>neo.phoenix.article.ArticleTypeIconServlet</servlet-class>
+  </servlet>
+
+  <!-- Example Database Initialization Servlet Configuration
+  <servlet>
+    <servlet-name>database</servlet-name>
+    <servlet-class>org.apache.struts.example.DatabaseServlet</servlet-class>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  -->
+
+
+  <!-- frame mapping understanding servlet  -->
+  <servlet>
+    <servlet-name>frame-mapping-servlet</servlet-name>
+    <jsp-file>/WEB-INF/frame-mapping-servlet.jsp</jsp-file>
+  </servlet>
+
+
+
+  <!-- Standard Action Servlet Configuration (with debugging) -->
+  <servlet id="action">
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <!-- 
+    <init-param>
+      <param-name>detail</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    -->
+    <init-param>
+      <param-name>validate</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>locale</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+
+  <!-- Standard Action Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ECEArticleTypeIcon</servlet-name>
+    <url-pattern>/articletype/icon</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>frame-mapping-servlet</servlet-name>
+    <url-pattern>/frame-mapping/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>frame-mapping-servlet</servlet-name>
+    <url-pattern>/frame-mapping</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <session-timeout>120</session-timeout>
+  </session-config>
+
+  <!-- The Usual Welcome File List -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+<!-- Security constraint.  If HTTP authentication is required to access
+     this web application, uncomment the lines below, and assign the
+     ECEUser role to the users or groups in question -->
+<!--
+   <security-constraint>
+      <web-resource-collection>
+         <web-resource-name>
+             Escenic Web Studio
+         </web-resource-name>
+         <url-pattern>/*</url-pattern>
+         <http-method>DELETE</http-method>
+         <http-method>GET</http-method>
+         <http-method>POST</http-method>
+         <http-method>PUT</http-method>
+      </web-resource-collection>
+      <auth-constraint>
+        <role-name>ECEUser</role-name>
+      </auth-constraint>
+   </security-constraint>
+   
+   <login-config>
+      <auth-method>BASIC</auth-method> 
+      <realm-name>Escenic Web Studio</realm-name>
+   </login-config>
+   
+   <security-role>
+     <description>Escenic Studio Users</description>
+     <role-name>ECEUser</role-name>
+   </security-role>
+-->
+
+</web-app>

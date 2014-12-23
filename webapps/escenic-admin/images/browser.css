@@ -1,0 +1,139 @@
+body {
+  background: white;
+  font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 0.75em;
+}
+td {
+  font-size: 0.75em;
+}
+
+a {
+  font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #000080;
+  text-decoration: none;
+}
+
+a:link {
+  color: #000080;
+  text-decoration: none;
+}
+
+a:active {
+  color: #3030FF;
+  text-decoration: none;
+}
+
+
+pre {
+  border: 0.1em dashed black;
+  background: #ddd;
+  padding: 0.5em 0.5em 1em 0.5em;
+  margin: 0.4em 0.4em 1.4em 0.4em;
+}
+
+.source:before {
+  content: "Read configuration layer ";
+  color: #663;
+}
+
+.source:after {
+  content: " as shown below:";
+  color: #663;
+}
+
+.method:before {
+  content: "Invoked method ";
+  color: #663;
+}
+
+.field:before {
+  content: "Set field ";
+  color: #663;
+}
+
+.CONSTRUCTOR_INVOKED .method:before {
+  content: "Called constructor ";
+}
+
+.WRAPPED_IN_PROXY .proxy:before {
+  content: "Wrapped in proxy ";
+  color: #663;
+}
+
+.args:before {
+  content: "(";
+}
+.args:after {
+  content: ");";
+}
+
+.property:before {
+  content: "Property \"";
+  color: #663;
+}
+
+.property:after {
+  content: "\"";
+  color: #663;
+}
+
+
+.VALUE_RESOLVED .property:before {
+  content: "To set the ";
+}
+
+.VALUE_RESOLVED .property:after {
+  content: " property the following substitution was done:";
+}
+
+
+.ALIAS_FOUND .component:before {
+  content: "This component is an alias for ";
+}
+
+.from, .to {
+  display: block;
+  font-style: italic;
+  margin-left: 1em;
+}
+
+.from:before {
+  content: "from ";
+  font-style: normal;
+  color: #663;
+}
+
+.to:before {
+  content: "to   ";
+  font-style: normal;
+  color: #663;
+}
+
+.LAYERS_MERGED:before {
+  content: "Configuration layers were merged, these properties were found:";
+  color: #663;
+}
+
+
+.EXCEPTION_HANDLED .classname:before {
+  content: "An exception was caught and handled gracefully: ";
+  color: #663;
+}
+
+.EXCEPTION_HANDLED .classname:after {
+  content: ": ";
+  color: #663;
+}
+
+.COMPONENT_CREATED .component:before {
+  content: "The component ";
+  color: #663;
+}
+.COMPONENT_CREATED .component:after {
+  content: " is now ready.";
+  color: #663;
+}

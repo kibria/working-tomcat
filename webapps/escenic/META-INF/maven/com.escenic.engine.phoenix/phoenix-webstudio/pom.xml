@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.escenic.engine.phoenix</groupId>
+    <artifactId>phoenix</artifactId>
+    <version>5.7.31.160659</version>
+  </parent>
+  <artifactId>phoenix-webstudio</artifactId>
+  <packaging>war</packaging>
+  <name>Phoenix :: Escenic Web Studio</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.escenic.engine.phoenix</groupId>
+      <artifactId>phoenix-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.escenic.engine</groupId>
+      <artifactId>engine-core</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.escenic.engine</groupId>
+      <artifactId>engine-syndication</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.escenic.engine</groupId>
+      <artifactId>engine-servletsupport</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>com.escenic.common</groupId>
+          <artifactId>common-nursery</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>oro</groupId>
+          <artifactId>oro</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.escenic.engine</groupId>
+      <artifactId>engine-taglib</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.common</groupId>
+      <artifactId>common-lang</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.common</groupId>
+      <artifactId>common-io</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.common</groupId>
+      <artifactId>common-image</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-core</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-metadata</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-jpeg</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>jspc</id>
+      <build>
+        <plugins>
+          <!--
+              * We precompile jsps to check that there are no errors, but do not wish to ship the app with them (less errorprone)
+              *
+              * The jspc-maven-plugin in version 2.0-alpha-3 has no means of not placing resulting classes in target/classes.
+              * We therefore have to clean these out "manually" using the below ant task.
+              *
+              * The includeInProject=false of jspc-maven-plugin ensures that the web.xml is not patched or jsp class sources
+              * added, but as said not the compiled classes (as it should)
+              *
+          -->
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <tasks>
+                    <echo>"Deleting precompiled jsps as we compile them for verification purpose only."</echo>
+                    <delete dir="${project.build.outputDirectory}/jsp/"/>
+                  </tasks>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo.jspc</groupId>
+            <artifactId>jspc-maven-plugin</artifactId>
+            <version>2.0-alpha-3</version>
+            <configuration>
+              <source>1.6</source>
+              <target>1.6</target>
+              <includeInProject>false</includeInProject>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>compile</goal>
+                </goals>
+              </execution>
+            </executions>
+
+            <!-- Use the Tomcat 5 JSP compiler -->
+            <dependencies>
+              <dependency>
+                <groupId>org.codehaus.mojo.jspc</groupId>
+                <artifactId>jspc-compiler-tomcat5</artifactId>
+                <version>2.0-alpha-3</version>
+              </dependency>
+              <!-- 2.0-alpha-3 requires this log4j dependency, which is likely a bug -->
+              <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.14</version>
+              </dependency>
+              <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-nop</artifactId>
+                <version>1.5.8</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>

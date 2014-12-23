@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Escenic Content Studio Webstart!</title>
+    <link rel="shortcut icon" href="images/escenic-icon-256.ico">
+    <style>
+      body {margin: 0; padding: 0; font-family: "lucida grande",arial,sans-serif;}
+      .header {text-align: center; background-color: #444444; margin: 100px 0 20px 0;}
+      .buttons {width: 320px; margin: 0 auto;}
+      .buttons .head {text-align: center; font-size: 22px; color: #444444; margin: 30px 0;}
+      .buttons .default {font-weight: 800;}
+      ul {margin: 0; padding: 0;}
+      li { list-style: none; margin: 0 0 0.3em 0;}
+      li a{
+        display: block;
+        position: relative;
+        outline: 0;
+        padding: 0 20px 0 20px;
+        border: 0;
+        color: #444444;
+        background-color: #dedede;
+        text-transform: capitalize;
+        font-size: 14px;
+        line-height: 30px;
+        text-align: center;
+        text-decoration: none;
+        font-style: normal;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        vertical-align: bottom;
+        text-rendering: optimizeLegibility;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        font-weight: normal;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-transition: all .1s ease;
+        -moz-transition: all .1s ease;
+        -ms-transition: all .1s ease;
+        -o-transition: all .1s ease;
+        transition: all .1s ease;
+      }
+      li:hover a {
+        color: #FFFFFF;
+        background-color: #ff752d;
+      }
+      li:active a {
+        color: #FFFFFF;
+        background-color: #fcb088;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="header">
+      <img src="images/escenic_ws_logo.png" alt="Escenic Content Studio" />
+    </div>
+    <div class="buttons">
+      <div class="head">Launch Content Studio in:</div>
+      <ul>
+        <li><a href="Studio.jnlp" class="default">Detected local language</a></li>
+        <!--
+        <li><a href="Studio.jnlp?user.country=CN&amp;user.language=zh">Chinese</a></li>
+        -->
+        <li><a href="Studio.jnlp?user.country=NL&user.language=nl">Dutch</a></li>
+        <li><a href="Studio.jnlp?user.country=US&user.language=en">English (American dates)</a></li>
+        <li><a href="Studio.jnlp?user.country=GB&user.language=en">English (British dates)</a></li>
+        <li><a href="Studio.jnlp?user.country=DE&user.language=de">German</a></li>
+        <li><a href="Studio.jnlp?user.country=NO&user.language=nb">Norwegian</a></li>
+        <li><a href="Studio.jnlp?user.country=SE&user.language=sv">Swedish</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

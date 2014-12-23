@@ -1,0 +1,175 @@
+body {
+  background: white;
+  font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: small;
+}
+
+a {
+  font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #000080;
+  text-decoration: none;
+}
+
+a:link {
+  color: #000080;
+  text-decoration: none;
+}
+
+a:active {
+  color: #3030FF;
+  text-decoration: none;
+}
+
+
+.error {
+  color: red;
+}
+
+div.warning {
+  border: 1px dashed blue;
+  padding: 3px;
+  background-color: #ddf;
+}
+
+div.ok {
+  border: 1px dashed green;
+  padding: 3px;
+  background-color: #cfc;
+}
+
+div.warning a, div.ok a {
+  font-weight: bold;
+}
+
+.button {
+  background: white;
+  text-align: center;
+}
+
+.disabledbutton {
+  background: #90AEDD;
+}
+
+.banner {
+  background: #c6c6c6;
+}
+
+tr.odd td {
+  background: #ffc;
+}
+
+tr.even td {
+}
+
+.content {
+  background: #e0e0e0;
+}
+
+.topmenu {
+  font: menu;
+  vertical-align: middle;
+  color: black;
+  text-decoration: none;
+}
+
+span.bannertext {
+  font-size: large;
+  font-weight: bold;
+}
+
+.inlinehelp {
+  font-size: x-small;
+}
+
+.leftPanel {
+  background: #D8F0F8;
+}
+.rightPanel {
+  background: #eee;
+}
+.centerPanel {
+  background: #fff;
+}
+
+
+.level1 {
+  background: #D8F0F8;
+}
+
+.level2 {
+  background: #EEEEEE;
+}
+
+.level3 {
+  background: #FFFFFF;
+}
+
+
+
+
+
+
+
+.intro {
+  font-style: italic;
+  background-color: #e3e3e3;
+}
+
+.status {
+  width: 100%
+}
+
+table {
+
+}
+
+code {
+  font-weight: bold;
+  font-style: normal;
+  font-size : normal;
+}
+
+th {
+  background-color : #e3e3e3;
+  font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size : small;
+}
+
+td {
+  font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size : small;
+}
+
+td.listing {
+  vertical-align: top;
+  border-bottom: thin dotted black;              
+}
+
+.view-propertyname, .edit-propertyname {
+  background-color : #e3e3e3;
+  text-align: right;
+  vertical-align: top;
+  padding-right: 3pt;
+  padding-top: 2pt;
+}
+
+.view-propertyvalue, .edit-propertyvalue {
+  text-align: left;
+  vertical-align: top;
+  padding-left: 3pt;
+  padding-top: 1pt;
+  padding-bottom: 1pt;
+}
+
+
+.box-title {
+  font: caption;
+}
+
+.box-content {
+  font: menu;
+}

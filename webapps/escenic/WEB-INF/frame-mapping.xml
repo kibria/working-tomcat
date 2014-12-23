@@ -1,0 +1,545 @@
+
+<mapping>
+
+  <primary id="/generic">
+    <!-- Calls areamaps: frame-header, frame-top, frame-left, frame-main -->
+    <secondary name="frame-layout">/framework/frame-layout-basketColumn.jsp</secondary>
+
+    <!-- Calls areamaps: frame-header-title,  frame-header-head,  frame-header-prebody -->
+    <secondary name="frame-header">/framework/frame/header.jsp</secondary>
+    <secondary name="frame-popup-header">/framework/frame/popupheader.jsp</secondary>
+
+    <secondary name="frame-header-head">/framework/empty.jsp</secondary>
+    <secondary name="frame-header-title">/framework/frame/title.jsp</secondary>
+    <secondary name="frame-header-prebody">/framework/empty.jsp</secondary>
+
+    <!-- Calls areamaps: main-open -->
+    <!--<secondary name="frame-left">/framework/basketColumn/basketColumn.jsp</secondary>-->
+    <secondary name="frame-left">/framework/empty.jsp</secondary>
+    <secondary name="frame-right">/framework/empty.jsp</secondary>
+
+    <secondary name="main-open">/framework/basketColumn/open.jsp</secondary>
+    <secondary name="frame-top">/framework/frame/top.jsp</secondary>
+    <secondary name="frame-title">/framework/frame/title.jsp</secondary>
+
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+    <!-- Calls areamaps: main-content, main-content-top -->
+    <!--<secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary> -->
+    <!-- Calls areamaps: main-content, main-content-top, main-content-top-heading, main-nav -->
+    <!--<secondary name="frame-main">/framework/main/generic/ChildPanelTabLayout.jsp</secondary> -->
+
+    <secondary name="main-content">/framework/empty.jsp</secondary>
+    <secondary name="main-content-nav">/framework/empty.jsp</secondary>
+    <secondary name="main-content-menu">/elements/context-panel-menu.jsp</secondary>
+    <secondary name="main-content-menu-article">/framework/empty.jsp</secondary>
+    <secondary name="main-content-menu-section">/framework/empty.jsp</secondary>
+    <secondary name="main-content-top">/elements/context-content-top.jsp</secondary>
+    <secondary name="main-content-top-article">/framework/empty.jsp</secondary>
+    <secondary name="main-content-top-section">/section/edit-top.jsp</secondary>
+    <secondary name="main-content-top-heading">/framework/empty.jsp</secondary>
+    <secondary name="main-search">/framework/empty.jsp</secondary>
+    <secondary name="main-result">/framework/empty.jsp</secondary>
+
+    <!-- the following generic areas are simple strings, and will be prefixed "textmap" -->
+    <secondary name="title">z.blank</secondary>
+    <secondary name="form">/base/dispatch</secondary>
+    <secondary name="task-exit-mode">external</secondary>
+    <secondary name="style-global">/css/global.css</secondary>
+    <secondary name="style-context">/css/empty.css</secondary>
+    <secondary name="enctype">application/x-www-form-urlencoded</secondary>
+
+    <!-- used by "util:toggle" to toggle between styles in lists -->
+    <secondary name="liststyles">listOdd,listEven</secondary>
+    <secondary name="style-class-body"></secondary>
+    <secondary name="style-class-top"></secondary>
+    <secondary name="style-class-left"></secondary>
+    <secondary name="style-class-layout">layout-rightmargin</secondary>
+  </primary>
+
+
+  <primary id="/generic/popup">
+    <inherit ref="/generic"/>
+    <secondary name="frame-layout">/framework/frame-layout-popup.jsp</secondary>
+    <secondary name="frame-left">/framework/empty.jsp</secondary>
+    <secondary name="frame-right">/framework/empty.jsp</secondary>
+    <secondary name="frame-top">/framework/empty.jsp</secondary>
+    <secondary name="main-content-left">/framework/empty.jsp</secondary>
+    <secondary name="main-content-right">/framework/empty.jsp</secondary>
+  </primary>
+
+
+  <!-- SECTIONS ******************************* -->
+  <primary id="/section/choose/popup">
+    <inherit ref="/generic/popup"/>
+    <secondary name="main-content">/section/choose-popup-content.jsp</secondary>
+    <secondary name="title">c.Choose_section_colon</secondary>
+    <secondary name="form">/section/choose/dispatch</secondary>
+  </primary>
+
+  <primary id="/section/choose">
+    <inherit ref="/generic"/>
+    <secondary name="main-content">/section/choose-content.jsp</secondary>
+    <secondary name="title">c.Choose_section_colon</secondary>
+    <secondary name="form">/section/choose/dispatch</secondary>
+    <secondary name="frame-main">/framework/main/generic/ChildPanelTabLayout.jsp</secondary>
+  </primary>
+
+  <primary id="/section/search">
+    <inherit ref="/section/choose"/>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/search-content.jsp</secondary>
+    <secondary name="form">/section/search/dispatch</secondary>
+  </primary>
+
+  <primary id="/section/summarize">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/summarize-content.jsp</secondary>
+    <secondary name="title">h.Select_frontpage</secondary>
+    <secondary name="form">/section/summarize/dispatch</secondary>
+    <secondary name="style-class-layout"></secondary>
+  </primary>
+
+  <primary id="/section/edit">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/edit-content.jsp</secondary>
+    <secondary name="title">h.Edit_section</secondary>
+    <secondary name="form">/section/edit/dispatch</secondary>
+    <secondary name="style-class-layout">layout-rightmargin layout-leftmargin</secondary>
+    <secondary name="main-content-menu">/section/edit-nav.jsp</secondary>
+    <secondary name="main-content-top">/section/common-top.jsp</secondary>
+  </primary>
+
+  <primary id="/section/editProperties">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/editProperties-content.jsp</secondary>
+    <secondary name="title">h.Edit_section</secondary>
+    <secondary name="form">/section/editProperties/dispatch</secondary>
+    <secondary name="style-class-layout">layout-rightmargin</secondary>
+    <secondary name="main-content-menu">/section/saveProperties-nav.jsp</secondary>
+    <secondary name="main-content-top">/section/common-top.jsp</secondary>
+  </primary>
+
+  <primary id="/section/edit/share">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/share-content.jsp</secondary>
+    <secondary name="title">h.Edit_section</secondary>
+    <secondary name="form">/section/edit/dispatch</secondary>
+    <secondary name="style-class-layout">layout-rightmargin layout-leftmargin</secondary>
+    <secondary name="main-content-menu">/section/edit-nav.jsp</secondary>
+    <secondary name="main-content-top">/section/common-top.jsp</secondary>
+  </primary>
+
+  <primary id="/section/create">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/new-content.jsp</secondary>
+    <secondary name="title">h.New_Section</secondary>
+    <secondary name="form">/section/insert/dispatch</secondary>
+    <secondary name="main-content-top">/framework/empty.jsp</secondary>
+  </primary>
+
+  <primary id="/section/editMembers">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/editMembers-content.jsp</secondary>
+    <secondary name="title">h.Edit_section_members</secondary>
+    <secondary name="form">/section/edit/roles/dispatch</secondary>
+    <secondary name="main-content-top">/section/common-top.jsp</secondary>
+    <secondary name="main-content-menu">/section/editMembers-nav.jsp</secondary>
+    <secondary name="style-class-layout">layout-rightmargin layout-leftmargin</secondary>
+  </primary>
+
+  <primary id="/section/editGroups">
+    <inherit ref="/section/editMembers"/>
+    <secondary name="main-content">/section/editMembers-content.jsp</secondary>
+  </primary>
+
+  <primary id="/section/delete">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/delete-content.jsp</secondary>
+    <secondary name="main-content-top">/section/common-top.jsp</secondary>
+    <secondary name="title">h.Confirm_delete</secondary>
+    <secondary name="form">/section/delete/dispatch</secondary>
+  </primary>
+
+  <primary id="/section/deleteArticles">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/deleteArticles-content.jsp</secondary>
+    <secondary name="title">h.Confirm_delete</secondary>
+    <secondary name="form">/base/dispatch</secondary>
+  </primary>
+
+  <primary id="/section/moveArticles">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/move-articles.jsp</secondary>
+    <secondary name="title">h.Section_move_articles</secondary>
+    <secondary name="form">/section/moveArticles/dispatch</secondary>
+  </primary>
+
+  <primary id="/section/sequence">
+    <inherit ref="/generic"/>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+    <secondary name="main-content">/section/sequence-content.jsp</secondary>
+    <secondary name="title">h.Edit_section</secondary>
+    <secondary name="form">/section/changeSubSectionSequence/dispatch</secondary>
+  </primary>
+
+  <primary id="/section/view">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.Select_frontpage</secondary>
+    <secondary name="form">/base/dispatch</secondary>
+    <secondary name="main-content">/section/view-content.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+    <secondary name="main-content-top">/section/common-top.jsp</secondary>
+  </primary>
+
+
+
+  <primary id="/profile/search">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.Profile_archive</secondary>
+    <secondary name="form">/profile/search/dispatch</secondary>
+    <secondary name="main-content">/profile/search-content.jsp</secondary>
+   <secondary name="frame-header-prebody">/base/jsCalendar-header.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+  </primary>
+
+  <primary id="/person/search">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.Person_archive</secondary>
+    <secondary name="form">/person/search/dispatch</secondary>
+    <secondary name="main-content">/person/search-content.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/ChildPanelTabLayout.jsp</secondary>
+    <secondary name="frame-header-prebody">/base/jsCalendar-header.jsp</secondary>
+  </primary>
+
+  <primary id="/person/search/popup">
+    <inherit ref="/generic/popup"/>
+    <secondary name="title">h.Person_archive</secondary>
+    <secondary name="form">/person/search/popup/dispatch</secondary>
+    <secondary name="main-content">/person/search-popup-content.jsp</secondary>
+    <secondary name="frame-header-prebody">/base/jsCalendar-header.jsp</secondary>
+  </primary>
+
+  <primary id="/person/new">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.New_person</secondary>
+    <secondary name="form">/person/new/dispatch</secondary>
+    <secondary name="main-content">/person/wizard/new-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/popup/new">
+    <inherit ref="/generic/popup"/>
+    <secondary name="title">h.New_person</secondary>
+    <secondary name="form">/person/new/popup/dispatch</secondary>
+    <secondary name="main-content">/person/wizard/new-content.jsp</secondary>
+  </primary>
+  
+  <primary id="/user/new">
+    <inherit ref="/person/new"/>
+    <secondary name="title">h.New_user</secondary>
+  </primary>
+
+  <primary id="/person/new/globalRoles">
+    <inherit ref="/person/new"/>
+    <secondary name="main-content">/person/wizard/globalRoles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/new/sectionRoles">
+    <inherit ref="/person/new"/>
+    <secondary name="main-content">/person/wizard/sectionRoles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/new/groups">
+    <inherit ref="/person/new"/>
+    <secondary name="main-content">/person/wizard/groups-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/new/tagStructures">
+    <inherit ref="/person/new"/>
+    <secondary name="main-content">/person/wizard/tagstructes-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/new/contentTypes">
+    <inherit ref="/person/new"/>
+    <secondary name="main-content">/person/wizard/contentTypes-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/edit">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.Edit_person</secondary>
+    <secondary name="form">/person/edit/dispatch</secondary>
+    <secondary name="main-content">/person/edit-content.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+    <secondary name="main-content-menu">/person/edit-nav.jsp</secondary>
+    <secondary name="main-content-top">/person/edit-top.jsp</secondary>
+    <secondary name="style-class-layout">layout-rightmargin layout-leftmargin</secondary>
+  </primary>
+
+  <primary id="/person/editRoles">
+    <inherit ref="/person/edit"/>
+    <secondary name="main-content">/person/editRoles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/editGlobalRoles">
+    <inherit ref="/person/edit"/>
+    <secondary name="main-content">/person/editGlobalRoles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/editGroups">
+    <inherit ref="/person/edit"/>
+    <secondary name="main-content">/person/presentGroups.jsp</secondary>
+  </primary>
+
+  <primary id="/person/editProfiles">
+    <inherit ref="/person/edit"/>
+    <secondary name="main-content">/person/editProfiles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/editRoles">
+    <inherit ref="/person/edit"/>
+    <secondary name="main-content">/person/editRoles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/editTagStructures">
+    <inherit ref="/person/edit"/>
+    <secondary name="main-content">/person/editTagstructes-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/editContentTypes">
+    <inherit ref="/person/edit"/>
+    <secondary name="main-content">/person/editContentTypes-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/view">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.View_person</secondary>
+    <secondary name="form">/person/view/dispatch</secondary>
+    <secondary name="main-content">/person/view-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/viewRoles">
+    <inherit ref="/person/view"/>
+    <secondary name="main-content">/person/viewRoles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/viewGroups">
+    <inherit ref="/person/view"/>
+    <secondary name="main-content">/person/viewGroups-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/search">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.Usergroup_archive</secondary>
+    <secondary name="form">/userGroup/search/dispatch</secondary>
+    <secondary name="main-content">/userGroup/search-content.jsp</secondary>
+   <secondary name="frame-main">/framework/main/generic/ChildPanelTabLayout.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/confirmDelete">
+    <inherit ref="/generic"/>
+    <secondary name="form">/base/dispatch</secondary>
+    <secondary name="main-content">/userGroup/confirmDelete-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/new">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.New_usergroup</secondary>
+    <secondary name="form">/userGroup/insert/dispatch</secondary>
+    <secondary name="main-content">/userGroup/new-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/edit">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.Edit_usergroup</secondary>
+    <secondary name="form">/userGroup/edit/dispatch</secondary>
+    <secondary name="main-content">/userGroup/edit-content.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+    <secondary name="main-content-menu">/userGroup/edit-nav.jsp</secondary>
+    <secondary name="main-content-top">/userGroup/edit-top.jsp</secondary>
+    <secondary name="style-class-layout">layout-rightmargin layout-leftmargin</secondary>
+  </primary>
+
+  <primary id="/userGroup/editRoles">
+    <inherit ref="/userGroup/edit"/>
+    <secondary name="main-content">/userGroup/editRoles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/editGlobalRoles">
+    <inherit ref="/userGroup/edit"/>
+    <secondary name="main-content">/userGroup/editGlobalRoles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/editMembers">
+    <inherit ref="/userGroup/edit"/>
+    <secondary name="main-content">/userGroup/editMembers-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/editGroups">
+    <inherit ref="/userGroup/edit"/>
+    <secondary name="main-content">/userGroup/editGroups-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/editTagStructures">
+    <inherit ref="/userGroup/edit"/>
+    <secondary name="main-content">/userGroup/editTagstructures-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/editContentTypes">
+    <inherit ref="/userGroup/edit"/>
+    <secondary name="main-content">/userGroup/editContentTypes-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/view">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.View_usergroup</secondary>
+    <secondary name="form">/userGroup/view/dispatch</secondary>
+    <secondary name="main-content">/userGroup/view-content.jsp</secondary>
+  </primary>
+
+  <primary id="/userGroup/viewRoles">
+    <inherit ref="/userGroup/view"/>
+    <secondary name="main-content">/userGroup/viewRoles-content.jsp</secondary>
+  </primary>
+
+  <primary id="/logon">
+    <inherit ref="/generic"/>
+    <secondary name="form">/logon</secondary>
+    <secondary name="frame-layout">/framework/frame-layout-logon.jsp</secondary>
+    <secondary name="style-global">/css/login.css</secondary>
+	<secondary name="frame-main">/logon/logon-content.jsp</secondary>
+  </primary>
+
+  <primary id="/previewWindow">
+    <inherit ref="/generic"/>
+    <secondary name="frame-layout">/framework/frame-layout-logon.jsp</secondary>
+    <secondary name="frame-main">/logon/previewWindow-content.jsp</secondary>
+  </primary>
+
+  <primary id="/publication">
+    <inherit ref="/generic"/>
+    <secondary name="title">z.blank</secondary>
+    <secondary name="form">/base/dispatch</secondary>
+    <secondary name="main-content">/publication/view-content.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+    <secondary name="main-content-menu">/publication/edit-nav.jsp</secondary>
+    <secondary name="style-class-layout">layout-rightmargin layout-leftmargin</secondary>
+  </primary>
+
+  <primary id="/publication/exportUsers">
+    <inherit ref="/publication"/>
+    <secondary name="title">h.Export_users</secondary>
+    <secondary name="form">/publication/editFriendlyPubs/dispatch</secondary>
+    <secondary name="main-content">/publication/editFriendlyPubs-content.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+    <secondary name="main-content-top">/publication/editFriendlyPubs-top.jsp</secondary>
+    <secondary name="main-content-menu">/publication/edit-nav.jsp</secondary>
+  </primary>
+
+  <primary id="/publication/administration">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.Administer_Publication</secondary>
+    <secondary name="form">/base/dispatch</secondary>
+    <secondary name="main-content">/publication/administration-content.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/PanelTabLayout.jsp</secondary>
+    <secondary name="main-content-menu">/publication/edit-nav.jsp</secondary>
+  </primary>
+
+  <primary id="/publication/view">
+    <inherit ref="/publication"/>
+    <secondary name="main-content">/publication/view-content.jsp</secondary>
+  </primary>
+
+  <primary id="/publication/xmlimport">
+    <inherit ref="/publication"/>
+    <secondary name="form">/publication/xmlimport/dispatch</secondary>
+    <secondary name="main-content">/publication/xmlimport-content.jsp</secondary>
+  </primary>
+
+  <primary id="/publication/xmlimportmessages">
+    <inherit ref="/publication"/>
+    <secondary name="form">/base/dispatch</secondary>
+    <secondary name="main-content">/publication/xmlimportmessages-content.jsp</secondary>
+  </primary>
+
+  <primary id="/publication/viewArticleTypes">
+    <inherit ref="/publication"/>
+    <secondary name="main-content">/publication/viewArticleTypes-content.jsp</secondary>
+    <secondary name="main-content-top">/publication/viewArticleTypes-top.jsp</secondary>
+  </primary>
+
+  <primary id="/publication/viewFeatures">
+    <inherit ref="/publication"/>
+    <secondary name="main-content">/publication/viewFeatures-content.jsp</secondary>
+  </primary>
+
+  <primary id="/publication/viewTemplates">
+    <inherit ref="/publication"/>
+    <secondary name="title">l.Templates</secondary>
+    <secondary name="main-content">/publication/viewTemplates-content.jsp</secondary>
+    <secondary name="main-content-top">/publication/viewTemplates-top.jsp</secondary>
+  </primary>
+
+
+  <primary id="/publication/deleteLayout">
+    <inherit ref="/publication"/>
+    <secondary name="title">l.Templates</secondary>
+    <secondary name="main-content">/publication/deleteLayout-content.jsp</secondary>
+    <secondary name="main-content-top">/publication/viewTemplates-top.jsp</secondary>
+  </primary>
+  
+  <primary id="/person/changePassword">
+    <inherit ref="/publication"/>
+    <secondary name="title">h.Update_password</secondary>
+    <secondary name="form">/person/changePassword/dispatch</secondary>
+    <secondary name="main-content">/person/changePassword-content.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+  </primary>
+
+  <primary id="/basket/edit">
+    <inherit ref="/generic"/>
+    <secondary name="title">h.Edit_basket</secondary>
+    <secondary name="form">/base/dispatch</secondary>
+    <secondary name="main-content">/basket/edit-content.jsp</secondary>
+    <secondary name="frame-main">/framework/main/generic/SimpleTabLayout.jsp</secondary>
+  </primary>
+
+  <!-- shows errors... -->
+  <primary id="/error/basic">
+    <inherit ref="/generic"/>
+    <secondary name="form">/base/dispatch</secondary>
+    <secondary name="main-content">/display-errors-content.jsp</secondary>
+  </primary>
+
+  <primary id="/archive/showDeleteWarning">
+    <inherit ref="/generic"/>
+    <secondary name="form">/base/dispatch</secondary>
+    <secondary name="main-content">/archive/deleteWarning-content.jsp</secondary>
+  </primary>
+
+  <primary id="/person/showDeleteWarning">
+    <inherit ref="/generic"/>
+    <secondary name="form">/person/search/deletePersons/dispatch</secondary>
+    <secondary name="main-content">/person/deleteWarning-content.jsp</secondary>
+  </primary>
+
+  <!-- Other mappings -->
+  <primary id="/other/changeLanguage">
+    <inherit ref="/generic"/>
+    <secondary name="form">/base/changeLanguage/dispatch</secondary>
+    <secondary name="main-content">/other/changeLanguage-content.jsp</secondary>
+  </primary>
+  <primary id="/other/changeArticleTypes">
+    <inherit ref="/generic"/>
+    <secondary name="form">/base/changeArticleTypes/dispatch</secondary>
+    <secondary name="main-content">/other/changeArticleTypes-content.jsp</secondary>
+  </primary>
+
+</mapping>

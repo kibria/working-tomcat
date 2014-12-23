@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+  <display-name>ECE Webservice Webapp</display-name>
+
+  <filter>
+    <filter-name>TopFilter</filter-name>
+    <filter-class>com.escenic.servlet.TopFilter</filter-class>
+    <init-param>
+      <param-name>shared-instance</param-name>
+      <param-value>nursery://global/neo/io/reports/Top</param-value>
+    </init-param>
+  </filter>
+
+    <!-- Filter -->
+  <filter>
+    <filter-name>ECETimerFilter</filter-name>
+    <filter-class>com.escenic.servlet.TimerFilter</filter-class>
+    <init-param>
+      <param-name>collector</param-name>
+      <param-value>/neo/io/reports/WebServiceHitCollector</param-value>
+     </init-param>
+    <init-param>
+      <param-name>throttle</param-name>
+      <param-value>/neo/io/services/WebServiceThrottle</param-value>
+     </init-param>
+    <init-param>
+      <param-name>activeConnectionsHeader</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <filter>
+    <filter-name>/com/escenic/servlet/filter/AuthenticationFilter</filter-name>
+    <filter-class>com.escenic.servlet.nursery.FilterBootstrapper</filter-class>
+  </filter>
+
+  <filter>
+    <filter-name>/com/escenic/servlet/filter/RefreshAccessTokenFilter</filter-name>
+    <filter-class>com.escenic.servlet.nursery.FilterBootstrapper</filter-class>
+  </filter>
+
+  <filter>
+    <filter-name>/com/escenic/servlet/filter/RateLimiterFilter</filter-name>
+    <filter-class>com.escenic.servlet.nursery.FilterBootstrapper</filter-class>
+  </filter>
+
+  <!-- The EscenicStandardFilterChain resolves requests for Escenic sections and articles. -->
+  <filter>
+    <filter-name>EscenicStandardFilterChain</filter-name>
+    <filter-class>com.escenic.presentation.servlet.CompositeFilter
+    </filter-class>
+    <init-param>
+      <param-name>oncePerRequest</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>chain</param-name>
+      <param-value>nursery:/com/escenic/servlet/webservice/StandardFilter</param-value>
+    </init-param>
+  </filter>
+
+  <filter>
+    <filter-name>cache</filter-name>
+    <filter-class>com.escenic.presentation.servlet.multimedia.CacheFilter</filter-class>
+    <init-param>
+      <param-name>cache-control</param-name>
+      <param-value>public,max-age=30</param-value>
+    </init-param>
+    <init-param>
+      <param-name>oncePerRequest</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>TopFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>ECETimerFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>/com/escenic/servlet/filter/RefreshAccessTokenFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>/com/escenic/servlet/filter/AuthenticationFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>/com/escenic/servlet/filter/RateLimiterFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>EscenicStandardFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>cache</filter-name>
+    <servlet-name>thumbnailServlet</servlet-name>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+
+  <listener>
+    <description>Web Service Boot Strapper</description>
+    <listener-class>com.escenic.webservice.servlet.WebServiceBootstrapper</listener-class>
+  </listener>
+
+  <listener>
+    <description>ImageIO plugins listener</description>
+    <listener-class>com.twelvemonkeys.servlet.image.IIOProviderContextListener</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>GenericJerseyServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.integration.jersey.servlet.NurseryComponentProviderServlet</servlet-class>
+      <init-param>
+          <param-name>com.sun.jersey.config.property.packages</param-name>
+          <param-value>com.escenic.webservice.resource;com.escenic.webservice.resource.classification;com.escenic.webservice.integration.jersey;com.escenic.webservice.integration.jersey.exception</param-value>
+      </init-param>
+      <init-param>
+          <param-name>com.sun.jersey.config.feature.DisableWADL</param-name>
+          <param-value>true</param-value>
+      </init-param>
+      <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.SolrSearchServlet</servlet-class>
+    <init-param>
+      <param-name>search-engine</param-name>
+      <param-value>nursery://global/com/escenic/webservice/search/DelegatingSearchEngine</param-value>
+    </init-param>
+    <init-param>
+      <param-name>search-parser</param-name>
+      <param-value>nursery:/com/escenic/webservice/search/SearchParser</param-value>
+    </init-param>
+    <init-param>
+      <param-name>content-type</param-name>
+      <param-value>application/atom+xml; charset=UTF-8</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>OpenSearchServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.OpenSearchDescriptionServlet
+    </servlet-class>
+    <init-param>
+      <param-name>open-search-descriptions</param-name>
+      <param-value>nursery:/com/escenic/webservice/opensearch/OpenSearchDescriptions</param-value>
+    </init-param>
+    <init-param>
+      <param-name>open-search-description-serializer</param-name>
+      <param-value>nursery:/com/escenic/webservice/opensearch/OpenSearchDescriptionSerializer</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>/com/escenic/servlet/webservice/EndPointServlet</servlet-name>
+    <servlet-class>com.escenic.servlet.nursery.ServletBootstrapper</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ContentDescriptionServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.ContentDescriptionServlet</servlet-class>
+    <init-param>
+      <param-name>descriptor-factory</param-name>
+      <param-value>nursery://global/neo/io/content/ContentDescriptorFactory</param-value>
+    </init-param>
+    <init-param>
+      <param-name>content-serializers</param-name>
+      <param-value>nursery:/com/escenic/servlet/webservice/ContentSerializers</param-value>
+    </init-param>
+    <init-param>
+      <param-name>content-type-permission-factory</param-name>
+      <param-value>nursery://global/io/api/auth/ContentTypePermissionFactory</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ContentGroupsServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.ContentGroupsServlet</servlet-class>
+    <init-param>
+      <param-name>content-serializer</param-name>
+      <param-value>nursery:/com/escenic/servlet/webservice/XStreamContentSerializer</param-value>
+    </init-param>
+    <init-param>
+      <param-name>namedservice-resolver</param-name>
+      <param-value>nursery://global/com/escenic/resolver/NamedServiceResolver</param-value>
+    </init-param>
+    <init-param>
+      <param-name>content-type-permission-factory</param-name>
+      <param-value>nursery://global/io/api/auth/ContentTypePermissionFactory</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ControllerServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.ControllerServlet</servlet-class>
+    <init-param>
+      <param-name>content-serializers</param-name>
+      <param-value>nursery:/com/escenic/servlet/webservice/ContentSerializers</param-value>
+    </init-param>
+    <init-param>
+      <param-name>content-helper-factory</param-name>
+      <param-value>nursery:/com/escenic/servlet/webservice/ContentHelperFactory</param-value>
+    </init-param>
+    <init-param>
+      <param-name>link-header-manager</param-name>
+      <param-value>nursery://global/com/escenic/service/LinkHeaderManager</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>MediaServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.MediaServlet
+    </servlet-class>
+    <init-param>
+      <param-name>binaryHelperFactory</param-name>
+      <param-value>nursery:///com/escenic/servlet/webservice/BinaryHelperFactory</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>PreviewServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.PreviewServlet</servlet-class>
+    <init-param>
+      <param-name>content-serializer</param-name>
+      <param-value>nursery:/com/escenic/servlet/webservice/XStreamContentSerializer</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RoamingProfileServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.RoamingProfileServlet</servlet-class>
+    <init-param>
+      <param-name>amountOfRetries</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <init-param>
+      <param-name>retryWaitInterval</param-name>
+      <param-value>2000</param-value>
+    </init-param>
+    <init-param>
+      <param-name>object-loader</param-name>
+      <param-value>nursery://global/io/api/ObjectLoader</param-value>
+    </init-param>
+    <init-param>
+      <param-name>resource-manager</param-name>
+      <param-value>nursery://global/neo/io/managers/DatabaseResourceManager</param-value>
+    </init-param>
+    <init-param>
+      <param-name>resource-lock-manager</param-name>
+      <param-value>nursery://global/io/api/LockManager</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ContentUsageServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.ContentUsageServlet</servlet-class>
+    <init-param>
+      <param-name>content-usage-helper-factory</param-name>
+      <param-value>nursery:/com/escenic/servlet/webservice/ContentUsageHelperFactory</param-value>
+    </init-param>
+  </servlet>
+
+
+  <servlet>
+    <servlet-name>thumbnailServlet</servlet-name>
+    <servlet-class>com.escenic.webservice.servlet.ThumbnailServlet</servlet-class>
+    <init-param>
+      <param-name>storage</param-name>
+      <param-value>nursery://global/com/escenic/storage/Storage</param-value>
+    </init-param>
+    <init-param>
+      <param-name>width</param-name>
+      <param-value>200</param-value>
+    </init-param>
+    <init-param>
+      <param-name>height</param-name>
+      <param-value>200</param-value>
+    </init-param>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/search/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>OpenSearchServlet</servlet-name>
+    <url-pattern>/open-search/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>/com/escenic/servlet/webservice/EndPointServlet</servlet-name>
+    <url-pattern>/index.xml</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ContentDescriptionServlet</servlet-name>
+    <url-pattern>/content-descriptions/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ContentGroupsServlet</servlet-name>
+    <url-pattern>/content-groups/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ControllerServlet</servlet-name>
+    <url-pattern>/content/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>GenericJerseyServlet</servlet-name>
+    <url-pattern>/escenic/*</url-pattern>
+  </servlet-mapping>
+
+  <!--<servlet-mapping>
+    <servlet-name>SubsectionFeedServlet</servlet-name>
+    <url-pattern>/section/*</url-pattern>
+  </servlet-mapping>-->
+
+  <servlet-mapping>
+    <servlet-name>MediaServlet</servlet-name>
+    <url-pattern>/binary/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>PreviewServlet</servlet-name>
+    <url-pattern>/preview/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RoamingProfileServlet</servlet-name>
+    <url-pattern>/roaming-profile/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ContentUsageServlet</servlet-name>
+    <url-pattern>/usage/*</url-pattern>
+  </servlet-mapping>
+
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/WEB-INF/template/error.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>400</error-code>
+    <location>/WEB-INF/template/error.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>403</error-code>
+    <location>/WEB-INF/template/error.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/template/error.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>405</error-code>
+    <location>/WEB-INF/template/error.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>409</error-code>
+    <location>/WEB-INF/template/error.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>412</error-code>
+    <location>/WEB-INF/template/error.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/template/error.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>503</error-code>
+    <location>/WEB-INF/template/error.jsp</location>
+  </error-page>
+
+  <!-- The Usual Welcome File List -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+</web-app>

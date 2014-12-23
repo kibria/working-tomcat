@@ -1,0 +1,122 @@
+<%@ page import="neo.xredsys.content.type.ArticleType" %>
+<%@ page import="com.escenic.module.ModuleUtil" %>
+<%@ page import="com.escenic.module.Module" %>
+<%@ page import="static com.escenic.domain.ContentDescriptorArchetypes.isLegacyContentType" %>
+<%@ page import="neo.xredsys.content.type.TypeManager" %>
+<%@ page import="java.util.*" %>
+<%@ page import="neo.xredsys.api.IOAPI" %>
+<%@ page import="neo.xredsys.api.Type" %>
+<%@ page import="neo.phoenix.base.RelatedObject" %>
+
+
+<script>
+  function markAll(name,group) {
+    var elements, i;
+    if(!group){
+      elements = document.getElementsByClassName(name + 'RoleRB');
+      for ( i = 0; i < elements.length; i++) {
+        elements.item(i).checked = document.getElementById(name + 'AllRB').checked;
+      }
+    } else {
+      var groupElements = document.getElementsByClassName(group);
+      for (i=0; i< groupElements.length; i++){
+        groupElements.item(i).getElementsByClassName(name + 'RoleRB')[0].checked = document.getElementById(group).getElementsByClassName(name + 'RoleRB')[0].checked;
+      }
+    }
+  }
+</script>
+<table class="listing" cellpadding="0" cellspacing="0">
+  <tbody>
+  <tr class="labels">
+    <th>Group</th>
+    <th>Type</th>
+    <th>Hidden</th>
+    <th>Read</th>
+    <th>Write</th>
+  </tr>
+
+
+  <tr class="all">
+    <td><strong>All</strong></td>
+    <td>&nbsp;</td>
+    <td><input type="radio" name="all" onclick="markAll('none');" id="noneAllRB" <%=isReadOnly ? "disabled" : ""%>></td>
+    <td><input type="radio" name="all" onclick="markAll('read');" id="readAllRB" <%=isReadOnly ? "disabled" : ""%>></td>
+    <td><input type="radio" name="all" onclick="markAll('write');" id="writeAllRB" <%=isReadOnly ? "disabled" : ""%>></td>
+  </tr>
+    <%
+  Map<String,RelatedObject> relatedObjectMap = new HashMap<String,RelatedObject>();
+  for (String index : form.getContentTypes().getKeys()) {
+    RelatedObject object = form.getContentTypes().getItem(index);
+    object.setAttribute("index", index);
+    relatedObjectMap.put(object.getAttribute("name"), object);
+  }
+
+  Map<String,List<RelatedObject>> articleTypeMap = new TreeMap<String,List<RelatedObject>>();
+  for (Module groupModule : TypeManager.getInstance().getPublicationModules(publication.getId()).getModules(ModuleUtil.UI_MODULE_NAMESPACE)) {
+    List<Module> contentTypeReferences = groupModule.getModules(ModuleUtil.UI_MODULE_NAMESPACE, "ref-content-type");
+    for (Module contentTypeRef : contentTypeReferences) {
+      String contentTypeName = contentTypeRef.getAttributes().get("name");
+      ArticleType articleType = TypeManager.getInstance().getArticleType(publication.getId(), contentTypeName);
+      if (articleType != null) {
+        String label = ModuleUtil.getLocalizedValue(null, groupModule.getModules(ModuleUtil.UI_MODULE_NAMESPACE,"label"));
+        List<RelatedObject> types = articleTypeMap.get(label);
+        if (types == null) {
+          types = new ArrayList<RelatedObject>();
+          articleTypeMap.put(label, types);
+        }
+        RelatedObject object = relatedObjectMap.remove(articleType.getName());
+        if (object != null) {
+          types.add(object);
+        }
+      }
+    }
+  }
+  if (relatedObjectMap.size() > 0) {
+    articleTypeMap.put("Un-grouped", new ArrayList<RelatedObject>(relatedObjectMap.values()));
+  }
+  %>
+
+    <%
+    for (Map.Entry<String,List<RelatedObject>> entry : articleTypeMap.entrySet()) {
+      Collections.sort(entry.getValue(), new Comparator<RelatedObject>() {
+        public int compare(final RelatedObject o1, final RelatedObject o2) {
+          return o1.getAttribute("label").toLowerCase().compareTo(o2.getAttribute("label").toLowerCase());
+        }
+  });
+    %>
+  <tr id="<%=entry.getKey()%>" class="group">
+    <td><strong><%=entry.getKey()%></strong></td>
+    <td>&nbsp;</td>
+    <td><input type="radio" onclick="markAll('none','<%=entry.getKey()%>');" name="<%=entry.getKey()%>" class="noneRoleRB" <%=isReadOnly ? "disabled" : ""%>></td>
+    <td><input type="radio" onclick="markAll('read','<%=entry.getKey()%>');" name="<%=entry.getKey()%>" class="readRoleRB" <%=isReadOnly ? "disabled" : ""%>></td>
+    <td><input type="radio" onclick="markAll('write','<%=entry.getKey()%>');" name="<%=entry.getKey()%>" class="writeRoleRB" <%=isReadOnly ? "disabled" : ""%>></td>
+  </tr>
+    <%
+    for (RelatedObject object : entry.getValue()) {
+  %>
+    <%
+		  String index = object.getAttribute("index");
+		  String p1 = "contentTypes.item(" + index + ").id";
+      String role = "contentTypes.item(" + index + ").attribute(role)";
+      String labelAttr = "contentTypes.item(" + index + ").attribute(label)";
+      String nameAttr = "contentTypes.item(" + index + ").attribute(name)";
+		%>
+  <html:hidden property="<%=p1%>" />
+  <html:hidden property="<%=labelAttr%>" />
+  <html:hidden property="<%=nameAttr%>" />
+  <tr class="<%=entry.getKey()%>">
+    <td>&nbsp;</td>
+    <td><bean:write name="form" property="<%=labelAttr%>" /></td>
+    <td><html:radio property="<%=role%>" value="none" styleClass="noneRoleRB" disabled="<%=isReadOnly%>"/></td>
+    <td><html:radio property="<%=role%>" value="read" styleClass="readRoleRB" disabled="<%=isReadOnly%>"/></td>
+    <td><html:radio property="<%=role%>" value="write" styleClass="writeRoleRB" disabled="<%=isReadOnly%>"/></td>
+    <%
+      if (isReadOnly) {
+    %>
+    <html:hidden property="<%=role%>" />
+    <%
+      }
+    %>
+  </tr>
+    <%}}%>
+</table>

@@ -1,0 +1,14 @@
+<%!
+String startCollapsibleTag(String item, java.util.Collection collapsible) {
+  if(collapsible.contains(item)) {
+    return "<div class=\"collapsible-list-item\">";
+  }
+  return "";
+  }
+String endCollapsibleTag(String item, java.util.Collection collapsible) {
+  if(collapsible.contains(item)) {
+    return "</div>";
+  }
+  return "";
+}
+%>

@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<content-types xmlns="http://xmlns.escenic.com/2008/content-type" xmlns:ui="http://xmlns.escenic.com/2008/interface-hints" version="4">
+
+  <field-group name="title">
+    <field mime-type="text/plain" type="basic" name="title">
+      <ui:label>Title</ui:label>
+      <ui:description>The title of the article</ui:description>
+      <constraints>
+        <required>true</required>
+      </constraints>
+    </field>
+  </field-group>
+
+  <field-group name="summary">
+    <field mime-type="text/plain" type="basic" name="summary">
+      <ui:label>Summary</ui:label>
+      <ui:description>The summary text of the article.</ui:description>
+      <ui:style> body { min-height: 50px; } </ui:style>
+    </field>
+  </field-group>
+
+  <field-group name="body">
+    <field mime-type="application/xhtml+xml" type="basic" name="body">
+      <ui:label>Body</ui:label>
+      <ui:description>The body text of the article.</ui:description>
+      <ui:style>
+        body {
+          min-height: 200px;
+        }
+        <!-- Add some css styles which will be applied to the inline links. For example the following will
+        make the news type inline links' font color to be green and review type inline links to be red. -->
+        .escenic-news {
+          color: green;
+        }
+        .escenic-review {
+          color: red;
+        }
+      </ui:style>      
+      <ui:inline>
+        <ui:alignment enabled="true" default="top"/>
+      </ui:inline>      
+    </field>
+  </field-group>
+
+  <field-group name="review-fields">
+    <field type="enumeration" name="reviewtype">
+      <ui:label>Review Type</ui:label>
+      <ui:description>Select the required type</ui:description>
+      <enumeration value="film"/>
+      <enumeration value="play"/>
+      <enumeration value="book"/>
+      <enumeration value="game"/>
+    </field>
+
+    <field type="number" name="score">
+      <ui:label>Score</ui:label>
+      <ui:description>Enter your rating</ui:description>
+      <constraints>
+	<minimum>1</minimum>
+	<maximum>6</maximum>
+      </constraints>
+    </field>
+  </field-group>
+
+  <content-type name="news">
+    <ui:label>Story</ui:label>
+    <ui:description>A news story</ui:description>
+    <ui:icon>news</ui:icon>
+    <ui:title-field>title</ui:title-field>
+    <panel name="main">
+      <ui:label>Main Content</ui:label>
+      <ui:description>The main content fields</ui:description>
+      <ref-field-group name="title"/>
+    <ref-field-group name="summary"/>
+      <ref-field-group name="body"/>
+    </panel>
+    <ref-relation-type-group name="attachments"/>
+    <summary>
+      <ui:label>Content Summary</ui:label>
+      <field name="title" type="basic" mime-type="text/plain"/>
+      <field name="summary" type="basic" mime-type="text/plain"/>
+    </summary>
+  </content-type>
+
+  <content-type name="review">
+    <ui:label>Review</ui:label>
+    <ui:description>A product review</ui:description>
+    <ui:icon>news</ui:icon>
+    <ui:title-field>title</ui:title-field>
+    <panel name="default">
+      <ui:label>Main Content</ui:label>
+      <ui:description>The main content fields</ui:description>
+      <ref-field-group name="title"/>
+      <ref-field-group name="summary"/>
+      <ref-field-group name="body"/>
+    </panel>
+    <panel name="review-panel">
+      <ui:label>Review Content</ui:label>
+      <ui:description>Additional review fields</ui:description>
+      <ref-field-group name="review-fields"/>
+    </panel>
+    <ref-relation-type-group name="attachments"/>
+    <summary>
+      <ui:label>Content Summary</ui:label>
+      <field name="title" type="basic" mime-type="text/plain"/>
+      <field name="summary" type="basic" mime-type="text/plain"/>
+    </summary>
+  </content-type>
+
+  <content-type name="image">
+    <ui:label>Picture</ui:label>
+    <ui:description>An image</ui:description>
+    <ui:icon>image</ui:icon>
+    <ui:title-field>name</ui:title-field>
+
+    <panel name="main">
+      <ui:label>Image content</ui:label>
+      <field mime-type="text/plain" type="basic" name="name">
+        <ui:label>Name</ui:label>
+        <ui:description>The name of the image</ui:description>
+        <constraints>
+          <required>true</required>
+        </constraints>
+      </field>
+      <field mime-type="text/plain" type="basic" name="description">
+        <ui:label>Description</ui:label>
+      </field>
+      <field mime-type="text/plain" type="basic" name="alttext">
+        <ui:label>Alternative text</ui:label>
+      </field>
+      <field name="binary" type="link">
+        <relation>com.escenic.edit-media</relation>
+        <constraints>
+          <mime-type>image/jpeg</mime-type>
+          <mime-type>image/png</mime-type>
+        </constraints>
+      </field>
+    </panel>
+
+    <panel name="crop">
+      <ui:label>Crop</ui:label>
+      <field name="alternates" type="basic" mime-type="application/json">
+        <representations xmlns="http://xmlns.escenic.com/2009/representations" type="image-versions">
+
+          <!-- A minimal version definition, with cropping and resizing -->
+          <representation name="WideBig">
+            <output width="572" height="204"/> <!-- The target size of the version -->
+            <crop/> <!-- Crop masks are derived from the target size -->
+            <resize/> <!-- Resized automatically; to the width/height seen above -->
+          </representation>
+
+          <representation name="SmallSquare">
+            <output width="150" height="150"/> <!-- Target size of the version -->
+            <crop/> <!-- Crop masks are derived from the target size -->
+            <resize/> <!-- Resized automatically; to the width/height seen above -->
+          </representation>
+          
+        </representations>
+      </field>
+    </panel>
+
+     <summary>
+      <ui:label>Content Summary</ui:label>
+      <field name="caption" type="basic" mime-type="text/plain"/>
+      <field name="alttext" type="basic" mime-type="text/plain"/>
+    </summary>
+  </content-type>
+
+  
+  <relation-type-group name="attachments">
+    <relation-type name="images">
+      <ui:label>Pictures</ui:label>
+    </relation-type>
+    <relation-type name="stories">
+      <ui:label>Stories</ui:label>
+    </relation-type>
+  </relation-type-group>
+
+  <ui:group name="articles">
+    <ui:label>Stories</ui:label>
+    <ui:ref-content-type name="news"/>
+  </ui:group>
+
+  <ui:group name="image">
+    <ui:label>Pictures</ui:label>
+    <ui:ref-content-type name="image"/>
+  </ui:group>
+
+</content-types>

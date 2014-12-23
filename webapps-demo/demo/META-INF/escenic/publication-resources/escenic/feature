@@ -1,0 +1,5 @@
+# Enable dynamic image versions. Images will automatically be scaled on demand
+multimedia.image.virtualVersions=true
+# If dynamic image versions are enabled, then disable manual upload of a version. The original version is the only
+# version and other image versions will _only_ be available on demand and by automatic scaling.
+multimedia.image.virtualVersions.editVersions=false

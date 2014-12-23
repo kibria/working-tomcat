@@ -1,0 +1,27 @@
+<style type="text/css">
+/*Styles for level 0*/
+.clLevel0,.clLevel0over{position:absolute; padding-top: 0px; padding-bottom: 0px; padding-left: 4px; padding-right: 4px;margin-top:4 px;font-family:Verdana, Geneva, Arial, Helvetica, sans-serif; font-size:12px}
+.clLevel0{background-color:black; layer-background-color:black; color:white; margin-top:4 px;}
+.clLevel0over{background-color:black; layer-background-color:black; color:red; cursor:pointer; cursor:hand;margin-top:4 px; }
+.clLevel0border{position:absolute; visibility:hidden; background-color:black; layer-background-color:black}
+
+/*Styles for level 1*/
+
+.clLevel1, .clLevel1over{Position:absolute; padding-top: 2px; padding-bottom: 2px; padding-left: 12px; padding-right: 4px;font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size:12px; text-decoration: none}
+.clLevel1{background-color:#999999; layer-background-color:#999999; color:white;}
+.clLevel1over{background-color:#999999; layer-background-color:#999999; color:black; cursor:pointer; cursor:hand; }
+.clLevel1border{position:absolute; visibility:hidden; background-color:#666666; layer-background-color:#666666}
+
+.dropdown-heading {
+  Position: absolute;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-variant: small-caps;
+  color: #999999;
+  text-decoration: none;
+  background-color: #666666;
+  padding-top: 0px;
+  white-space: nowrap;
+  /* cursor: pointer; */
+}
+</style>

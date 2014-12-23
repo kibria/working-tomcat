@@ -1,0 +1,178 @@
+A.white:link {color: white;}
+A.white:visited {color: white;}
+A.white:active {color: white;}
+A.white:hover {font-weight:bold; color: gray;}
+
+table#res1 {
+    background-color:#FFFFFF;
+    border: solid #000 3px;
+}
+
+table#res1 td {
+    padding: 3px;
+    border-collapse: collapse;
+    border-top: none;
+    border-bottom: solid #000 1px; 
+    border-left: none;
+    border-right: solid #000 1px;
+}
+
+table#res1 th {
+    padding: 3px;
+    color: white;
+    background-color: black;
+    border-top: none;
+    border-bottom: solid #000 1px; 
+    border-left: none;
+    border-right: solid #000 1px;
+}
+
+table#res2{
+  background-color:#FFFFFF;
+  border: solid #000 3px;
+}
+
+
+
+table#res2 th {
+    padding: 3px;
+    color: white;
+    background-color: black;
+}
+
+
+td#totsum{
+  border-top: solid #000 1px;
+  border-right: solid #000 1px;
+}
+
+.saturday {
+    color: #000000;
+    text-align: right;
+    background-color: #CCCCCC;
+    border-top: none;
+    border-bottom: solid #000 1px; 
+    border-left: none;
+    border-right: solid #000 1px;
+}
+
+.sunday {
+    color: #000000;
+    text-align: right;
+    background-color: #FFCCCC;
+    border-top: none;
+    border-bottom: solid #000 1px; 
+    border-left: none;
+    border-right: solid #000 1px;
+}
+.weekday{
+    color: #000000;
+    text-align: right;
+    background-color: #FFFFFF;
+    border-top: none;
+    border-bottom: solid #000 1px; 
+    border-left: none;
+    border-right: solid #000 1px;
+}
+
+.toprow {
+    font-weight: bold;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #000000;
+}
+
+.total {
+    font-weight: bold;
+    text-align: right;
+    background-color: #CCE6FF;
+}
+
+th.pubname {
+    font-size: medium;
+    font-weight: bold;
+    text-align: left;
+    color: #CCE6FF;
+}
+
+.section-col {
+  vertical-align: top;
+  text-align: right;
+  border-left: none;
+  border-bottom: none;
+  border-top: none;
+  border-right: solid #000 1px;
+}
+
+.empty-col {
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
+}
+
+.count-col {
+  text-align: right;
+  vertical-align: top;
+  border-right:none;
+  border-left:none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.pubdate-col {
+  vertical-align: top;
+  width: 499px;
+  border-bottom: none;
+  border-left: solid #000 1px;
+  border-top: none;
+}
+
+.section-col-tot {
+  vertical-align: top;
+  text-align: right;
+  border-left: none;
+  border-bottom: none;
+  border-top: solid #000 1px;
+  border-right: solid #000 1px;
+  background-color: #CCE6FF;
+}
+
+.empty-col-tot {
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: solid #000 1px;
+  background-color: #CCE6FF;
+}
+
+.count-col-tot {
+  text-align: right;
+  vertical-align: top;
+  border-right:none;
+  border-left:none;
+  border-top: solid #000 1px;
+  border-bottom: none;
+  background-color: #CCE6FF;
+}
+
+.pubdate-col-tot {
+  vertical-align: top;
+  width: 499px;
+  border-bottom: none;
+  border-left: solid #000 1px;
+  border-top: solid #000 1px;
+  background-color: #CCE6FF;
+}
+
+.table-divider {
+  border-top: solid;
+}
+
+.oddrow{
+  background-color: #E4E4E4;  
+}
+
+.evenrow{
+
+}

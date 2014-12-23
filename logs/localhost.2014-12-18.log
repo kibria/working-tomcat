@@ -1,0 +1,340 @@
+Dec 18, 2014 7:49:14 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 7:49:16 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 7:49:16 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 8:16:57 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 8:16:57 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 8:16:57 PM org.apache.catalina.session.StandardSession writeObject
+WARNING: Cannot serialize session attribute neo.phoenix.publication.PublicationSelectionForm for session B291B924DB1C3107100FC5C682E301F7
+java.io.NotSerializableException: org.apache.log4j.Logger
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+	at org.apache.catalina.session.StandardSession.writeObject(StandardSession.java:1586)
+	at org.apache.catalina.session.StandardSession.writeObjectData(StandardSession.java:1016)
+	at org.apache.catalina.session.StandardManager.doUnload(StandardManager.java:529)
+	at org.apache.catalina.session.StandardManager.unload(StandardManager.java:470)
+	at org.apache.catalina.session.StandardManager.stop(StandardManager.java:679)
+	at org.apache.catalina.core.StandardContext.stop(StandardContext.java:4886)
+	at org.apache.catalina.core.ContainerBase.removeChild(ContainerBase.java:939)
+	at org.apache.catalina.startup.HostConfig.undeployApps(HostConfig.java:1359)
+	at org.apache.catalina.startup.HostConfig.stop(HostConfig.java:1330)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:326)
+	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:142)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1101)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1113)
+	at org.apache.catalina.core.StandardEngine.stop(StandardEngine.java:468)
+	at org.apache.catalina.core.StandardService.stop(StandardService.java:604)
+	at org.apache.catalina.core.StandardServer.stop(StandardServer.java:793)
+	at org.apache.catalina.startup.Catalina.stop(Catalina.java:662)
+	at org.apache.catalina.startup.Catalina$CatalinaShutdownHook.run(Catalina.java:706)
+
+Dec 18, 2014 8:17:07 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 8:17:09 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 8:17:09 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 9:00:53 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 9:00:53 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 9:00:53 PM org.apache.catalina.session.StandardSession writeObject
+WARNING: Cannot serialize session attribute neo.phoenix.publication.PublicationSelectionForm for session 824E1F67A7420C305DE66531E117EADE
+java.io.NotSerializableException: org.apache.log4j.Logger
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+	at org.apache.catalina.session.StandardSession.writeObject(StandardSession.java:1586)
+	at org.apache.catalina.session.StandardSession.writeObjectData(StandardSession.java:1016)
+	at org.apache.catalina.session.StandardManager.doUnload(StandardManager.java:529)
+	at org.apache.catalina.session.StandardManager.unload(StandardManager.java:470)
+	at org.apache.catalina.session.StandardManager.stop(StandardManager.java:679)
+	at org.apache.catalina.core.StandardContext.stop(StandardContext.java:4886)
+	at org.apache.catalina.core.ContainerBase.removeChild(ContainerBase.java:939)
+	at org.apache.catalina.startup.HostConfig.undeployApps(HostConfig.java:1359)
+	at org.apache.catalina.startup.HostConfig.stop(HostConfig.java:1330)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:326)
+	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:142)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1101)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1113)
+	at org.apache.catalina.core.StandardEngine.stop(StandardEngine.java:468)
+	at org.apache.catalina.core.StandardService.stop(StandardService.java:604)
+	at org.apache.catalina.core.StandardServer.stop(StandardServer.java:793)
+	at org.apache.catalina.startup.Catalina.stop(Catalina.java:662)
+	at org.apache.catalina.startup.Catalina$CatalinaShutdownHook.run(Catalina.java:706)
+
+Dec 18, 2014 9:01:03 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 9:01:05 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 9:01:05 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 9:14:41 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 9:14:41 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 9:14:41 PM org.apache.catalina.session.StandardSession writeObject
+WARNING: Cannot serialize session attribute neo.phoenix.publication.PublicationSelectionForm for session B10CFF2EF793C0FA8E22C88661D0F881.jvm1
+java.io.NotSerializableException: org.apache.log4j.Logger
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+	at org.apache.catalina.session.StandardSession.writeObject(StandardSession.java:1586)
+	at org.apache.catalina.session.StandardSession.writeObjectData(StandardSession.java:1016)
+	at org.apache.catalina.session.StandardManager.doUnload(StandardManager.java:529)
+	at org.apache.catalina.session.StandardManager.unload(StandardManager.java:470)
+	at org.apache.catalina.session.StandardManager.stop(StandardManager.java:679)
+	at org.apache.catalina.core.StandardContext.stop(StandardContext.java:4886)
+	at org.apache.catalina.core.ContainerBase.removeChild(ContainerBase.java:939)
+	at org.apache.catalina.startup.HostConfig.undeployApps(HostConfig.java:1359)
+	at org.apache.catalina.startup.HostConfig.stop(HostConfig.java:1330)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:326)
+	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:142)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1101)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1113)
+	at org.apache.catalina.core.StandardEngine.stop(StandardEngine.java:468)
+	at org.apache.catalina.core.StandardService.stop(StandardService.java:604)
+	at org.apache.catalina.core.StandardServer.stop(StandardServer.java:793)
+	at org.apache.catalina.startup.Catalina.stop(Catalina.java:662)
+	at org.apache.catalina.startup.Catalina$CatalinaShutdownHook.run(Catalina.java:706)
+
+Dec 18, 2014 9:14:51 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 9:14:55 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 9:14:55 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 9:20:07 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 9:20:07 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 9:20:17 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 9:20:19 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 9:20:19 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 9:22:13 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 9:22:13 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 9:22:24 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 9:22:27 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 9:22:27 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 9:38:19 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 9:38:19 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 9:38:19 PM org.apache.catalina.session.StandardSession writeObject
+WARNING: Cannot serialize session attribute neo.phoenix.publication.PublicationSelectionForm for session 79FAED306D485F2C6CA428FC7E0B4979.jvm1
+java.io.NotSerializableException: org.apache.log4j.Logger
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+	at org.apache.catalina.session.StandardSession.writeObject(StandardSession.java:1586)
+	at org.apache.catalina.session.StandardSession.writeObjectData(StandardSession.java:1016)
+	at org.apache.catalina.session.StandardManager.doUnload(StandardManager.java:529)
+	at org.apache.catalina.session.StandardManager.unload(StandardManager.java:470)
+	at org.apache.catalina.session.StandardManager.stop(StandardManager.java:679)
+	at org.apache.catalina.core.StandardContext.stop(StandardContext.java:4886)
+	at org.apache.catalina.core.ContainerBase.removeChild(ContainerBase.java:939)
+	at org.apache.catalina.startup.HostConfig.undeployApps(HostConfig.java:1359)
+	at org.apache.catalina.startup.HostConfig.stop(HostConfig.java:1330)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:326)
+	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:142)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1101)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1113)
+	at org.apache.catalina.core.StandardEngine.stop(StandardEngine.java:468)
+	at org.apache.catalina.core.StandardService.stop(StandardService.java:604)
+	at org.apache.catalina.core.StandardServer.stop(StandardServer.java:793)
+	at org.apache.catalina.startup.Catalina.stop(Catalina.java:662)
+	at org.apache.catalina.startup.Catalina$CatalinaShutdownHook.run(Catalina.java:706)
+
+Dec 18, 2014 9:38:30 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 9:38:34 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 9:38:34 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 9:40:06 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 9:40:06 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 9:40:58 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 9:41:02 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 9:41:02 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 9:46:45 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 9:46:45 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 9:46:45 PM org.apache.catalina.session.StandardSession writeObject
+WARNING: Cannot serialize session attribute neo.phoenix.publication.PublicationSelectionForm for session 77B19CE1B0736DE8A733DCD9ADC10765.jvm1
+java.io.NotSerializableException: org.apache.log4j.Logger
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+	at org.apache.catalina.session.StandardSession.writeObject(StandardSession.java:1586)
+	at org.apache.catalina.session.StandardSession.writeObjectData(StandardSession.java:1016)
+	at org.apache.catalina.session.StandardManager.doUnload(StandardManager.java:529)
+	at org.apache.catalina.session.StandardManager.unload(StandardManager.java:470)
+	at org.apache.catalina.session.StandardManager.stop(StandardManager.java:679)
+	at org.apache.catalina.core.StandardContext.stop(StandardContext.java:4886)
+	at org.apache.catalina.core.ContainerBase.removeChild(ContainerBase.java:939)
+	at org.apache.catalina.startup.HostConfig.undeployApps(HostConfig.java:1359)
+	at org.apache.catalina.startup.HostConfig.stop(HostConfig.java:1330)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:326)
+	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:142)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1101)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1113)
+	at org.apache.catalina.core.StandardEngine.stop(StandardEngine.java:468)
+	at org.apache.catalina.core.StandardService.stop(StandardService.java:604)
+	at org.apache.catalina.core.StandardServer.stop(StandardServer.java:793)
+	at org.apache.catalina.startup.Catalina.stop(Catalina.java:662)
+	at org.apache.catalina.startup.Catalina$CatalinaShutdownHook.run(Catalina.java:706)
+
+Dec 18, 2014 9:46:45 PM org.apache.catalina.session.StandardSession writeObject
+WARNING: Cannot serialize session attribute neo.phoenix.publication.PublicationSelectionForm for session 3E90E1175C58516F14E93DACBE33400B.jvm1
+java.io.NotSerializableException: org.apache.log4j.Logger
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+	at org.apache.catalina.session.StandardSession.writeObject(StandardSession.java:1586)
+	at org.apache.catalina.session.StandardSession.writeObjectData(StandardSession.java:1016)
+	at org.apache.catalina.session.StandardManager.doUnload(StandardManager.java:529)
+	at org.apache.catalina.session.StandardManager.unload(StandardManager.java:470)
+	at org.apache.catalina.session.StandardManager.stop(StandardManager.java:679)
+	at org.apache.catalina.core.StandardContext.stop(StandardContext.java:4886)
+	at org.apache.catalina.core.ContainerBase.removeChild(ContainerBase.java:939)
+	at org.apache.catalina.startup.HostConfig.undeployApps(HostConfig.java:1359)
+	at org.apache.catalina.startup.HostConfig.stop(HostConfig.java:1330)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:326)
+	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:142)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1101)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1113)
+	at org.apache.catalina.core.StandardEngine.stop(StandardEngine.java:468)
+	at org.apache.catalina.core.StandardService.stop(StandardService.java:604)
+	at org.apache.catalina.core.StandardServer.stop(StandardServer.java:793)
+	at org.apache.catalina.startup.Catalina.stop(Catalina.java:662)
+	at org.apache.catalina.startup.Catalina$CatalinaShutdownHook.run(Catalina.java:706)
+
+Dec 18, 2014 9:46:55 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 9:46:57 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 9:46:57 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 9:48:38 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 9:48:38 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 9:48:47 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 9:48:49 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 9:48:49 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 10:02:23 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 10:02:23 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 10:02:23 PM org.apache.catalina.session.StandardSession writeObject
+WARNING: Cannot serialize session attribute neo.phoenix.publication.PublicationSelectionForm for session D535DE9F2B510962324D63FBD5E490B6.jvm1
+java.io.NotSerializableException: org.apache.log4j.Logger
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+	at org.apache.catalina.session.StandardSession.writeObject(StandardSession.java:1586)
+	at org.apache.catalina.session.StandardSession.writeObjectData(StandardSession.java:1016)
+	at org.apache.catalina.session.StandardManager.doUnload(StandardManager.java:529)
+	at org.apache.catalina.session.StandardManager.unload(StandardManager.java:470)
+	at org.apache.catalina.session.StandardManager.stop(StandardManager.java:679)
+	at org.apache.catalina.core.StandardContext.stop(StandardContext.java:4886)
+	at org.apache.catalina.core.ContainerBase.removeChild(ContainerBase.java:939)
+	at org.apache.catalina.startup.HostConfig.undeployApps(HostConfig.java:1359)
+	at org.apache.catalina.startup.HostConfig.stop(HostConfig.java:1330)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:326)
+	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:142)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1101)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1113)
+	at org.apache.catalina.core.StandardEngine.stop(StandardEngine.java:468)
+	at org.apache.catalina.core.StandardService.stop(StandardService.java:604)
+	at org.apache.catalina.core.StandardServer.stop(StandardServer.java:793)
+	at org.apache.catalina.startup.Catalina.stop(Catalina.java:662)
+	at org.apache.catalina.startup.Catalina$CatalinaShutdownHook.run(Catalina.java:706)
+
+Dec 18, 2014 10:02:23 PM org.apache.catalina.session.StandardSession writeObject
+WARNING: Cannot serialize session attribute neo.phoenix.publication.PublicationSelectionForm for session E5A58F8368CFE35AFC976C0585D83A06.jvm1
+java.io.NotSerializableException: org.apache.log4j.Logger
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
+	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+	at org.apache.catalina.session.StandardSession.writeObject(StandardSession.java:1586)
+	at org.apache.catalina.session.StandardSession.writeObjectData(StandardSession.java:1016)
+	at org.apache.catalina.session.StandardManager.doUnload(StandardManager.java:529)
+	at org.apache.catalina.session.StandardManager.unload(StandardManager.java:470)
+	at org.apache.catalina.session.StandardManager.stop(StandardManager.java:679)
+	at org.apache.catalina.core.StandardContext.stop(StandardContext.java:4886)
+	at org.apache.catalina.core.ContainerBase.removeChild(ContainerBase.java:939)
+	at org.apache.catalina.startup.HostConfig.undeployApps(HostConfig.java:1359)
+	at org.apache.catalina.startup.HostConfig.stop(HostConfig.java:1330)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:326)
+	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:142)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1101)
+	at org.apache.catalina.core.ContainerBase.stop(ContainerBase.java:1113)
+	at org.apache.catalina.core.StandardEngine.stop(StandardEngine.java:468)
+	at org.apache.catalina.core.StandardService.stop(StandardService.java:604)
+	at org.apache.catalina.core.StandardServer.stop(StandardServer.java:793)
+	at org.apache.catalina.startup.Catalina.stop(Catalina.java:662)
+	at org.apache.catalina.startup.Catalina$CatalinaShutdownHook.run(Catalina.java:706)
+
+Dec 18, 2014 10:02:33 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 10:02:35 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 10:02:35 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Dec 18, 2014 10:05:02 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextDestroyed()
+Dec 18, 2014 10:05:02 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextDestroyed()
+Dec 18, 2014 10:05:11 PM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 18, 2014 10:05:13 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 18, 2014 10:05:13 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()

@@ -1,0 +1,6 @@
+<HEAD>
+    <TITLE>
+        Escenic Content Engine Component Browser - <%= componentName %>
+    </TITLE>
+    <LINK REL="stylesheet" HREF="<%=request.getContextPath()  %>/images/browser.css" TYPE="text/css">
+</HEAD>

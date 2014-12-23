@@ -1,0 +1,40 @@
+<logic:iterate name="form" property="relations(Image).keys" id="_sec" >
+  <% String p1 = "relations(Image).item(" + _sec + ").id"; 
+     String p2 = "relations(Image).item(" + _sec + ").type"; 
+     String p3 = "relations(Image).item(" + _sec + ").publicationId"; 
+     String p4 = "relations(Image).item(" + _sec + ").attributeNames";  %>
+  <html:hidden property="<%=p1%>"/>
+  <html:hidden property="<%=p2%>"/>
+  <html:hidden property="<%=p3%>"/>
+  <logic:iterate name="form" property="<%=p4%>" id="attr" >
+    <% String p5 = "relations(Image).item(" + _sec + ").attribute(" + attr + ")"; %>
+    <html:hidden property="<%=p5%>" />
+  </logic:iterate>
+</logic:iterate>
+<logic:iterate name="form" property="relations(Media).keys" id="_sec" >
+  <% String p1 = "relations(Media).item(" + _sec + ").id"; 
+     String p2 = "relations(Media).item(" + _sec + ").type"; 
+     String p3 = "relations(Media).item(" + _sec + ").publicationId"; 
+     String p4 = "relations(Media).item(" + _sec + ").attributeNames";  %>
+  <html:hidden property="<%=p1%>"/>
+  <html:hidden property="<%=p2%>"/>
+  <html:hidden property="<%=p3%>"/>
+  <logic:iterate name="form" property="<%=p4%>" id="attr" >
+    <% String p5 = "relations(Media).item(" + _sec + ").attribute(" + attr + ")"; %>
+    <html:hidden property="<%=p5%>" />
+  </logic:iterate>
+</logic:iterate>
+<logic:iterate name="form" property="relations(Link).keys" id="_sec" >
+  <% String p1 = "relations(Link).item(" + _sec + ").id"; 
+     String p2 = "relations(Link).item(" + _sec + ").type"; 
+     String p3 = "relations(Link).item(" + _sec + ").publicationId"; 
+     String p4 = "relations(Link).item(" + _sec + ").attributeNames";  %>
+  <html:hidden property="<%=p1%>"/>
+  <html:hidden property="<%=p2%>"/>
+  <html:hidden property="<%=p3%>"/>
+  <logic:iterate name="form" property="<%=p4%>" id="attr" >
+    <% String p5 = "relations(Link).item(" + _sec + ").attribute(" + attr + ")"; %>
+    <html:hidden property="<%=p5%>" />
+  </logic:iterate>
+</logic:iterate>
+

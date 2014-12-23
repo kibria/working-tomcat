@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<content-types xmlns="http://xmlns.escenic.com/2008/content-type"
+               xmlns:geocode="http://xmlns.escenic.com/2009/studio/plugin/geocode"
+               xmlns:ui="http://xmlns.escenic.com/2008/interface-hints"
+               version="4">
+  <field-group name="title">
+    <field mime-type="text/plain" type="basic" name="title">
+      <ui:label>Title</ui:label>
+      <ui:label xml:lang="no">Tittel</ui:label>
+      <ui:description>The title of the article</ui:description>
+      <ui:description xml:lang="no">Tittelen på artikkelen</ui:description>
+      <constraints>
+        <required>false</required>
+      </constraints>
+      <parameter name="com.escenic.lucy.indexField" value="title"/>
+      <parameter name="neo.xredsys.service.article.attributeField" value="title"/>
+    </field>
+  </field-group>
+  <field-group name="body">
+    <field mime-type="application/xhtml+xml" type="basic" name="body">
+      <ui:label>Body</ui:label>
+      <ui:label xml:lang="no">Brødtekst</ui:label>
+      <ui:description>The body text of the article.</ui:description>
+      <ui:style> body { min-height: 200px; } </ui:style>
+      <parameter name="com.escenic.lucy.indexField" value="longText"/>
+    </field>
+  </field-group>
+
+  <content-type name="geocode">
+    <ui:label>Geocode Article</ui:label>
+    <ui:label xml:lang="no">Geocode Artikkel</ui:label>
+    <ui:description>Geocode article type</ui:description>
+    <ui:title-field>title</ui:title-field>
+    <panel name="default">
+      <ui:label>Default</ui:label>
+      <ui:label xml:lang="no">Standard</ui:label>
+      <ui:description>The default set of article fields</ui:description>
+      <ui:description xml:lang="no">Standard feltene til et object</ui:description>
+      <ref-field-group name="title"/>
+      <ref-field-group name="body"/>
+    </panel>
+    <panel name="geocode">
+      <ui:label>Geocode</ui:label>
+      <ui:description>Geocode Panel</ui:description>
+      <field type="basic" name="com.escenic.geocode" mime-type="text/plain">
+        <ui:label>GeoFields</ui:label>
+        <geocode:geocode-editor enabled="true">
+          <geocode:google-api>
+            <geocode:client-id><!-- Google Maps API for Business Client ID --></geocode:client-id>
+            <geocode:api-key><!-- Google Maps API Key --></geocode:api-key>
+          </geocode:google-api>
+          <geocode:osm>
+            <geocode:nominatim-base-uri><!-- Nominatim Base URI --></geocode:nominatim-base-uri>
+            <geocode:reverse-nominatim-base-uri><!-- Reverse Nominatim Base URI --></geocode:reverse-nominatim-base-uri>
+            <geocode:tiles-uri><!-- Tiles URI --></geocode:tiles-uri>
+            <geocode:tiles-attribution><!-- Tiles Attribution --></geocode:tiles-attribution>
+            <geocode:tiles-subdomains><!-- Tiles Sub Domains --></geocode:tiles-subdomains>
+          </geocode:osm>
+        </geocode:geocode-editor>
+      </field>
+    </panel>
+  </content-type>
+
+  <content-type name="image">
+    <ui:label>Picture</ui:label>
+    <ui:description>An image</ui:description>
+    <ui:title-field>name</ui:title-field>
+    <panel name="main">
+      <ui:label>Image content</ui:label>
+      <field mime-type="text/plain" type="basic" name="name">
+        <ui:label>Name</ui:label>
+        <ui:description>The name of the image</ui:description>
+        <constraints>
+          <required>true</required>
+        </constraints>
+      </field>
+      <field mime-type="text/plain" type="basic" name="description">
+        <ui:label>Description</ui:label>
+      </field>
+      <field mime-type="text/plain" type="basic" name="alttext">
+        <ui:label>Alternative text</ui:label>
+      </field>
+      <field name="binary" type="link">
+        <relation>com.escenic.edit-media</relation>
+        <constraints>
+          <mime-type>image/jpeg</mime-type>
+          <mime-type>image/png</mime-type>
+        </constraints>
+      </field>
+
+    </panel>
+    <panel name="crop">
+      <ui:label>Crop</ui:label>
+      <field name="alternates" type="basic" mime-type="application/json">
+        <representations xmlns="http://xmlns.escenic.com/2009/representations" type="image-versions">
+          <!-- A minimal version definition, with cropping and resizing -->
+          <representation name="WideBig">
+            <output width="572" height="204"/> <!-- The target size of the version -->
+            <crop/> <!-- Crop masks are derived from the target size -->
+            <resize/> <!-- Resized automatically; to the width/height seen above -->
+          </representation>
+
+          <representation name="SmallSquare">
+            <output width="150" height="150"/> <!-- Target size of the version -->
+            <crop/> <!-- Crop masks are derived from the target size -->
+            <resize/> <!-- Resized automatically; to the width/height seen above -->
+          </representation>
+        </representations>
+      </field>
+    </panel>
+
+     <summary>
+      <ui:label>Content Summary</ui:label>
+      <field name="caption" type="basic" mime-type="text/plain"/>
+      <field name="alttext" type="basic" mime-type="text/plain"/>
+    </summary>
+  </content-type>
+
+
+  <ui:group name="Articles">
+    <ui:label>All Articles</ui:label>
+    <ui:ref-content-type name="geocode"/>
+  </ui:group>
+  <ui:group name="Images">
+    <ui:label>Images</ui:label>
+    <ui:ref-content-type name="image"/>
+  </ui:group>
+</content-types>
+        
