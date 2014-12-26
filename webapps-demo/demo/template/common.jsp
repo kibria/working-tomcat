@@ -23,6 +23,8 @@
   </head>
   <body> 
     <jsp:include page="wireframe/default.jsp"/>
+ <a href="../map.html"> show map </a>
+
   </body>
 </html>
 
