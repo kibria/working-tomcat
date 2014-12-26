@@ -1,0 +1,18 @@
+Dec 26, 2014 8:29:35 AM org.apache.catalina.core.ApplicationContext log
+INFO: imageVersionFilter: init (oncePerRequest=false, attribRunOnce=imageVersionFilter.REQUEST_HANDLED)
+Dec 26, 2014 8:29:36 AM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 26, 2014 8:29:36 AM org.apache.catalina.core.ApplicationContext log
+INFO: BootstrapFilter: init (oncePerRequest=true, attribRunOnce=BootstrapFilter.REQUEST_HANDLED)
+Dec 26, 2014 8:29:39 AM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=true, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 26, 2014 8:29:41 AM org.apache.catalina.core.ApplicationContext log
+INFO: imageVersionFilter: init (oncePerRequest=false, attribRunOnce=imageVersionFilter.REQUEST_HANDLED)
+Dec 26, 2014 8:29:41 AM org.apache.catalina.core.ApplicationContext log
+INFO: cache: init (oncePerRequest=false, attribRunOnce=cache.REQUEST_HANDLED)
+Dec 26, 2014 8:29:41 AM org.apache.catalina.core.ApplicationContext log
+INFO: BootstrapFilter: init (oncePerRequest=false, attribRunOnce=BootstrapFilter.REQUEST_HANDLED)
+Dec 26, 2014 8:29:42 AM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Dec 26, 2014 8:29:42 AM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
