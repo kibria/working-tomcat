@@ -178,6 +178,13 @@
       <auth-constraint>
         <role-name>ECEAdmin</role-name>
       </auth-constraint>
+
+//added by kibria to implement ssl communication
+
+	<user-data-constraint>
+		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+	</user-data-constraint>
+
    </security-constraint>
    
    <login-config xmlns="">

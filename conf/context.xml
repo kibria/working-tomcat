@@ -78,7 +78,8 @@
 
 
 
-
+<Environment name="escenic/revision-history-webservice" override="false" 
+  type="java.lang.String" value="http://localhost:8080/revision-history/"/>
 
 
 
